@@ -70,7 +70,7 @@ function replace_product_image()
     // Check if we're on a product page
     if (is_product()) {
         // Remove the existing product image
-        remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+        // remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
 
         // Output a new image with a green shadow
         ?>
