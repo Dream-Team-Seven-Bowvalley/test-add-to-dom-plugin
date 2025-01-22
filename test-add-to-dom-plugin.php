@@ -30,10 +30,10 @@
      }
  }
  
- function my_custom_header_element() {
-     // Your custom element code here
-     echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom element!</p>';
- }
+//  function my_custom_header_element() {
+//      // Your custom element code here
+//      echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom element!</p>';
+//  }
  
  test_add_to_dom_plugin();
  
