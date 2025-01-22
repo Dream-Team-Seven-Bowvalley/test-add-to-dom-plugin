@@ -12,6 +12,10 @@
     color: #fff;
     cursor: pointer;
   }
+
+  .circle-button:nth-child(2) {
+    background-color: #ff0000;
+  }
   
   .circle-button:hover {
     background-color: #3e8e41;
