@@ -37,6 +37,20 @@ function my_custom_header_element()
     echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom header element!</p>';
 }
 
+function add_green_Shadow_to_product_image()
+{
+    global $product;
+
+    // Check if we're on a product page
+    if (is_product()) {
+        // Get the product image
+        $image = $product->get_image();
+
+        // Output the product image with a green shadow
+        echo '<div style="box-shadow: 0 0 10px 5px green; display: inline-block; padding: 10px;">' . $image . '</div>';
+    }
+}
+
 // Hook to add circle buttons
 function add_circle_buttons()
 {
@@ -68,4 +82,7 @@ test_add_to_dom_plugin();
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
-add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
+// add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
+
+// Add shadow action
+add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
