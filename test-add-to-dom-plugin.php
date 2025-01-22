@@ -59,7 +59,7 @@ function enqueue_circle_button_css()
 
 function turnBorderGreen()
 {
-    echo '<style>.woocommerce-product-gallery__image { border: 5px solid green; }</style>';
+    echo '<style>.woocommerce-product-gallery__image { border-color: green; }</style>';
 }
 
 test_add_to_dom_plugin();
