@@ -21,10 +21,9 @@
   opacity: 0.8; 
 }
 
-.woocommerce-product-gallery__image img {
-  box-shadow: 0px 0px 0px 10px #0B4005; /* Dark green shadow */
-  transition: box-shadow 0.3s ease;
+/* .woocommerce-product-gallery__image img {
+  box-shadow: 0px 0px 0px 10px #0B4005;
   max-width: 100%;
   height: auto;
   display: block;
-}
+} */
