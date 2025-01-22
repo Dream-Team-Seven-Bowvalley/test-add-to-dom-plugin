@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name:       Test Add to Dom Plugin
- * Plugin URI:        https://github.com/DreamTeamSeven/polymuse-woocommerce-plugin
+ * Plugin URI:        https://github.com/DreamTeamSeven/test-add-to-dom-plugin
  * Description:       A plug-in to test adding to the dom
  * Version:           0.0.0
  * Requires at least: 6.7.1
@@ -10,13 +10,14 @@
  * Author URI:        https://github.com/DreamTeamSeven
  * License:           No License
  * License URI:       https://choosealicense.com/no-permission
- * Update URI:        https://github.com/DreamTeamSeven/polymuse-woocommerce-plugin
- * Text Domain:       polymuse-woocommerce-plugin
+ * Update URI:        https://github.com/DreamTeamSeven/test-add-to-dom-plugin
+ * Text Domain:       test-add-to-dom-plugin
  * Requires Plugins:  woocommerce
  */
 
  P
- function test_add_to_dom_plugin() {
+ function polymuse_woocommerce_plugin()
+ {
      // Test to see if WooCommerce is active (including network activated).
      $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
  
@@ -30,11 +31,4 @@
      }
  }
  
-//  function my_custom_header_element() {
-//      // Your custom element code here
-//      echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom element!</p>';
-//  }
- 
- test_add_to_dom_plugin();
- 
-//  add_action( 'wp_body_open', 'my_custom_header_element' );
+ polymuse_woocommerce_plugin();
