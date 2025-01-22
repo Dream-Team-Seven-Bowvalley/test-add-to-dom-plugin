@@ -37,4 +37,4 @@
  
  test_add_to_dom_plugin();
  
- add_action( 'wp_body_open', 'my_custom_header_element' );
+//  add_action( 'wp_body_open', 'my_custom_header_element' );
