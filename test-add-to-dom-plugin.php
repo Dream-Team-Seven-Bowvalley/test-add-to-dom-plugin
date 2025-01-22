@@ -15,26 +15,26 @@
  * Requires Plugins:  woocommerce
  */
 
-function test_add_to_dom_plugin()
-{
-    // Test to see if WooCommerce is active (including network activated).
-    $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
-
-    if (
-        in_array( $plugin_path, wp_get_active_and_valid_plugins() )
-        || in_array( $plugin_path, wp_get_active_network_plugins() )
-    ) {
-        // Custom code here. WooCommerce is active, however it has not 
-        // necessarily initialized (when that is important, consider
-        // using the `woocommerce_init` action).
-    }
-}
-
-function my_custom_product_element() {
-    // Your custom element code here
-    echo '<p>This is my custom element!</p>';
-}
-
-test_add_to_dom_plugin();
-
-add_action( 'woocommerce_single_product_summary', 'my_custom_product_element' );
+ P
+ function test_add_to_dom_plugin() {
+     // Test to see if WooCommerce is active (including network activated).
+     $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
+ 
+     if (
+         in_array( $plugin_path, wp_get_active_and_valid_plugins() )
+         || in_array( $plugin_path, wp_get_active_network_plugins() )
+     ) {
+         // Custom code here. WooCommerce is active, however it has not 
+         // necessarily initialized (when that is important, consider
+         // using the `woocommerce_init` action).
+     }
+ }
+ 
+ function my_custom_header_element() {
+     // Your custom element code here
+     echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom element!</p>';
+ }
+ 
+ test_add_to_dom_plugin();
+ 
+ add_action( 'wp_body_open', 'my_custom_header_element' );
