@@ -8,19 +8,35 @@
   height: 50px;
   border-radius: 50%;
   border: none;
-  background-color: #4CAF50;
   color: #fff;
   cursor: pointer;
+  margin: 0 5px; /* Add spacing between buttons */
 }
 
-.circle-button:nth-child(2) {
+.green-button {
+  background-color: #4CAF50;
+}
+
+.red-button {
   background-color: #ff0000;
 }
 
 .circle-button:hover {
-  background-color: #3e8e41;
+  opacity: 0.8; /* Subtle hover effect */
 }
 
-.woocommerce-product-gallery__image {
-  border: 25px ;
+.woocommerce-product-gallery__image img { /* Target the actual image inside */
+  border: 5px solid #ccc; /* Default border */
+  transition: border-color 0.3s ease; /* Smooth transition */
+  max-width: 100%; /* Important for responsiveness */
+  height: auto;
+  display: block; /* Prevents image from overflowing */
+}
+
+.green-border .woocommerce-product-gallery__image img {
+  border-color: green !important;
+}
+
+.red-border .woocommerce-product-gallery__image img {
+  border-color: red !important;
 }
