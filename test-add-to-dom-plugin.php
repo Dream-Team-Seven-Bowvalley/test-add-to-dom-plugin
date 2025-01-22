@@ -15,7 +15,7 @@
  * Requires Plugins:  woocommerce
  */
 
- P
+
  function polymuse_woocommerce_plugin()
  {
      // Test to see if WooCommerce is active (including network activated).
