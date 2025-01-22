@@ -71,13 +71,13 @@ function add_green_Shadow_to_product_image()
     if (is_product()) {
         ?>
         <style>
-            .woocommerce-product-gallery__image {
+            .woocommerce div.product div.images img {
                 box-shadow: 0 0 10px 5px green !important;
             }
         </style>
         <?php
     }
-}
+
 
 
 test_add_to_dom_plugin();
