@@ -81,9 +81,6 @@ function replace_product_image()
     }
 }
 
-// Add action
-add_action('woocommerce_before_single_product_summary', 'replace_product_image', 19);
-
 test_add_to_dom_plugin();
 
 // Add actions
