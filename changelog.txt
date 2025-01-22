@@ -1,0 +1,4 @@
+*** Test Add to Dom Plugin Changelog ***
+
+2025-01-19 - version 0.0.0
+* Project setup

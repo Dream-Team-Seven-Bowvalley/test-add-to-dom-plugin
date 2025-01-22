@@ -1,0 +1,6 @@
+# IDEs
+.idea/
+.vscode/
+
+# Apple Desktop Services Store
+.DS_Store
