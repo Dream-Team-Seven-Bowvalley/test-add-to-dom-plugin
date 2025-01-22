@@ -63,6 +63,21 @@ function enqueue_circle_button_js()
     wp_enqueue_script('circle-button-js', plugins_url('circle-button.js', __FILE__), array('jquery'));
 }
 
+function test_add_to_dom_plugin()
+{
+    // Test to see if WooCommerce is active (including network activated).
+    $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
+
+    if (
+        in_array($plugin_path, wp_get_active_and_valid_plugins())
+        || in_array($plugin_path, wp_get_active_network_plugins())
+    ) {
+        // Custom code here. WooCommerce is active, however it has not 
+        // necessarily initialized (when that is important, consider
+        // using the `woocommerce_init` action).
+    }
+}
+
 function replace_product_image()
 {
     global $product;
@@ -70,7 +85,7 @@ function replace_product_image()
     // Check if we're on a product page
     if (is_product()) {
         // Remove the existing product image
-        // remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+        remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
 
         // Output a new image with a green shadow
         ?>
@@ -89,6 +104,4 @@ add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 // add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
 // Add shadow action
-
-// Add action
-add_action('woocommerce_before_single_product_summary', 'replace_product_image', 19);
+add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
