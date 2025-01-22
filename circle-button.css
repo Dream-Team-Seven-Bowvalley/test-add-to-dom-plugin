@@ -1,6 +1,5 @@
 .circle-buttons {
-    display: flex;
-    justify-content: space-between;
+    display: flex;    
     margin-top: 20px;
   }
   
