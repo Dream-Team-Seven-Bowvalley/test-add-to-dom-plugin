@@ -16,7 +16,7 @@
  */
 
 
- function polymuse_woocommerce_plugin()
+ function test_add_to_dom_plugin()
  {
      // Test to see if WooCommerce is active (including network activated).
      $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
@@ -31,4 +31,4 @@
      }
  }
  
- polymuse_woocommerce_plugin();
+ test_add_to_dom_plugin();
