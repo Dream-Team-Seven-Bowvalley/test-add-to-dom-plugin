@@ -84,7 +84,7 @@ function add_green_Shadow_to_product_image()
 
     // Check if we're on a product page
     if (is_product()) {
-        remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+        // remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
         ?>
         <style>
             .woocommerce-product-gallery__image {
