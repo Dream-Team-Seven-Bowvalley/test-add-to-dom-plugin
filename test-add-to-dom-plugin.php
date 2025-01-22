@@ -38,7 +38,8 @@ function my_custom_header_element()
 }
 
 // Hook to add circle buttons
-function add_circle_buttons() {
+function add_circle_buttons()
+{
     global $product;
 
     // Check if we're on a product page
@@ -52,8 +53,14 @@ function add_circle_buttons() {
 }
 
 // Hook to enqueue circle button CSS
-function enqueue_circle_button_css() {
+function enqueue_circle_button_css()
+{
     wp_enqueue_style('circle-button-css', plugins_url('circle-button.css', __FILE__));
+}
+// Hook to enqueue circle button JS
+function enqueue_circle_button_js()
+{
+    wp_enqueue_script('circle-button-js', plugins_url('circle-button.js', __FILE__), array('jquery'));
 }
 
 test_add_to_dom_plugin();
@@ -61,5 +68,4 @@ test_add_to_dom_plugin();
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
-
-
+add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
