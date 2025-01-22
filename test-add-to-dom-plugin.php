@@ -15,26 +15,24 @@
  * Requires Plugins:  WooCommerce
  */
 
+function test_add_to_dom_plugin()
+{
+    // Test to see if WooCommerce is active (including network activated).
+    $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
+
+    if (
+        in_array($plugin_path, wp_get_active_and_valid_plugins())
+        || in_array($plugin_path, wp_get_active_network_plugins())
+    ) {
+        // Custom code here. WooCommerce is active, however it has not 
+        // necessarily initialized (when that is important, consider
+        // using the `woocommerce_init` action).
+    }
+}
 function my_custom_header_element()
 {
     // Your custom header element code here
     echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom header element!</p>';
-}
-
-function add_green_Shadow_to_product_image()
-{
-    global $product;
-
-    // Check if we're on a product page
-    if (is_product()) {
-        ?>
-        <style>
-            .woocommerce-product-gallery__image {
-                box-shadow: 0 0 10px 5px green;
-            }
-        </style>
-        <?php
-    }
 }
 
 // Hook to add circle buttons
@@ -63,18 +61,21 @@ function enqueue_circle_button_js()
     wp_enqueue_script('circle-button-js', plugins_url('circle-button.js', __FILE__), array('jquery'));
 }
 
-function test_add_to_dom_plugin()
-{
-    // Test to see if WooCommerce is active (including network activated).
-    $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
 
-    if (
-        in_array($plugin_path, wp_get_active_and_valid_plugins())
-        || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {
-        // Custom code here. WooCommerce is active, however it has not 
-        // necessarily initialized (when that is important, consider
-        // using the `woocommerce_init` action).
+
+function add_green_Shadow_to_product_image()
+{
+    global $product;
+
+    // Check if we're on a product page
+    if (is_product()) {
+        ?>
+        <style>
+            .woocommerce-product-gallery__image {
+                box-shadow: 0 0 10px 5px green !important;
+            }
+        </style>
+        <?php
     }
 }
 
