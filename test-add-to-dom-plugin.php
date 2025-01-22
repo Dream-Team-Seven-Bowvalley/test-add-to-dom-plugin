@@ -21,6 +21,22 @@ function my_custom_header_element()
     echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom header element!</p>';
 }
 
+function add_green_Shadow_to_product_image()
+{
+    global $product;
+
+    // Check if we're on a product page
+    if (is_product()) {
+        ?>
+        <style>
+            .woocommerce-product-gallery__image {
+                box-shadow: 0 0 10px 5px green;
+            }
+        </style>
+        <?php
+    }
+}
+
 // Hook to add circle buttons
 function add_circle_buttons()
 {
@@ -62,22 +78,6 @@ function test_add_to_dom_plugin()
     }
 }
 
-function add_green_Shadow_to_product_image()
-{
-    global $product;
-
-    // Check if we're on a product page
-    if (is_product()) {
-        // remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
-        ?>
-        <style>
-            .woocommerce-product-gallery__image {
-                box-shadow: 0 0 10px 5px green;
-            }
-        </style>
-        <?php
-    }
-}
 
 test_add_to_dom_plugin();
 
