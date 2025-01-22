@@ -10,33 +10,25 @@
   border: none;
   color: #fff;
   cursor: pointer;
-  margin: 0 5px; /* Add spacing between buttons */
+  margin: 0 5px; 
 }
 
 .green-button {
   background-color: #4CAF50;
 }
 
-.red-button {
-  background-color: #ff0000;
-}
-
 .circle-button:hover {
-  opacity: 0.8; /* Subtle hover effect */
+  opacity: 0.8; 
 }
 
-.woocommerce-product-gallery__image img { /* Target the actual image inside */
-  border: 5px solid #ccc; /* Default border */
-  transition: border-color 0.3s ease; /* Smooth transition */
-  max-width: 100%; /* Important for responsiveness */
+.woocommerce-product-gallery__image img { 
+  border: 5px solid #ccc; 
+  transition: border-color 0.3s ease; 
+  max-width: 100%; 
   height: auto;
-  display: block; /* Prevents image from overflowing */
+  display: block; 
 }
 
 .green-border .woocommerce-product-gallery__image img {
   border-color: green !important;
-}
-
-.red-border .woocommerce-product-gallery__image img {
-  border-color: red !important;
 }
