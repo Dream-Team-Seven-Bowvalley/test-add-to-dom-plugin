@@ -43,11 +43,13 @@ function add_green_Shadow_to_product_image()
 
     // Check if we're on a product page
     if (is_product()) {
-        // Get the product image
-        $image = $product->get_image();
-
-        // Output the product image with a green shadow
-        echo '<div style="box-shadow: 0 0 10px 5px green; display: inline-block; padding: 10px;">' . $image . '</div>';
+        ?>
+        <style>
+            .woocommerce-product-gallery__image {
+                box-shadow: 0 0 10px 5px green;
+            }
+        </style>
+        <?php
     }
 }
 
