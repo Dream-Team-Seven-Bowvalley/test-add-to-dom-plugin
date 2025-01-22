@@ -78,23 +78,24 @@ function test_add_to_dom_plugin()
     }
 }
 
-function replace_product_image()
+function add_green_Shadow_to_product_image()
 {
     global $product;
 
     // Check if we're on a product page
     if (is_product()) {
-        // Remove the existing product image
         remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
-
-        // Output a new image with a green shadow
         ?>
-        <div style="box-shadow: 0 0 10px 5px green; display: inline-block; padding: 10px;">
-            <img src="<?php echo wp_get_attachment_url($product->get_image_id()); ?>" />
-        </div>
+        <style>
+            .woocommerce-product-gallery__image {
+                box-shadow: 0 0 10px 5px green;
+            }
+        </style>
         <?php
     }
 }
+
+
 
 test_add_to_dom_plugin();
 
