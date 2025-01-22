@@ -77,7 +77,7 @@ function add_green_Shadow_to_product_image()
         </style>
         <?php
     }
-
+}
 
 
 test_add_to_dom_plugin();
