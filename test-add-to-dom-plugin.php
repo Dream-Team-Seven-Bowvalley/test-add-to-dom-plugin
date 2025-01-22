@@ -2,7 +2,7 @@
 /*
  * Plugin Name:       Test Add to Dom Plugin
  * Plugin URI:        https://github.com/DreamTeamSeven/test-add-to-dom-plugin
- * Description:       A plug-in to test adding to the dom
+ * Description:       A plugin to test adding to the DOM
  * Version:           0.0.0
  * Requires at least: 6.7.1
  * Requires PHP:      8.3
@@ -12,7 +12,7 @@
  * License URI:       https://choosealicense.com/no-permission
  * Update URI:        https://github.com/DreamTeamSeven/test-add-to-dom-plugin
  * Text Domain:       test-add-to-dom-plugin
- * Requires Plugins:  woocommerce
+ * Requires Plugins:  WooCommerce
  */
 
 
@@ -33,10 +33,32 @@ function test_add_to_dom_plugin()
 
 function my_custom_header_element()
 {
-    // Your custom element code here
-    echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom element!</p>';
+    // Your custom header element code here
+    echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom header element!</p>';
+}
+
+function add_circle_buttons()
+{
+    global $product;
+
+    // Check if we're on a product page
+    if (is_product()) {
+        ?>
+        <div class="circle-buttons">
+            <button class="circle-button">Button 1</button>
+            <button class="circle-button">Button 2</button>
+        </div>
+        <?php
+    }
+}
+
+function enqueue_circle_button_css()
+{
+    wp_enqueue_style('circle-button-css', plugins_url('circle-button.css', __FILE__));
 }
 
 test_add_to_dom_plugin();
 
 add_action('wp_body_open', 'my_custom_header_element');
+add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
+add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
