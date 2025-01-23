@@ -45,9 +45,11 @@ function add_circle_buttons()
         ?>
         <div class="circle-buttons">
             <h2>Choose a color:</h2>
-            <button class="circle-button green-button" id="green-border-button"> </button>
-            <button class="circle-button red-button" id="red-border-button"> </button>
-            <button class="circle-button blue-button" id="blue-border-button"> </button>
+            <div>
+                <button class="circle-button green-button" id="green-border-button"> </button>
+                <button class="circle-button red-button" id="red-border-button"> </button>
+                <button class="circle-button blue-button" id="blue-border-button"> </button>
+            </div>
         </div>
         <?php
     }
