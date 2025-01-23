@@ -92,4 +92,4 @@ add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
 // Add shadow action default color is green
-add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
+// add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
