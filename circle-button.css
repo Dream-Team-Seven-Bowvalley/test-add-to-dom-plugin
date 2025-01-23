@@ -1,6 +1,10 @@
 .circle-buttons {
-  display: flex;
   margin-top: 20px;
+}
+
+.circle-buttons div {
+  display: flex;
+  flex-direction: column;
 }
 
 .circle-button {
@@ -10,9 +14,7 @@
   border: none;
   color: #fff;
   cursor: pointer;
-  margin: 0 5px; 
-  display: flex;
-  flex-direction: column;
+  margin: 0 0 10px 0; 
 }
 
 .green-button {
@@ -23,7 +25,7 @@
   background-color: #f44336;
 }
 
-.red-button {
+.blue-button {
   background-color: #008CBA;
 }
 
