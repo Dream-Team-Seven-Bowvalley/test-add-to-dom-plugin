@@ -17,6 +17,11 @@
   margin: 0 0 10px 0; 
 }
 
+.circle-buttons-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .green-button {
   background-color: #4CAF50;
 }
