@@ -17,6 +17,14 @@
   background-color: #4CAF50;
 }
 
+.red-button {
+  background-color: #f44336;
+}
+
+.blue-button {
+  background-color: #008CBA;
+}
+
 .circle-button:hover {
   opacity: 0.8; 
 }
