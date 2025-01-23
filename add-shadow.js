@@ -1,11 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const button = document.querySelector('.circle-button.green-button');
+    const buttons = document.querySelectorAll('.circle-button');
     const productImage = document.querySelector('.woocommerce div.product div.images img');
 
-    if (button && productImage) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            productImage.style.boxShadow = '0 0 10px 5px green';
+    if (buttons && productImage) {
+        buttons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                let boxShadowColor;
+                switch (button.classList[1]) {
+                    case 'green-button':
+                        boxShadowColor = 'green';
+                        break;
+                    case 'red-button':
+                        boxShadowColor = 'red';
+                        break;
+                    case 'blue-button':
+                        boxShadowColor = 'blue';
+                        break;
+                    default:
+                        boxShadowColor = 'green'; // default color
+                }
+                productImage.style.boxShadow = `0 0 10px 5px ${boxShadowColor}`;
+            });
         });
     }
 });
