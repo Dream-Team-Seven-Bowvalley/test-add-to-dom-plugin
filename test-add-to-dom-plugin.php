@@ -58,9 +58,8 @@ function enqueue_circle_button_css()
 // Hook to enqueue circle button JS
 function enqueue_circle_button_js()
 {
-    wp_enqueue_script('circle-button-js', plugins_url('circle-button.js', __FILE__), array('jquery'));
+    wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
 }
-
 
 
 function add_green_Shadow_to_product_image()
@@ -85,7 +84,7 @@ test_add_to_dom_plugin();
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
-// add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
+add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
 // Add shadow action
-add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
+// add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
