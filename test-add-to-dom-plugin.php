@@ -56,26 +56,56 @@ function add_circle_buttons()
 }
 
 // Add 3D image place holder
-function add_image_placeholder()
+function add_placeholder_to_product_gallery()
 {
-    global $product;
-
-    // Check if we're on a product page
     if (is_product()) {
-        // Get the gallery images
-        $gallery_images = $product->get_gallery_image_ids();
+        ?>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Add placeholder image to thumbnails
+                const placeholderImage = `
+                    <div class="woocommerce-product-gallery__image">
+                        <a href="https://example.com/placeholder-image.webp">
+                            <img src="https://example.com/placeholder-image.webp" 
+                                 alt="Placeholder Image" 
+                                 class="placeholder-thumbnail" 
+                                 width="100" height="100">
+                        </a>
+                    </div>`;
+                
+                const galleryWrapper = document.querySelector('.woocommerce-product-gallery__wrapper');
+                if (galleryWrapper) {
+                    galleryWrapper.insertAdjacentHTML('beforeend', placeholderImage);
+                }
 
-        // If there are no gallery images, add a placeholder
-        if (empty($gallery_images)) {
-            ?>
-            <div class="woocommerce-product-gallery__image">
-                <img src="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp"
-                    alt="Placeholder image">
-            </div>
-            <?php
-        }
+                // Add click functionality to show placeholder as main image
+                const mainImage = document.querySelector('.woocommerce-product-gallery__image img');
+                const thumbnails = document.querySelectorAll('.woocommerce-product-gallery__image img');
+
+                thumbnails.forEach(thumbnail => {
+                    thumbnail.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const newSrc = this.src;
+                        const newLargeImage = this.closest('a').href;
+                        mainImage.src = newSrc;
+                        mainImage.closest('a').href = newLargeImage;
+                    });
+                });
+            });
+        </script>
+        <?php
     }
 }
+
+// Hook to add image placeholder
+function enqueue_placeholder_styles()
+{
+    wp_enqueue_style(
+        'placeholder-styles',
+        plugins_url('placeholder-styles.css', __FILE__)
+    );
+}
+
 
 // Hook to enqueue circle button CSS
 function enqueue_circle_button_css()
@@ -110,7 +140,8 @@ test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-add_action('woocommerce_product_thumbnails', 'add_image_placeholder');
+add_action('woocommerce_after_single_product_summary', 'add_placeholder_to_product_gallery', 20);
+// add_action('wp_enqueue_scripts', 'enqueue_placeholder_styles');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
