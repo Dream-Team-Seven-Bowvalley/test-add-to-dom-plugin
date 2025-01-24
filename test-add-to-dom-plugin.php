@@ -69,9 +69,8 @@ function add_image_placeholder()
         if (empty($gallery_images)) {
             ?>
             <div class="woocommerce-product-gallery__image">
-                <a href="https://www.google.com">
-                    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Placeholder image">
-                </a>
+                <img src="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp"
+                    alt="Placeholder image">
             </div>
             <?php
         }
