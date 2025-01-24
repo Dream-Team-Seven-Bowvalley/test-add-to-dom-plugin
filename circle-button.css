@@ -13,7 +13,7 @@
 .circle-buttonp {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 100%;
   border: none;
   color: #fff;
   cursor: pointer;
