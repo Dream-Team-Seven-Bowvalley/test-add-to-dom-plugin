@@ -2,7 +2,7 @@
   margin-top: 20px;
 } */
 
-.circle-buttons-container1{
+.circle-buttons-container{
   display: flex;
   flex-direction: row;
   /* align-items: center; */
@@ -10,9 +10,9 @@
   padding:10px;
 }
 
-.circle-button1 {
-  width: 10px;
-  height: 10px;
+.circle-button {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: none;
   color: #fff;
@@ -20,15 +20,15 @@
   margin: 0 10px 0 0; /* add some space between buttons */
 }
 
-.green-button1 {
+.green-button {
   background-color: #4CAF50;
 }
 
-.red-button1 {
+.red-button {
   background-color: #f44336;
 }
 
-.blue-button1 {
+.blue-button {
   background-color: #008CBA;
 }
 
