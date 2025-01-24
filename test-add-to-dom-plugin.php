@@ -56,55 +56,63 @@ function add_circle_buttons()
 }
 
 // Add 3D image place holder
-function add_placeholder_to_product_gallery()
+function add_image_to_gallery_and_thumbnail()
 {
+    global $product;
+
+    // Ensure we are on a product page
     if (is_product()) {
         ?>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Add placeholder image to thumbnails
-                const placeholderImage = `
-                    <div class="woocommerce-product-gallery__image">
-                        <a href="https://example.com/placeholder-image.webp">
-                            <img src="https://example.com/placeholder-image.webp" 
-                                 alt="Placeholder Image" 
-                                 class="placeholder-thumbnail" 
-                                 width="100" height="100">
-                        </a>
-                    </div>`;
-                
+            document.addEventListener('DOMContentLoaded', function () {
                 const galleryWrapper = document.querySelector('.woocommerce-product-gallery__wrapper');
-                if (galleryWrapper) {
-                    galleryWrapper.insertAdjacentHTML('beforeend', placeholderImage);
-                }
+                const thumbnailWrapper = document.querySelector('.woocommerce-product-gallery');
 
-                // Add click functionality to show placeholder as main image
-                const mainImage = document.querySelector('.woocommerce-product-gallery__image img');
-                const thumbnails = document.querySelectorAll('.woocommerce-product-gallery__image img');
+                if (galleryWrapper && thumbnailWrapper) {
+                    // Add a new image to the gallery
+                    const newImage = document.createElement('div');
+                    newImage.classList.add('woocommerce-product-gallery__image');
+                    newImage.innerHTML = `
+                        <a href="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp">
+                            <img 
+                                src="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp" 
+                                alt="New Image" 
+                                class="wp-post-image" />
+                        </a>
+                    `;
+                    galleryWrapper.appendChild(newImage);
 
-                thumbnails.forEach(thumbnail => {
-                    thumbnail.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const newSrc = this.src;
-                        const newLargeImage = this.closest('a').href;
-                        mainImage.src = newSrc;
-                        mainImage.closest('a').href = newLargeImage;
+                    // Add a new thumbnail
+                    const newThumbnail = document.createElement('div');
+                    newThumbnail.classList.add('woocommerce-product-gallery__image');
+                    newThumbnail.setAttribute('data-thumb', 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp');
+                    newThumbnail.innerHTML = `
+                        <a href="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp">
+                            <img 
+                                src="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp" 
+                                alt="New Thumbnail" 
+                                class="wp-post-image" />
+                        </a>
+                    `;
+                    thumbnailWrapper.appendChild(newThumbnail);
+
+                    // Add click event for thumbnail to update the main image
+                    newThumbnail.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        const mainImage = document.querySelector('.woocommerce-product-gallery__image a img');
+                        if (mainImage) {
+                            mainImage.src = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp';
+                            mainImage.closest('a').href = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp';
+                        }
                     });
-                });
+                }
             });
         </script>
         <?php
     }
 }
 
-// Hook to add image placeholder
-function enqueue_placeholder_styles()
-{
-    wp_enqueue_style(
-        'placeholder-styles',
-        plugins_url('placeholder-styles.css', __FILE__)
-    );
-}
+
 
 
 // Hook to enqueue circle button CSS
@@ -140,8 +148,7 @@ test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-add_action('woocommerce_after_single_product_summary', 'add_placeholder_to_product_gallery', 20);
-// add_action('wp_enqueue_scripts', 'enqueue_placeholder_styles');
+add_action('woocommerce_before_single_product_summary', 'add_image_to_gallery_and_thumbnail');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
