@@ -37,13 +37,13 @@ function add_circle_buttons()
     if (is_product()) {
         ?>
         <div class="circle-buttons">
-            <h2>Choose a color:</h2>
+            <h3>Choose a color:</h3>
             <div class="circle-buttons-container">
-                <button class="circle-button1 green-button" id="green-border-button"> </button>
-                <button class="circle-button1 red-button" id="red-border-button"> </button>
-                <button class="circle-button1 blue-button" id="blue-border-button"> </button>
+                <button class="circle-button green-button" id="green-border-button"> </button>
+                <button class="circle-button red-button" id="red-border-button"> </button>
+                <button class="circle-button blue-button" id="blue-border-button"> </button>
             </div>
-            <h4>Choose a texture:</h4>
+            <h3>Choose a texture:</h3>
         </div>
         <?php
     }
