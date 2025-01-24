@@ -20,18 +20,18 @@
   margin: 0 10px 0 0; /* add some space between buttons */
 }
 
-.green-button {
+.green-buttonp {
   background-color: #4CAF50;
 }
 
-.red-button {
+.red-buttonp {
   background-color: #f44336;
 }
 
-.blue-button {
+.blue-buttonp {
   background-color: #008CBA;
 }
 
-.circle-button:hover {
+.circle-buttonp:hover {
   opacity: 0.8; 
 }

@@ -39,9 +39,9 @@ function add_circle_buttons()
         <div class="circle-buttons">
             <h3>Choose a color:</h3>
             <div class="circle-buttons-container">
-                <button class="circle-buttonp green-button" id="green-border-button"> </button>
-                <button class="circle-buttonp red-button" id="red-border-button"> </button>
-                <button class="circle-buttonp blue-button" id="blue-border-button"> </button>
+                <button class="circle-buttonp green-buttonp" id="green-border-button"> </button>
+                <button class="circle-buttonp red-buttonp" id="red-border-button"> </button>
+                <button class="circle-buttonp blue-buttonp" id="blue-border-button"> </button>
             </div>
             <h3>Choose a texture:</h3>
         </div>
