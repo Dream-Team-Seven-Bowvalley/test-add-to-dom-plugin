@@ -46,22 +46,22 @@ function add_circle_buttons()
 }
 
 // Add a custom button above the "Add to Cart" button
-function add_custom_button_above_add_to_cart_quantity()
+function add_custom_button_above_add_to_cart()
 {
     if (is_product()) {
         ?>
-        <button 
-            type="button" 
-            class="custom-action-button" 
-            id="custom-action-button"
-            style="display: inline-block; margin-right: 10px;"
-        >
-            Custom Action
-        </button>
+        <div style="margin-bottom: 20px;">
+            <button 
+                type="button" 
+                class="single_add_to_cart_button button alt wp-element-button custom-action-button" 
+                id="custom-action-button"
+            >
+                Custom Action
+            </button>
+        </div>
         <?php
     }
 }
-
 
 // Enqueue circle button CSS
 function enqueue_circle_button_css()
@@ -93,7 +93,7 @@ test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
+add_action('woocommerce_before_add_to_cart_quantity', 'add_custom_button_above_add_to_cart_quantity');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
