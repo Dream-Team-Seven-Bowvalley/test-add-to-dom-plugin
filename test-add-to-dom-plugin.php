@@ -55,6 +55,29 @@ function add_circle_buttons()
     }
 }
 
+// Add 3D image place holder
+function add_image_placeholder()
+{
+    global $product;
+
+    // Check if we're on a product page
+    if (is_product()) {
+        // Get the gallery images
+        $gallery_images = $product->get_gallery_image_ids();
+
+        // If there are no gallery images, add a placeholder
+        if (empty($gallery_images)) {
+            ?>
+            <div class="woocommerce-product-gallery__image">
+                <a href="https://www.google.com">
+                    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Placeholder image">
+                </a>
+            </div>
+            <?php
+        }
+    }
+}
+
 // Hook to enqueue circle button CSS
 function enqueue_circle_button_css()
 {
@@ -88,8 +111,9 @@ test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
+add_action('woocommerce_product_thumbnails', 'add_image_placeholder');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
-// Add shadow action default color is green
+
 // add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
