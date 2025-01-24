@@ -15,32 +15,22 @@
  * Requires Plugins:  WooCommerce
  */
 
+// Check if WooCommerce is active
 function test_add_to_dom_plugin()
 {
-    // Test to see if WooCommerce is active (including network activated).
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
 
     if (
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
-        // Custom code here. WooCommerce is active, however it has not 
-        // necessarily initialized (when that is important, consider
-        // using the `woocommerce_init` action).
+        // WooCommerce is active.
     }
 }
-function my_custom_header_element()
-{
-    // Your custom header element code here
-    echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom header element!</p>';
-}
 
-// Hook to add circle buttons
+// Add circle buttons
 function add_circle_buttons()
 {
-    global $product;
-
-    // Check if we're on a product page
     if (is_product()) {
         ?>
         <div class="circle-buttons">
@@ -55,23 +45,50 @@ function add_circle_buttons()
     }
 }
 
-// Hook to enqueue circle button CSS
+// Add a custom button above the "Add to Cart" button
+function add_custom_button_above_add_to_cart()
+{
+    if (is_product()) {
+        ?>
+        <button class="button custom-add-to-cart-btn" id="custom-add-to-cart-btn">
+            Custom Action
+        </button>
+        <style>
+            /* Use WooCommerce button styles */
+            #custom-add-to-cart-btn {
+                background-color: #96588a; /* Match WooCommerce color */
+                color: #ffffff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                border-radius: 4px;
+            }
+
+            #custom-add-to-cart-btn:hover {
+                background-color: #7a4574; /* Slightly darker on hover */
+            }
+        </style>
+        <?php
+    }
+}
+
+// Enqueue circle button CSS
 function enqueue_circle_button_css()
 {
     wp_enqueue_style('circle-button-css', plugins_url('circle-button.css', __FILE__));
 }
-// Hook to enqueue circle button JS
+
+// Enqueue circle button JS
 function enqueue_circle_button_js()
 {
     wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
 }
 
-
-function add_green_Shadow_to_product_image()
+// Add a default green shadow to the product image
+function add_green_shadow_to_product_image()
 {
-    global $product;
-
-    // Check if we're on a product page
     if (is_product()) {
         ?>
         <style>
@@ -83,13 +100,13 @@ function add_green_Shadow_to_product_image()
     }
 }
 
-
 test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
+add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
-// Add shadow action default color is green
-// add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
+// Uncomment to add green shadow by default
+// add_action('woocommerce_before_single_product_summary', 'add_green_shadow_to_product_image');
