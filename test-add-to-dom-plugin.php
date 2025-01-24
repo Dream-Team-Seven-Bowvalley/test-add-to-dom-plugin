@@ -55,65 +55,6 @@ function add_circle_buttons()
     }
 }
 
-// Add 3D image place holder
-function add_image_to_gallery_and_thumbnail()
-{
-    global $product;
-
-    // Ensure we are on a product page
-    if (is_product()) {
-        ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const galleryWrapper = document.querySelector('.woocommerce-product-gallery__wrapper');
-                const thumbnailWrapper = document.querySelector('.woocommerce-product-gallery');
-
-                if (galleryWrapper && thumbnailWrapper) {
-                    // Add a new image to the gallery
-                    const newImage = document.createElement('div');
-                    newImage.classList.add('woocommerce-product-gallery__image');
-                    newImage.innerHTML = `
-                        <a href="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp">
-                            <img 
-                                src="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp" 
-                                alt="New Image" 
-                                class="wp-post-image" />
-                        </a>
-                    `;
-                    galleryWrapper.appendChild(newImage);
-
-                    // Add a new thumbnail
-                    const newThumbnail = document.createElement('div');
-                    newThumbnail.classList.add('woocommerce-product-gallery__image');
-                    newThumbnail.setAttribute('data-thumb', 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp');
-                    newThumbnail.innerHTML = `
-                        <a href="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp">
-                            <img 
-                                src="https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp" 
-                                alt="New Thumbnail" 
-                                class="wp-post-image" />
-                        </a>
-                    `;
-                    thumbnailWrapper.appendChild(newThumbnail);
-
-                    // Add click event for thumbnail to update the main image
-                    newThumbnail.addEventListener('click', function (event) {
-                        event.preventDefault();
-                        const mainImage = document.querySelector('.woocommerce-product-gallery__image a img');
-                        if (mainImage) {
-                            mainImage.src = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp';
-                            mainImage.closest('a').href = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp';
-                        }
-                    });
-                }
-            });
-        </script>
-        <?php
-    }
-}
-
-
-
 
 // Hook to enqueue circle button CSS
 function enqueue_circle_button_css()
@@ -148,7 +89,7 @@ test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-add_action('woocommerce_before_single_product_summary', 'add_image_to_gallery_and_thumbnail');
+
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
