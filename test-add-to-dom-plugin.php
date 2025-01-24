@@ -32,21 +32,21 @@ function test_add_to_dom_plugin()
 function add_circle_buttons()
 {
     global $product;
-    
+
+    // Check if we're on a product page
     if (is_product()) {
         ?>
-        <div class="circle-button1">
+        <div class="circle-buttons">
             <h2>Choose a color:</h2>
-            <div class="circle-button-container">
-                <button class="circle-button1 green-button1" id="green-border-button1"> </button>
-                <button class="circle-button1 red-button1" id="red-border-button1"> </button>
-                <button class="circle-button1  blue-button1" id="blue-border-button1"> </button>
+            <div class="circle-buttons-container">
+                <button class="circle-button green-button" id="green-border-button"> </button>
+                <button class="circle-button red-button" id="red-border-button"> </button>
+                <button class="circle-button blue-button" id="blue-border-button"> </button>
             </div>
         </div>
         <?php
     }
 }
-
 // Add a custom button above the "Add to Cart" button
 // Add a custom button above the "Add to Cart" button
 function add_custom_button_above_add_to_cart()
