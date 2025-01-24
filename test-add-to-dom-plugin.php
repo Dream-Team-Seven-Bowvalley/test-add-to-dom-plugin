@@ -33,7 +33,7 @@ function add_circle_buttons()
 {
     if (is_product()) {
         ?>
-        <div class="circle-bttn">
+        <div class="">
             <h2>Choose a color:</h2>
             <div class="circle-bttn-container">
                 <button class="circle-bttn green-bttn" id="green-border-bttn"> </button>
