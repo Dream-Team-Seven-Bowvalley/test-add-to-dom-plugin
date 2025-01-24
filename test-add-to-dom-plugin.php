@@ -84,12 +84,42 @@ function add_green_Shadow_to_product_image()
     }
 }
 
+function polymuse_add_model_to_gallery($html, $attachment_id) {
+    global $product;
+
+    if (!$product) {
+        return $html;
+    }
+
+    // Define the 3D model URL and placeholder image URL
+    $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
+    $model_thumbnail_url = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp';
+
+    if (!empty($model_url)) {
+        // Create the placeholder thumbnail HTML
+        $model_thumbnail = '<li class="woocommerce-product-gallery__image">';
+        $model_thumbnail .= '<img src="' . esc_url($model_thumbnail_url) . '" alt="3D Model Placeholder" class="model-thumbnail" data-gallery-item="3d-model" />';
+        $model_thumbnail .= '</li>';
+
+        // Create the model viewer div
+        $model_viewer = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
+        $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>';
+        $model_viewer .= '</div>';
+
+        // Prepend the placeholder thumbnail and model viewer to the gallery
+        return $model_viewer . $model_thumbnail . $html;
+    }
+
+    return $html;
+}
+
+
 
 test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-
+add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 2);
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
