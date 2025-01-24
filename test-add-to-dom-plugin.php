@@ -95,7 +95,7 @@ function add_green_shadow_to_product_image()
 test_add_to_dom_plugin();
 
 // Add actions
-add_action('woocommerce_before_add_to_cart_button', 'add_circle_bttns');
+// add_action('woocommerce_before_add_to_cart_button', 'add_circle_bttns');
 add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
