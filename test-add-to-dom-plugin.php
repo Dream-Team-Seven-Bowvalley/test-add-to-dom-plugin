@@ -31,6 +31,8 @@ function test_add_to_dom_plugin()
 // Add circle buttons
 function add_circle_buttons()
 {
+    global $product;
+    
     if (is_product()) {
         ?>
         <div class="circle-button1">
