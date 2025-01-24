@@ -46,23 +46,22 @@ function add_circle_buttons()
 }
 
 // Add a custom button above the "Add to Cart" button
-// Add a custom button above the "Add to Cart" button
 function add_custom_button_above_add_to_cart()
 {
     if (is_product()) {
         ?>
-        <button 
-            type="button" 
-            class="single_add_to_cart_button button alt wp-element-button custom-action-button" 
-            id="custom-action-button"
-        >
-            Custom Action
-        </button>
+        <div style="margin-bottom: 20px;">
+            <button 
+                type="button" 
+                class="single_add_to_cart_button button alt wp-element-button custom-action-button" 
+                id="custom-action-button"
+            >
+                Custom Action
+            </button>
+        </div>
         <?php
     }
 }
-
-
 
 // Enqueue circle button CSS
 function enqueue_circle_button_css()
