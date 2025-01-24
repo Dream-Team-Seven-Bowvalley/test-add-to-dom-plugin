@@ -58,6 +58,7 @@ function add_custom_button_above_add_to_cart()
         >
             Custom Action
         </button>
+        <br>
         <?php
     }
 }
