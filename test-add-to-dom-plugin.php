@@ -36,9 +36,9 @@ function add_circle_buttons()
         <div class="circle-buttons">
             <h2>Choose a color:</h2>
             <div class="circle-buttons-container">
-                <button class="circle-bttn green-bttn" id="green-border-button"> </button>
-                <button class="circle-bttn red-bttn" id="red-border-button"> </button>
-                <button class="circle-bttn  blue-bttn" id="blue-border-button"> </button>
+                <button class="circle-bttn green-bttn" id="green-border-bttn"> </button>
+                <button class="circle-bttn red-bttn" id="red-border-bttn"> </button>
+                <button class="circle-bttn  blue-bttn" id="blue-border-bttn"> </button>
             </div>
         </div>
         <?php
@@ -95,7 +95,7 @@ function add_green_shadow_to_product_image()
 test_add_to_dom_plugin();
 
 // Add actions
-add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
+add_action('woocommerce_before_add_to_cart_button', 'add_circle_bttns');
 add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
 add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
