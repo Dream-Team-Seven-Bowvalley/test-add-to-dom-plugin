@@ -41,9 +41,15 @@ function add_circle_buttons()
             <div class="circle-buttons-container">
                 <button class="circle-button green-button" id="green-border-button"> </button>
                 <button class="circle-button red-button" id="red-border-button"> </button>
-                <button class="circle-button blue-button" id="blue-border-button"> </button>               
+                <button class="circle-button blue-button" id="blue-border-button"> </button>
             </div>
             <h3>Choose a texture:</h3>
+            <div class="circle-buttons-container">
+                <button class="circle-button wood-button" id="wood-border-button"> </button>
+                <button class="circle-button metal-button" id="metal-border-button"> </button>
+                <button class="circle-button plastic-button" id="plastic-border-button"> </button>
+
+            </div>
         </div>
         <?php
     }
@@ -54,11 +60,8 @@ function add_custom_button_above_add_to_cart()
 {
     if (is_product()) {
         ?>
-        <button 
-            type="button" 
-            class="single_add_to_cart_button button alt wp-element-button custom-action-button" 
-            id="custom-action-button"
-        >
+        <button type="button" class="single_add_to_cart_button button alt wp-element-button custom-action-button"
+            id="custom-action-button">
             View In your Space
         </button>
         <br>

@@ -33,6 +33,18 @@
   background-color: #008CBA;
 }
 
+.wood-button {
+  background-color: #8B4513;
+}
+
+.plastic-button {
+  background-color: #8B4513;
+}
+
+.metal-button {
+  background-color: #8B4513;
+}
+
 .circle-button:hover {
   opacity: 0.8; 
 }
