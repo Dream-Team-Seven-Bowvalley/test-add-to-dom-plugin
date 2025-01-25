@@ -42,11 +42,11 @@ function add_buttons()
     }
 }
 
-// Enqueue buttons CSS
-// function enqueue_buttons_css()
-// {
-//     wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
-// }
+Enqueue buttons CSS
+function enqueue_buttons_css()
+{
+    wp_enqueue_style('button-css', plugins_url('buttons.css', __FILE__));
+}
 
 function enqueue_model_viewer_script()
 {
