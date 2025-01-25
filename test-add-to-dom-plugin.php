@@ -15,10 +15,7 @@
  * Requires Plugins:  WooCommerce
  */
 
-// Check if WooCommerce is active
-
-
-// Add circle buttons
+// Add buttons
 function add_buttons()
 {
     global $product;
@@ -48,7 +45,7 @@ function add_buttons()
     }
 }
 
-// Enqueue circle button CSS
+// Enqueue buttons CSS
 function enqueue_buttons_css()
 {
     wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
