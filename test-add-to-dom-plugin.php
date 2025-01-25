@@ -15,12 +15,20 @@
  * Requires Plugins:  WooCommerce
  */
 
+//Add 20px b4 the buttons
+
+function add_20_px_before_buttons()
+{
+    echo '<style>.added-content { margin-top: 20px; }</style>';
+}
 // Add buttons
 function add_buttons()
 {
     global $product;
 
     if (is_product()) {
+        //Add 20px b4 the buttons
+        add_action('woocommerce_before_add_to_cart_button', 'add_20_px_before_buttons');
         ?>
         <div class="added-content">
             <div class="buttons">
@@ -37,7 +45,6 @@ function add_buttons()
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div>
             </div>
-            <br />
             <?php // Close PHP tags before the if statement
                     if (wp_is_mobile()) {
                         ?>
@@ -45,12 +52,11 @@ function add_buttons()
                     id="view-in-space-button">
                     View In your Space
                 </button>
-                <br />
-
             <?php // Reopen PHP tags after the if statement's HTML
                     } ?>
         </div>
         <?php
+
     }
 }
 
