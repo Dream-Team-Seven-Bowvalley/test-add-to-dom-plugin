@@ -31,18 +31,18 @@ function add_buttons()
             </div>
 
 
-            <div >
-                    <button id="green-border-button"></button> 
-                    <button class="circle-button red-button" id="red-border-button"></button>
-                    <button class="circle-button blue-button" id="blue-border-button"></button> 
-                </div>
-            <!-- <h3>Choose a texture:</h3>
+            <div>
+                <button class="circle-button green-button" id="green-border-button"></button>
+                <button class="circle-button red-button" id="red-border-button"></button>
+                <button class="circle-button blue-button" id="blue-border-button"></button>
+            </div>
+            <h3>Choose a texture:</h3>
                 <div class="circle-buttons-container">
                     <button class="circle-button wood-button" id="wood-border-button"></button>
                     <button class="circle-button metal-button" id="metal-border-button"></button>
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div> 
-                <br /> -->
+                <br />
         </div>
         <?php
 
