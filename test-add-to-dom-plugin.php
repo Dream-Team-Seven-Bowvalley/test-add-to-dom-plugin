@@ -16,30 +16,34 @@
  */
 
 // Add buttons
-function add_buttons()
-{
+function add_buttons() {
     global $product;
 
-    // Check if we're on a product page
     if (is_product()) {
         ?>
         <div class="circle-buttons">
             <h3>Choose a color:</h3>
             <div class="circle-buttons-container">
-                <button class="circle-button green-button" id="green-border-button"> </button>
-                <button class="circle-button red-button" id="red-border-button"> </button>
-                <button class="circle-button blue-button" id="blue-border-button"> </button>
+                <button class="circle-button green-button" id="green-border-button"></button>
+                <button class="circle-button red-button" id="red-border-button"></button>
+                <button class="circle-button blue-button" id="blue-border-button"></button>
             </div>
             <h3>Choose a texture:</h3>
             <div class="circle-buttons-container">
-                <button class="circle-button wood-button" id="wood-border-button"> </button>
-                <button class="circle-button metal-button" id="metal-border-button"> </button>
-                <button class="circle-button plastic-button" id="plastic-border-button"> </button>
+                <button class="circle-button wood-button" id="wood-border-button"></button>
+                <button class="circle-button metal-button" id="metal-border-button"></button>
+                <button class="circle-button plastic-button" id="plastic-border-button"></button>
             </div>
-            <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
-                id="view-in-space-button">
-                View In your Space
-            </button>
+            <?php // Close PHP tags before the if statement
+            if (wp_is_mobile()) {
+                ?>
+                <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
+                        id="view-in-space-button">
+                    View In your Space
+                </button>
+                <?php // Reopen PHP tags after the if statement's HTML
+            }
+            ?>
         </div>
         <?php
     }
