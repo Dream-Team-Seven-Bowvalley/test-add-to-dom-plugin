@@ -48,7 +48,7 @@ function add_buttons()
 // Enqueue buttons CSS
 function enqueue_buttons_css()
 {
-    wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
+    wp_enqueue_style('circle-button-css', plugins_url('/buttons.css', __FILE__));
 }
 /*
 function enqueue_model_viewer_script()
@@ -154,8 +154,8 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 
 function polymuse_enqueue_assets()
 {
-    wp_enqueue_style('polymuse-styles', plugins_url('styles.css', __FILE__));
-    wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
+    wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
+    wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
 
 
