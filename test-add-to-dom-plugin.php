@@ -17,60 +17,33 @@
 
 //Add 20px b4 the buttons
 
-function add_20_px_before_buttons()
-{
-    echo '<div style="height: 20px;"></div>';
-}
 // Add buttons
 function add_buttons()
 {
     global $product;
 
     if (is_product()) {
-        //Add 20px b4 the buttons
-        add_action('woocommerce_before_add_to_cart_button', 'add_20_px_before_buttons');
+
         ?>
-        <div class="added-content">
-            <div class="buttons">
-                <h3>Choose a color:</h3>
-                <div class="circle-buttons-container">
-                    <button class="circle-button green-button" id="green-border-button"></button>
-                    <button class="circle-button red-button" id="red-border-button"></button>
-                    <button class="circle-button blue-button" id="blue-border-button"></button>
-                </div>
-                <h3>Choose a texture:</h3>
-                <div class="circle-buttons-container">
-                    <button class="circle-button wood-button" id="wood-border-button"></button>
-                    <button class="circle-button metal-button" id="metal-border-button"></button>
-                    <button class="circle-button plastic-button" id="plastic-border-button"></button>
-                </div>
-                <br />
+        <div>
+            <h3>Choose a color:</h3>
+            <div>
+                <button class="circle-button green-button" id="green-border-button"></button>
+                <button class="circle-button red-button" id="red-border-button"></button>
+                <button class="circle-button blue-button" id="blue-border-button"></button>
             </div>
-            <?php // Close PHP tags before the if statement
-                    if (wp_is_mobile()) {
-                        ?>
-                <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
-                    id="view-in-space-button">
-                    View In your Space
-                </button>
-            <?php // Reopen PHP tags after the if statement's HTML
-                    } ?>
+            <h3>Choose a texture:</h3>
+            <div class="circle-buttons-container">
+                <button class="circle-button wood-button" id="wood-border-button"></button>
+                <button class="circle-button metal-button" id="metal-border-button"></button>
+                <button class="circle-button plastic-button" id="plastic-border-button"></button>
+            </div>
+            <br />
         </div>
         <?php
 
     }
 }
-
-function add_3d_model_viewer()
-{
-    ?>
-    <div class="model-viewer-container">
-        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="A 3D model of an astronaut"
-            auto-rotate camera-controls ar width="300" height="300"></model-viewer>
-    </div>
-    <?php
-}
-
 
 // Enqueue buttons CSS
 function enqueue_buttons_css()
@@ -80,15 +53,21 @@ function enqueue_buttons_css()
 
 function enqueue_model_viewer_script()
 {
-    wp_enqueue_script('model-viewer', 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js', array(), '1.0', true);
+    // Enqueue the model-viewer script with correct type=module
+    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
+function add_3d_model_viewer()
+{
+    ?>
+    <div id="model-viewer-container">
+        <h1>3D Model Viewer</h1>
+        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
+    </div>
+    <?php
+}
 
-// // Enqueue circle button JS
-// function enqueue_buttons_js()
-// {
-//     wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
-// }
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -101,9 +80,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        // add_action('woocommerce_before_single_product_thumbnails', 'add_3d_model_viewer');
-        add_action('woocommerce_before_single_product_summary', 'add_3d_model_viewer');
-        // add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
+        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
     }
 }
 
