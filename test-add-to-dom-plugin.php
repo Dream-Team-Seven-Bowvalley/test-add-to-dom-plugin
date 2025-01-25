@@ -56,12 +56,12 @@ function enqueue_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_3d_model_viewer()
+function add_3d_model_viewer($html, $attachment_id, $data)
 {
-    ?>
-    <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-        alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
-    <?php
+    $html .= '<div class="woocommerce-product-gallery__image">';
+    $html .= '<model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>';
+    $html .= '</div>';
+    return $html;
 }
 
 function test_add_to_dom_plugin()
@@ -77,11 +77,8 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
         
-        // Remove default product image
-        remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
-        
-        // Add 3D model viewer as product image
-        add_action('woocommerce_before_single_product_summary', 'add_3d_model_viewer', 5);
+        // Add 3D model viewer to product gallery
+        add_filter('woocommerce_single_product_image_thumbnail_html', 'add_3d_model_viewer', 10, 3);
     }
 }
 
