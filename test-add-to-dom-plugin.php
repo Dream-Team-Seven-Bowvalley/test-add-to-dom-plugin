@@ -91,19 +91,19 @@ function polymuse_save_custom_field($post_id)
     }
 }
 
-// // Display 3D model on product page
-// function polymuse_display()
-// {
-//     global $product;
+// Display 3D model on product page
+function polymuse_display()
+{
+    global $product;
 
-//     $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
+    $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
 
-//     if (!empty($model_url)) {
-//         echo '<div id="polymuse-3d-viewer">';
-//         echo '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls></model-viewer>';
-//         echo '</div>';
-//     }
-// }
+    if (!empty($model_url)) {
+        echo '<div id="polymuse-3d-viewer">';
+        echo '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls></model-viewer>';
+        echo '</div>';
+    }
+}
 
 function polymuse_add_model_to_gallery($html, $attachment_id)
 {
