@@ -81,7 +81,7 @@ function test_add_to_dom_plugin()
         remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
         
         // Add 3D model viewer as product image
-        add_action('woocommerce_before_single_product_summary', 'add_3d_model_viewer', 20);
+        add_action('woocommerce_before_single_product_summary', 'add_3d_model_viewer', 5);
     }
 }
 
