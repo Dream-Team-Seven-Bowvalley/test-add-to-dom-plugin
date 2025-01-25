@@ -68,6 +68,18 @@ function add_3d_model_viewer()
     <?php
 }
 
+   // Add custom field to product editor
+   function polymuse_custom_field() {
+    woocommerce_wp_text_input(
+        array(
+            'id' => '_3d_model_url',
+            'label' => '3D Model URL',
+            'description' => 'Enter the URL of the 3D model file (e.g., .glb or .gltf)',
+            'desc_tip' => true,
+        )
+    );
+}
+
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -76,6 +88,7 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
+        add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         // Add actions
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
