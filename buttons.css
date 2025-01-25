@@ -45,3 +45,7 @@
 .circle-button:hover {
   opacity: 0.8;
 }
+
+.view_in_space_button {
+  margin-top: 10px;
+}
