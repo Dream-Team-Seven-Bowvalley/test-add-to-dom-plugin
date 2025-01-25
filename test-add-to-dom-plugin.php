@@ -52,22 +52,22 @@ function add_buttons()
 //     wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
 // }
 
-// function enqueue_model_viewer_script()
-// {
-//     // Enqueue the model-viewer script with correct type=module
-//     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
-// }
+function enqueue_model_viewer_script()
+{
+    // Enqueue the model-viewer script with correct type=module
+    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
+}
 
-// function add_3d_model_viewer()
-// {
-//     ?>
-//     <div id="model-viewer-container">
-//         <h1>3D Model Viewer</h1>
-//         <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-//             alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
-//     </div>
-//     <?php
-// }
+function add_3d_model_viewer()
+{
+    ?>
+    <div id="model-viewer-container">
+        <h1>3D Model Viewer</h1>
+        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
+    </div>
+    <?php
+}
 
 function test_add_to_dom_plugin()
 {
