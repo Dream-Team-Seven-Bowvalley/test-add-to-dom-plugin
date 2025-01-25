@@ -19,7 +19,7 @@
 
 function add_20_px_before_buttons()
 {
-    echo '<style>.added-content { margin-top: 20px; }</style>';
+    echo '<div style="height: 20px;"></div>';
 }
 // Add buttons
 function add_buttons()
