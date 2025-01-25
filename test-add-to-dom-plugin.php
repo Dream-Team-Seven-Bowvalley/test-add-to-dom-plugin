@@ -25,7 +25,7 @@ function add_buttons()
     if (is_product()) {
         
         ?>
-        <!-- <div class="added-content">
+        <div >
             <div class="buttons">
                 <h3>Choose a color:</h3>
                 <div class="circle-buttons-container">
@@ -40,8 +40,7 @@ function add_buttons()
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div>
                 <br />
-            </div>             -->
-            <div>Some content to test</div>
+            </div>            
         <?php
 
     }
