@@ -92,11 +92,18 @@ function add_3d_model_to_gallery($html, $attachment_id)
     $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
 
     if (!empty($model_url)) {
-        $model_viewer = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
-        $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>';
-        $model_viewer .= '</div>';
+        // Add a thumbnail image that links to the model viewer
+        $thumbnail_html = '<a href="#" data-model-url="' . esc_url($model_url) . '">';
+        $thumbnail_html .= '<img src="' . plugins_url('3d-model-thumbnail.png', __FILE__) . '" alt="3D model of ' . esc_attr($product->get_name()) . '">';
+        $thumbnail_html .= '</a>';
 
-        return $model_viewer . $html;
+        // Add a hidden container for the model viewer
+        $model_viewer_html = '<div class="polymuse-model-viewer-container" style="display:none;">';
+        $model_viewer_html .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>';
+        $model_viewer_html .= '</div>';
+
+        // Return the thumbnail HTML and the model viewer HTML
+        return $thumbnail_html . $model_viewer_html . $html;
     }
 
     return $html;
@@ -116,6 +123,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
+        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
         //----------------------------------------------
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'add_3d_model_to_gallery', 10, 2);
