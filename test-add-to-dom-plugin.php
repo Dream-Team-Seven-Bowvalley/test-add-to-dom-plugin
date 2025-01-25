@@ -84,7 +84,7 @@ function enqueue_buttons_css()
 
 function enqueue_model_viewer_script()
 {
-    wp_enqueue_script('model-viewer', 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js', array(), '1.0', true);
+    wp_enqueue_script('model-viewer', '"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js', array(), '1.0', true);
     wp_script_add_data('model-viewer', 'type', 'module');
 }
 
