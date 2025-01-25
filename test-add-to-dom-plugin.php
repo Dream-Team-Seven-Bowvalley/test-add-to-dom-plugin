@@ -54,8 +54,8 @@ function enqueue_buttons_css()
 
 function enqueue_model_viewer_script()
 {
-    wp_enqueue_script('model-viewer', 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js', array(), '1.0', true);
-    wp_script_add_data('model-viewer', 'type', 'module');
+    // Enqueue the model-viewer script with correct type=module
+    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
 function add_3d_model_viewer()
