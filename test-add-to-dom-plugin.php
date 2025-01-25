@@ -36,20 +36,19 @@ function add_buttons()
                     <button class="circle-button metal-button" id="metal-border-button"></button>
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div>
-                <br />
-                <?php // Close PHP tags before the if statement
-                        if (wp_is_mobile()) {
-                            ?>
-                    <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
-                        id="view-in-space-button">
-                        View In your Space
-                    </button>
-                    <br />
-
-                <?php // Reopen PHP tags after the if statement's HTML
-                        }
-                        ?>
             </div>
+            <br />
+            <?php // Close PHP tags before the if statement
+                    if (wp_is_mobile()) {
+                        ?>
+                <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
+                    id="view-in-space-button">
+                    View In your Space
+                </button>
+                <br />
+
+            <?php // Reopen PHP tags after the if statement's HTML
+                    } ?>
         </div>
         <?php
     }
