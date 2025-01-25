@@ -37,6 +37,7 @@ function add_buttons()
                 <button class="circle-button metal-button" id="metal-border-button"></button>
                 <button class="circle-button plastic-button" id="plastic-border-button"></button>
             </div>
+            <br>
             <?php
     }
 }
