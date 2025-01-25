@@ -17,18 +17,13 @@
 
 //Add 20px b4 the buttons
 
-function add_20_px_before_buttons()
-{
-    echo '<div style="height: 20px;"></div>';
-}
 // Add buttons
 function add_buttons()
 {
     global $product;
 
     if (is_product()) {
-        //Add 20px b4 the buttons
-        add_action('woocommerce_before_add_to_cart_button', 'add_20_px_before_buttons');
+        
         ?>
         <div class="added-content">
             <div class="buttons">
@@ -45,17 +40,7 @@ function add_buttons()
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div>
                 <br />
-            </div>
-            <?php // Close PHP tags before the if statement
-                    if (wp_is_mobile()) {
-                        ?>
-                <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
-                    id="view-in-space-button">
-                    View In your Space
-                </button>
-            <?php // Reopen PHP tags after the if statement's HTML
-                    } ?>
-        </div>
+            </div>            
         <?php
 
     }
