@@ -1,6 +1,6 @@
-/* .circle-buttons {
-  margin-top: 20px;
-} */
+.circle-buttons {
+  margin-bottom: 20px;
+}
 
 .circle-buttons-container{
   display: flex;
@@ -20,6 +20,7 @@
   margin: 0 10px 0 0; /* add some space between buttons */
 }
 
+
 .green-button {
   background-color: #4CAF50;
 }
@@ -32,6 +33,22 @@
   background-color: #008CBA;
 }
 
+.wood-button {
+  background-color: #8B4513;
+}
+
+.plastic-button {
+  background-color: #138b39;
+}
+
+.metal-button {
+  background-color: #8698a2;
+}
+
 .circle-button:hover {
   opacity: 0.8; 
+}
+
+.view-in-space-button{
+  margin-right: 20px;
 }

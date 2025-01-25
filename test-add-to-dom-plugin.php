@@ -15,28 +15,11 @@
  * Requires Plugins:  WooCommerce
  */
 
-function test_add_to_dom_plugin()
-{
-    // Test to see if WooCommerce is active (including network activated).
-    $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
+// Check if WooCommerce is active
 
-    if (
-        in_array($plugin_path, wp_get_active_and_valid_plugins())
-        || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {
-        // Custom code here. WooCommerce is active, however it has not 
-        // necessarily initialized (when that is important, consider
-        // using the `woocommerce_init` action).
-    }
-}
-function my_custom_header_element()
-{
-    // Your custom header element code here
-    echo '<p style="background-color: #f0f0f0; padding: 10px;">This is my custom header element!</p>';
-}
 
-// Hook to add circle buttons
-function add_circle_buttons()
+// Add circle buttons
+function add_buttons()
 {
     global $product;
 
@@ -44,52 +27,56 @@ function add_circle_buttons()
     if (is_product()) {
         ?>
         <div class="circle-buttons">
-            <h2>Choose a color:</h2>
+            <h3>Choose a color:</h3>
             <div class="circle-buttons-container">
                 <button class="circle-button green-button" id="green-border-button"> </button>
                 <button class="circle-button red-button" id="red-border-button"> </button>
                 <button class="circle-button blue-button" id="blue-border-button"> </button>
             </div>
+            <h3>Choose a texture:</h3>
+            <div class="circle-buttons-container">
+                <button class="circle-button wood-button" id="wood-border-button"> </button>
+                <button class="circle-button metal-button" id="metal-border-button"> </button>
+                <button class="circle-button plastic-button" id="plastic-border-button"> </button>
+            </div>
+            <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
+                id="view-in-space-button">
+                View In your Space
+            </button>
         </div>
         <?php
     }
 }
 
-// Hook to enqueue circle button CSS
-function enqueue_circle_button_css()
+// Enqueue circle button CSS
+function enqueue_buttons_css()
 {
-    wp_enqueue_style('circle-button-css', plugins_url('circle-button.css', __FILE__));
-}
-// Hook to enqueue circle button JS
-function enqueue_circle_button_js()
-{
-    wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
+    wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
 }
 
-
-function add_green_Shadow_to_product_image()
+// // Enqueue circle button JS
+// function enqueue_buttons_js()
+// {
+//     wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
+// }
+function test_add_to_dom_plugin()
 {
-    global $product;
+    $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
 
-    // Check if we're on a product page
-    if (is_product()) {
-        ?>
-        <style>
-            .woocommerce div.product div.images img {
-                box-shadow: 0 0 10px 5px green !important;
-            }
-        </style>
-        <?php
+    if (
+        in_array($plugin_path, wp_get_active_and_valid_plugins())
+        || in_array($plugin_path, wp_get_active_network_plugins())
+    ) {
+        // Add actions
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
+        // add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
     }
 }
 
-
 test_add_to_dom_plugin();
 
-// Add actions
-add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-add_action('wp_enqueue_scripts', 'enqueue_circle_button_css');
-add_action('wp_enqueue_scripts', 'enqueue_circle_button_js');
 
-// Add shadow action default color is green
-// add_action('woocommerce_before_single_product_summary', 'add_green_Shadow_to_product_image');
+
+
+
