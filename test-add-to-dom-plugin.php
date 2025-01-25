@@ -64,7 +64,8 @@ function add_buttons()
 function add_3d_model_viewer()
 {
     ?>
-    <div class="model-viewer-container">
+    <div >
+        <h1> test</h1>
         <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="A 3D model of an astronaut"
             auto-rotate camera-controls ar width="300" height="300"></model-viewer>
     </div>
