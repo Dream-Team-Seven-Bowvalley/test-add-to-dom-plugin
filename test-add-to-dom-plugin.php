@@ -44,6 +44,7 @@ function add_buttons()
                     <button class="circle-button metal-button" id="metal-border-button"></button>
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div>
+                <br />
             </div>
             <?php // Close PHP tags before the if statement
                     if (wp_is_mobile()) {
