@@ -23,29 +23,33 @@ function add_buttons()
     global $product;
 
     if (is_product()) {
+        
         ?>
-        <div class="buttons">
-            <h3>Choose a color:</h3>
-            <div class="circle-buttons-container">
-                <button class="circle-button green-button" id="green-border-button"></button>
-                <button class="circle-button red-button" id="red-border-button"></button>
-                <button class="circle-button blue-button" id="blue-border-button"></button>
-            </div>
-            <h3>Choose a texture:</h3>
-            <div class="circle-buttons-container">
-                <button class="circle-button wood-button" id="wood-border-button"></button>
-                <button class="circle-button metal-button" id="metal-border-button"></button>
-                <button class="circle-button plastic-button" id="plastic-border-button"></button>
-            </div>
-            <br>
-            <?php
+        <div class="added-content">
+            <div class="buttons">
+                <h3>Choose a color:</h3>
+                <div class="circle-buttons-container">
+                    <button class="circle-button green-button" id="green-border-button"></button>
+                    <button class="circle-button red-button" id="red-border-button"></button>
+                    <button class="circle-button blue-button" id="blue-border-button"></button>
+                </div>
+                <h3>Choose a texture:</h3>
+                <div class="circle-buttons-container">
+                    <button class="circle-button wood-button" id="wood-border-button"></button>
+                    <button class="circle-button metal-button" id="metal-border-button"></button>
+                    <button class="circle-button plastic-button" id="plastic-border-button"></button>
+                </div>
+                <br />
+            </div>            
+        <?php
+
     }
 }
 
-//Enqueue buttons CSS
+// Enqueue buttons CSS
 function enqueue_buttons_css()
 {
-    wp_enqueue_style('button-css', plugins_url('buttons.css', __FILE__));
+    wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
 }
 
 function enqueue_model_viewer_script()
@@ -57,12 +61,12 @@ function enqueue_model_viewer_script()
 function add_3d_model_viewer()
 {
     ?>
-        <div id="model-viewer-container">
-            <h1>3D Model Viewer</h1>
-            <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-                alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
-        </div>
-        <?php
+    <div id="model-viewer-container">
+        <h1>3D Model Viewer</h1>
+        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
+    </div>
+    <?php
 }
 
 function test_add_to_dom_plugin()
@@ -76,8 +80,8 @@ function test_add_to_dom_plugin()
         // Add actions
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
-        // add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        // add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
+        add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
+        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
     }
 }
 
