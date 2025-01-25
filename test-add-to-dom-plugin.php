@@ -15,8 +15,6 @@
  * Requires Plugins:  WooCommerce
  */
 
-//Add 20px b4 the buttons
-
 // Add buttons
 function add_buttons()
 {
@@ -61,11 +59,8 @@ function enqueue_model_viewer_script()
 function add_3d_model_viewer()
 {
     ?>
-    <div id="model-viewer-container">
-        <h1>3D Model Viewer</h1>
-        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
-    </div>
+    <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
     <?php
 }
 
@@ -81,13 +76,13 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
+        
+        // Remove default product image
+        remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+        
+        // Add 3D model viewer as product image
+        add_action('woocommerce_before_single_product_summary', 'add_3d_model_viewer', 20);
     }
 }
 
 test_add_to_dom_plugin();
-
-
-
-
-
