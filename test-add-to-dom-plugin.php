@@ -48,13 +48,16 @@ function add_circle_buttons()
                 <button class="circle-button wood-button" id="wood-border-button"> </button>
                 <button class="circle-button metal-button" id="metal-border-button"> </button>
                 <button class="circle-button plastic-button" id="plastic-border-button"> </button>
-
             </div>
+            <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
+            id="view-in-space-button">
+            View In your Space
+        </button> 
         </div>
         <?php
     }
 }
-// Add a custom button above the "Add to Cart" button
+
 function add_custom_button_above_add_to_cart()
 {
     if (is_product()) {
@@ -66,6 +69,7 @@ function add_custom_button_above_add_to_cart()
         <?php
     }
 }
+
 
 // Enqueue circle button CSS
 function enqueue_buttons_css()
@@ -97,7 +101,7 @@ test_add_to_dom_plugin();
 
 // Add actions
 add_action('woocommerce_before_add_to_cart_button', 'add_circle_buttons');
-add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
+// add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
 add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
 add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
 
