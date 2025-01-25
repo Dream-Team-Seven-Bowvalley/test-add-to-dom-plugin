@@ -15,8 +15,6 @@
  * Requires Plugins:  WooCommerce
  */
 
-//Add 20px b4 the buttons
-
 // Add buttons
 function add_buttons()
 {
@@ -44,30 +42,6 @@ function add_buttons()
 
     }
 }
-
-// Enqueue buttons CSS
-function enqueue_buttons_css()
-{
-    wp_enqueue_style('circle-button-css', plugins_url('/buttons.css', __FILE__));
-}
-/*
-function enqueue_model_viewer_script()
-{
-    // Enqueue the model-viewer script with correct type=module
-    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
-}
-
-function add_3d_model_viewer()
-{
-    ?>
-    <div id="model-viewer-container">
-        <h1>3D Model Viewer</h1>
-        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
-    </div>
-    <?php
-}
-*/
 
 // Add custom field to product editor
 function polymuse_custom_field()
@@ -155,18 +129,15 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 function polymuse_enqueue_assets()
 {
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
-    wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
+    wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
 
 
-// function polymuse_add_model_viewer_script()
-// {
-//     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
-// }
-
-function polymuse_add_model_viewer_script() {
-    echo '<script type="module" src="' . plugins_url('node_modules/@google/model-viewer/dist/model-viewer.min.js', __FILE__) . '"></script>';
+function polymuse_add_model_viewer_script()
+{
+    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
+
 
 function test_add_to_dom_plugin()
 {
@@ -176,19 +147,14 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
-        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
-       
+        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
 
-
-        // Add actions
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
-        // add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        // add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
     }
 }
 
