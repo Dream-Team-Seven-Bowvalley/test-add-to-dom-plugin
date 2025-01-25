@@ -21,7 +21,7 @@ function add_buttons() {
 
     if (is_product()) {
         ?>
-        <div class="circle-buttons">
+        <div class="buttons">
             <h3>Choose a color:</h3>
             <div class="circle-buttons-container">
                 <button class="circle-button green-button" id="green-border-button"></button>
@@ -34,6 +34,7 @@ function add_buttons() {
                 <button class="circle-button metal-button" id="metal-border-button"></button>
                 <button class="circle-button plastic-button" id="plastic-border-button"></button>
             </div>
+            <br>
             <?php // Close PHP tags before the if statement
             if (wp_is_mobile()) {
                 ?>
