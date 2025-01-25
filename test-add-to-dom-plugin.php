@@ -116,7 +116,6 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
         //----------------------------------------------
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'add_3d_model_to_gallery', 10, 2);
