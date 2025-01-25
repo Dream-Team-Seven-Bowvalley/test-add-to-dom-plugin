@@ -26,7 +26,9 @@ function add_buttons()
         
         ?>
         <div >
-            some content
+            <div>
+                some content 
+            </div>
             <!-- <div >
                 some content 
                 <h3>Choose a color:</h3> 
