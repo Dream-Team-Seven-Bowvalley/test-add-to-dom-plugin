@@ -26,7 +26,7 @@ function add_buttons()
         
         ?>
         <div >
-            <div class="buttons">
+            <div >
                 <h3>Choose a color:</h3>
                 <div class="circle-buttons-container">
                     <button class="circle-button green-button" id="green-border-button"></button>
