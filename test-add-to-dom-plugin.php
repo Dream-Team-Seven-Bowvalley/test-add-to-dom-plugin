@@ -25,8 +25,7 @@ function add_buttons()
     if (is_product()) {
         
         ?>
-        <div >
-            <div>                
+        <div >                           
                 <h3>Choose a color:</h3>          
             
                 
