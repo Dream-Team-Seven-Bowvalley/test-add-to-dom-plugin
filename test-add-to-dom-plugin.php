@@ -23,7 +23,7 @@ function add_buttons()
     global $product;
 
     if (is_product()) {
-
+        
         ?>
         <div class="added-content">
             <div class="buttons">
@@ -40,8 +40,8 @@ function add_buttons()
                     <button class="circle-button plastic-button" id="plastic-border-button"></button>
                 </div>
                 <br />
-            </div>
-            <?php
+            </div>            
+        <?php
 
     }
 }
@@ -61,55 +61,13 @@ function enqueue_model_viewer_script()
 function add_3d_model_viewer()
 {
     ?>
-        <div id="model-viewer-container">
-            <h1>3D Model Viewer</h1>
-            <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-                alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
-        </div>
-        <?php
+    <div id="model-viewer-container">
+        <h1>3D Model Viewer</h1>
+        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
+    </div>
+    <?php
 }
-//----------------------------------------------
-function polymuse_custom_field()
-{
-    woocommerce_wp_text_input(
-        array(
-            'id' => '_3d_model_url',
-            'label' => '3D Model URL',
-            'description' => 'Enter the URL of the 3D model file (e.g., .glb or .gltf)',
-            'desc_tip' => true,
-        )
-    );
-}
-
-function add_3d_model_to_gallery($html, $attachment_id)
-{
-    global $product;
-
-    if (!$product) {
-        return $html;
-    }
-
-    $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
-
-    if (!empty($model_url)) {
-        // Add a thumbnail image that links to the model viewer
-        $thumbnail_html = '<a href="#" data-model-url="' . esc_url($model_url) . '">';
-        $thumbnail_html .= '<img src="' . plugins_url('3d-model-thumbnail.png', __FILE__) . '" alt="3D model of ' . esc_attr($product->get_name()) . '">';
-        $thumbnail_html .= '</a>';
-
-        // Add a hidden container for the model viewer
-        $model_viewer_html = '<div class="polymuse-model-viewer-container" style="display:none;">';
-        $model_viewer_html .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>';
-        $model_viewer_html .= '</div>';
-
-        // Return the thumbnail HTML and the model viewer HTML
-        return $thumbnail_html . $model_viewer_html . $html;
-    }
-
-    return $html;
-}
-
-//----------------------------------------------
 
 function test_add_to_dom_plugin()
 {
@@ -124,10 +82,6 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
         add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
-        //----------------------------------------------
-        add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
-        add_filter('woocommerce_single_product_image_thumbnail_html', 'add_3d_model_to_gallery', 10, 2);
-
     }
 }
 
