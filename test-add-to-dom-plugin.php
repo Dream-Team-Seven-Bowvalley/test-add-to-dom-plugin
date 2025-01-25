@@ -68,14 +68,15 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
         // Add actions
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
+       
         // add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
     }
 }
 
 test_add_to_dom_plugin();
 
+add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
 
 
 
