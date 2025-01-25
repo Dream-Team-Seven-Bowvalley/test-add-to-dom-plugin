@@ -61,6 +61,20 @@ function add_buttons()
     }
 }
 
+function add_3d_model_viewer() {
+    ?>
+    <div class="model-viewer-container">
+        <h1>3D Model Viewer</h1>
+        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                      alt="A 3D model of an astronaut"
+                      auto-rotate
+                      camera-controls
+                      ar></model-viewer>
+    </div>
+    <?php
+}
+
+
 // Enqueue buttons CSS
 function enqueue_buttons_css()
 {
@@ -83,6 +97,7 @@ function test_add_to_dom_plugin()
         // Add actions
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
+        add_action( 'woocommerce_before_single_product_summary', 'add_3d_model_viewer' );
         // add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
     }
 }
