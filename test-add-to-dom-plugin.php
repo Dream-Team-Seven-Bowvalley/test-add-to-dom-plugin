@@ -42,6 +42,7 @@ function add_buttons() {
                         id="view-in-space-button">
                     View In your Space
                 </button>
+                <br>
                 <?php // Reopen PHP tags after the if statement's HTML
             }
             ?>
