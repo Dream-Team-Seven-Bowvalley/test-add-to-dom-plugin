@@ -31,11 +31,11 @@ function add_buttons()
             </div>
 
 
-            <!-- <div >
+            <div >
                     <button id="green-border-button"></button> 
                     <button class="circle-button red-button" id="red-border-button"></button>
                     <button class="circle-button blue-button" id="blue-border-button"></button> 
-                </div> -->
+                </div>
             <!-- <h3>Choose a texture:</h3>
                 <div class="circle-buttons-container">
                     <button class="circle-button wood-button" id="wood-border-button"></button>
