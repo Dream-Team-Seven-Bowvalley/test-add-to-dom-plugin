@@ -24,7 +24,10 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
-        // WooCommerce is active.
+        // Add actions
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
+        add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
     }
 }
 
@@ -50,26 +53,13 @@ function add_circle_buttons()
                 <button class="circle-button plastic-button" id="plastic-border-button"> </button>
             </div>
             <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
-            id="view-in-space-button">
-            View In your Space
-        </button> 
+                id="view-in-space-button">
+                View In your Space
+            </button>
         </div>
         <?php
     }
 }
-
-function add_custom_button_above_add_to_cart()
-{
-    if (is_product()) {
-        ?>
-        <button type="button" class="single_add_to_cart_button button alt wp-element-button view-in-space-button"
-            id="view-in-space-button">
-            View In your Space
-        </button>        
-        <?php
-    }
-}
-
 
 // Enqueue circle button CSS
 function enqueue_buttons_css()
@@ -77,37 +67,16 @@ function enqueue_buttons_css()
     wp_enqueue_style('circle-button-css', plugins_url('buttons.css', __FILE__));
 }
 
-// Enqueue circle button JS
-function enqueue_buttons_js()
-{
-    wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
-}
+// // Enqueue circle button JS
+// function enqueue_buttons_js()
+// {
+//     wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
+// }
 
-// Add a default green shadow to the product image
-function add_green_shadow_to_product_image()
-{
-    if (is_product()) {
-        ?>
-        <style>
-            .woocommerce div.product div.images img {
-                box-shadow: 0 0 10px 5px green !important;
-            }
-        </style>
-        <?php
-    }
-}
 
 test_add_to_dom_plugin();
 
 
-function test(){
-    echo '<h1>Test</h1>';
-}
-// Add actions
-add_action( 'woocommerce_before_add_to_cart_form', 'add_circle_buttons' );
-// add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
-add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
-add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
 
-// Uncomment to add green shadow by default
-// add_action('woocommerce_before_single_product_summary', 'add_green_shadow_to_product_image');
+
+
