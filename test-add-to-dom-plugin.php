@@ -80,6 +80,15 @@ function add_3d_model_viewer()
     );
 }
 
+ // Save custom field data
+ function polymuse_save_custom_field($post_id) {
+    $model_url = $_POST['_3d_model_url'];
+    if (!empty($model_url)) {
+        update_post_meta($post_id, '_3d_model_url', esc_url($model_url));
+    }
+}
+
+
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -89,6 +98,7 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
+        add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         // Add actions
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
