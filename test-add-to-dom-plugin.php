@@ -61,21 +61,6 @@ function add_buttons()
     }
 }
 
-function add_3d_model_viewer() {
-    ?>
-    <div class="model-viewer-container">
-        <h1>3D Model Viewer</h1>
-        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-                      alt="A 3D model of an astronaut"
-                      auto-rotate
-                      camera-controls
-                      ar></model-viewer>
-    </div>
-    <?php
-}
-
-
-
 // Enqueue buttons CSS
 function enqueue_buttons_css()
 {
@@ -86,9 +71,18 @@ function enqueue_model_viewer_script()
 {
     wp_enqueue_script('model-viewer', 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js', array(), '1.0', true);
     wp_script_add_data('model-viewer', 'type', 'module');
-    wp_add_inline_script('model-viewer', 'import { ModelViewer } from "https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js";');
 }
 
+function add_3d_model_viewer()
+{
+    ?>
+    <div id="model-viewer-container">
+        <h1>3D Model Viewer</h1>
+        <model-viewer id="model-viewer" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+            alt="A 3D model of an astronaut" auto-rotate camera-controls ar></model-viewer>
+    </div>
+    <?php
+}
 
 // // Enqueue circle button JS
 // function enqueue_buttons_js()
@@ -107,8 +101,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        // add_action('woocommerce_before_single_product_thumbnails', 'add_3d_model_viewer');
-        add_action( 'woocommerce_single_product_summary', 'add_3d_model_viewer' );
+        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
         // add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
     }
 }
