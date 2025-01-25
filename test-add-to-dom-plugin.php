@@ -30,7 +30,6 @@ function add_buttons()
                 <h3>Choose a color:</h3>
             </div>
 
-
             <div>
                 <button class="circle-button green-button" id="green-border-button"></button>
                 <button class="circle-button red-button" id="red-border-button"></button>
@@ -83,8 +82,8 @@ function test_add_to_dom_plugin()
         // Add actions
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
-        // add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        // add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
+        add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
+        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
     }
 }
 
