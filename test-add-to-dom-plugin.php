@@ -99,8 +99,12 @@ function add_green_shadow_to_product_image()
 
 test_add_to_dom_plugin();
 
+
+function test(){
+    echo '<h1>Test</h1>';
+}
 // Add actions
-add_action( 'woocommerce_after_single_product_summary', 'add_circle_buttons' );
+add_action( 'woocommerce_after_single_product_summary', 'test' );
 // add_action('woocommerce_before_add_to_cart_button', 'add_custom_button_above_add_to_cart');
 add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
 add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
