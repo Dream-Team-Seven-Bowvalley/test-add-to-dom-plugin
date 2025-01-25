@@ -69,11 +69,6 @@ function add_3d_model_viewer()
     <?php
 }
 
-// // Enqueue circle button JS
-// function enqueue_buttons_js()
-// {
-//     wp_enqueue_script('add-shadow-js', plugins_url('add-shadow.js', __FILE__), array('jquery'));
-// }
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -86,8 +81,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('wp_enqueue_scripts', 'enqueue_buttons_css');
         add_action('wp_enqueue_scripts', 'enqueue_model_viewer_script');
-        add_action('woocommerce_single_product_summary', 'add_3d_model_viewer');
-        // add_action('wp_enqueue_scripts', 'enqueue_buttons_js');
+        add_action('woocommerce_product_thumbnails', 'add_3d_model_viewer');
     }
 }
 
