@@ -10,6 +10,6 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-}, { passive: true });
+};
 
 
