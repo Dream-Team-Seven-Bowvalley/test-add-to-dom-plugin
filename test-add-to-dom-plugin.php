@@ -124,7 +124,7 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
     global $product;
 
     // URL of the thumbnail image
-    $thumbnail_url = plugins_url('3d-model-thumbnail.png', __FILE__);
+    $thumbnail_url = plugins_url('3d.webp', __FILE__);
 
     // Check if the product has a 3D model URL
     $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
