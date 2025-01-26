@@ -141,12 +141,8 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
             $thumbnail_html .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
             $thumbnail_html .= 'class="woocommerce-product-gallery__image polymuse-gallery-thumbnail">';
             $thumbnail_html .= '<a href="' . esc_url($model_url) . '">';
-            // $thumbnail_html .= '<img src="' . esc_url($thumbnail_url) . '" alt="3D Model Thumbnail" ';
-            $thumbnail_html .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
-            $thumbnail_html .= 'class="wp-post-image" data-caption="" ';
-            $thumbnail_html .= 'data-src="' . esc_url($model_url) . '" ';
-            $thumbnail_html .= 'data-large_image="' . esc_url($model_url) . '" ';
-            $thumbnail_html .= 'data-large_image_width="100" data-large_image_height="100" decoding="async" />';
+            $thumbnail_html .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" ';
+            $thumbnail_html .= 'auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $thumbnail_html .= '</a></div>';
 
             $thumbnail_added = true; // Ensure the thumbnail is only added once
