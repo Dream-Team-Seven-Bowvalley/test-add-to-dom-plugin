@@ -122,6 +122,7 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
 {
     global $product;
+    error_log('log html' . $html);
 
     // URL of the thumbnail image
     $thumbnail_url = plugins_url('3d-model-thumbnail.png', __FILE__);
@@ -135,7 +136,7 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
 
         if (!$thumbnail_added) {
             $thumbnail_html = '<div class="woocommerce-product-gallery__image">';
-            $thumbnail_html .= '<img src="' . esc_url($thumbnail_url) . '" alt="3D Model Thumbnail" class="woocommerce-product-gallery__image" />';
+            $thumbnail_html .= '<img src="' . esc_url($thumbnail_url) . '" alt="3D Model Thumbnail" class="polymuse-gallery-thumbnail" />';
             $thumbnail_html .= '</div>';
 
             $thumbnail_added = true; // Ensure the thumbnail is only added once
@@ -171,8 +172,9 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
-        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_thumbnail_to_gallery', 10, 2);;
-        // add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
+        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_thumbnail_to_gallery', 10, 2);
+        ;
+        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
