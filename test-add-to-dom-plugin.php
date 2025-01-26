@@ -111,6 +111,7 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
             error_log('Model Thumbnail HTML: ' . $model_thumbnail);
             // Prepend the 3D model thumbnail
             $html = $model_thumbnail . $html;
+            error_log('Prepended HTML: ' . $html);
 
             // Create the model viewer div
             $model_viewer = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
