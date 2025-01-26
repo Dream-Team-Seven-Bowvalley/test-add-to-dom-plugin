@@ -132,13 +132,13 @@ function polymuse_enqueue_assets()
     wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
 
-function polymuse_enqueue_model_viewer_script()
+function model_viewer_script_enqueue()
 {
     wp_enqueue_script(
         'model-viewer',
-        'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js',
-        array(), // Dependencies, if any
-        null,    // Version number (null to avoid appending a version number)
+        'https://unpkg.com/@google/model-viewer@v3.3.0/dist/model-viewer.min.js',
+        [], // Dependencies, if any
+        '3.3.0',    // Version number
         true     // Load in the footer
     );
 }
