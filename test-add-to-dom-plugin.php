@@ -135,7 +135,7 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
 
         if (!$thumbnail_added) {
             // Match the format of other gallery thumbnails
-            
+
             $thumbnail_html = '<div data-thumb="' . esc_url($thumbnail_url) . '" ';
             $thumbnail_html .= 'data-thumb-alt="3D Model Thumbnail" ';
             $thumbnail_html .= 'data-thumb-srcset="' . esc_url($thumbnail_url) . ' 100w" ';
@@ -191,22 +191,33 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
             $first_image = false;
 
-            // Add thumbnail to the gallery
-            $thumbnail_html = '<div data-thumb="' . esc_url($model_thumbnail_url) . '" ';
-            $thumbnail_html .= 'data-thumb-alt="3D Model Thumbnail" ';
-            $thumbnail_html .= 'data-thumb-srcset="' . esc_url($model_thumbnail_url) . ' 100w" ';
-            $thumbnail_html .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
-            $thumbnail_html .= 'class="woocommerce-product-gallery__image polymuse-gallery-thumbnail">';
-            $thumbnail_html .= '<a href="' . esc_url($model_url) . '">';
-            $thumbnail_html .= '<img src="' . esc_url($model_thumbnail_url) . '" alt="3D Model Thumbnail" ';
-            $thumbnail_html .= 'class="wp-post-image" data-caption="" ';
-            $thumbnail_html .= 'data-src="' . esc_url($model_url) . '" ';
-            $thumbnail_html .= 'data-large_image="' . esc_url($model_url) . '" ';
-            $thumbnail_html .= 'data-large_image_width="100" data-large_image_height="100" decoding="async" />';
-            $thumbnail_html .= '</a></div>';
+            // Check if the thumbnail URL is empty
+            if (empty($model_thumbnail_url)) {
+                // Remove the first thumbnail
+                $html = preg_replace('/<div class="woocommerce-product-gallery__image"[^>]*>.*?<\/div>/', '', $html, 1);
+
+                // Link the second thumbnail to the model viewer
+                $html = preg_replace('/<a href="[^"]*"/', '<a href="' . esc_url($model_url) . '"', $html, 1);
+            } else {
+                // Add thumbnail to the gallery
+                $thumbnail_html = '<div data-thumb="' . esc_url($model_thumbnail_url) . '" ';
+                $thumbnail_html .= 'data-thumb-alt="3D Model Thumbnail" ';
+                $thumbnail_html .= 'data-thumb-srcset="' . esc_url($model_thumbnail_url) . ' 100w" ';
+                $thumbnail_html .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
+                $thumbnail_html .= 'class="woocommerce-product-gallery__image polymuse-gallery-thumbnail">';
+                $thumbnail_html .= '<a href="' . esc_url($model_url) . '">';
+                $thumbnail_html .= '<img src="' . esc_url($model_thumbnail_url) . '" alt="3D Model Thumbnail" ';
+                $thumbnail_html .= 'class="wp-post-image" data-caption="" ';
+                $thumbnail_html .= 'data-src="' . esc_url($model_url) . '" ';
+                $thumbnail_html .= 'data-large_image="' . esc_url($model_url) . '" ';
+                $thumbnail_html .= 'data-large_image_width="100" data-large_image_height="100" decoding="async" />';
+                $thumbnail_html .= '</a></div>';
+
+                $html = $model_viewer . $thumbnail_html . $html;
+            }
 
             error_log('Modified HTML: ' . $html);
-            return $model_viewer . $thumbnail_html . $html;
+            return $html;
         }
     }
 
