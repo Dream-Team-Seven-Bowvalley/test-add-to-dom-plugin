@@ -1,4 +1,3 @@
-<?php
 /*
  * Plugin Name:       Test Add to Dom Plugin
  * Plugin URI:        https://github.com/DreamTeamSeven/test-add-to-dom-plugin
@@ -159,8 +158,3 @@ function test_add_to_dom_plugin()
 }
 
 test_add_to_dom_plugin();
-
-
-
-
-
