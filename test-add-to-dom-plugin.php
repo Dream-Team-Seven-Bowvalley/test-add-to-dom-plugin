@@ -181,7 +181,7 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
-        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_thumbnail_to_gallery', 10, 2);
+        // add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_thumbnail_to_gallery', 10, 2);
         ;
         // add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
