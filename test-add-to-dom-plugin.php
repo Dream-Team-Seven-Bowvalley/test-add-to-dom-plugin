@@ -136,6 +136,9 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
         if (!$thumbnail_added) {
             // Match the format of other gallery thumbnails
             $thumbnail_html = '<div data-thumb="' . esc_url($thumbnail_url) . '" ';
+            $thumbnail_html .= '<div class="polymuse-model-viewer woocommerce-product-gallery__image" data-gallery-item="3d-model"><model-viewer
+        src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate
+        camera-controls ar style="width: 100%; height: 100%;"></model-viewer></div>';
             $thumbnail_html .= 'data-thumb-alt="3D Model Thumbnail" ';
             $thumbnail_html .= 'data-thumb-srcset="' . esc_url($thumbnail_url) . ' 100w" ';
             $thumbnail_html .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
