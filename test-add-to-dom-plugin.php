@@ -65,26 +65,14 @@ function polymuse_save_custom_field($post_id)
     }
 }
 
-// Display 3D model on product page
-function polymuse_display()
-{
-    global $product;
 
-    $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
-
-    if (!empty($model_url)) {
-        echo '<div id="polymuse-3d-viewer">';
-        echo '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar></model-viewer>';
-        echo '</div>';
-    }
-}
-
-function polymuse_add_model_to_gallery($html, $attachment_id)
+// Add 3D model and thumbnail to gallery
+function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 {
     global $product;
 
     // Debug logging
-    error_log('polymuse_add_model_to_gallery called');
+    error_log('polymuse_add_model_and_thumbnail_to_gallery called');
     error_log('Attachment ID: ' . $attachment_id);
     error_log('HTML received: ' . $html);
 
@@ -105,18 +93,16 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
         static $first_image = true;
 
         if ($first_image) {
-            // Modify the thumbnail HTML to include the 3D model thumbnail
-            $model_thumbnail = '<li><img src="' . esc_url($model_thumbnail_url) . '" alt="3D Model Thumbnail" class="model-thumbnail" data-gallery-item="3d-model" /></li>';
-
-            // Prepend the 3D model thumbnail
-            $html = $model_thumbnail . $html;
+            $first_image = false;
 
             // Create the model viewer div
-            $model_viewer = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
+            $model_viewer = '<div data-thumb="' . esc_url($model_thumbnail_url) . '" ';
+            $model_viewer .= 'data-thumb-alt="3D Model" ';
+            $model_viewer .= 'data-thumb-srcset="' . esc_url($model_thumbnail_url) . ' 100w" ';
+            $model_viewer .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
+            $model_viewer .= 'class="woocommerce-product-gallery__image polymuse-model-viewer">';
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
-            $model_viewer .= '</div>';
-
-            $first_image = false;
+            $model_viewer .= '</div>';          
 
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
@@ -125,7 +111,6 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 
     return $html;
 }
-
 function polymuse_enqueue_assets()
 {
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
@@ -148,12 +133,12 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        
+
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
-        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
+        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);  
         add_action('wp_head', 'polymuse_add_model_viewer_script');
-        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
+        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
     }
 }
