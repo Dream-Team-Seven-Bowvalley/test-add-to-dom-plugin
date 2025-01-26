@@ -107,7 +107,7 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
         if ($first_image) {
             // Modify the thumbnail HTML to include the 3D model thumbnail
             $model_thumbnail = '<li><img src="' . esc_url($model_thumbnail_url) . '" alt="3D Model Thumbnail" class="model-thumbnail" data-gallery-item="3d-model" /></li>';
-
+            error_log('Model Thumbnail HTML: ' . $model_thumbnail);
             // Prepend the 3D model thumbnail
             $html = $model_thumbnail . $html;
 
