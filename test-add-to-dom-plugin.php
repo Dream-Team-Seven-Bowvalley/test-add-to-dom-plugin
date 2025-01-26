@@ -135,7 +135,7 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
 
         if (!$thumbnail_added) {
             $thumbnail_html = '<div class="woocommerce-product-gallery__image">';
-            $thumbnail_html .= '<img src="' . esc_url($thumbnail_url) . '" alt="3D Model Thumbnail" class="polymuse-gallery-thumbnail" />';
+            $thumbnail_html .= '<img src="' . esc_url($thumbnail_url) . '" alt="3D Model Thumbnail" class="woocommerce-product-gallery__image" />';
             $thumbnail_html .= '</div>';
 
             $thumbnail_added = true; // Ensure the thumbnail is only added once
