@@ -135,9 +135,16 @@ function polymuse_enqueue_assets()
 
 function polymuse_add_model_viewer_script()
 {
+    echo '<script type="importmap">
+    {
+        "imports": {
+            "@wordpress/interactivity": "https://unpkg.com/@wordpress/interactivity@latest/build/index.min.js"
+        }
+    }
+    </script>';
+
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
-
 
 function test_add_to_dom_plugin()
 {
@@ -147,14 +154,13 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
-        add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
-        
-        // add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
+        add_action('wp_head', 'polymuse_add_model_viewer_script');
+        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
 
     }
 }
