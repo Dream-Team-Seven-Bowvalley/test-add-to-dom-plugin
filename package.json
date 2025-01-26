@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@google/model-viewer": "^4.0.0"
+    "@google/model-viewer": "^4.0.0",
+    "@wordpress/interactivity": "^6.16.0"
   }
 }

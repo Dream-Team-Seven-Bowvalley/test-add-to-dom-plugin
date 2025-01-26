@@ -135,16 +135,9 @@ function polymuse_enqueue_assets()
 
 function polymuse_add_model_viewer_script()
 {
-    echo '<script type="importmap">
-    {
-        "imports": {
-            "@wordpress/interactivity": "https://unpkg.com/@wordpress/interactivity@latest/build/index.min.js"
-        }
-    }
-    </script>';
-
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
+
 
 function test_add_to_dom_plugin()
 {
