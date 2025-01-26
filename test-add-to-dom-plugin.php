@@ -83,37 +83,24 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 {
     global $product;
 
-    // Debug logging
-    error_log('polymuse_add_model_to_gallery called');
-    error_log('Attachment ID: ' . $attachment_id);
-    error_log('HTML received: ' . $html);
+    // URL of the thumbnail image
+    $thumbnail_url = plugins_themebase_url('3d-model-thumbnail.png', __FILE__);
 
-    if (!$product) {
-        error_log('No product found');
-        return $html;
-    }
+    // Check if the product has a 3D model URL
+    $model_url = get_post_meta($product->get_atr('id'), '_3d_model_url', true);
 
-    $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
-    error_log('Model URL: ' . $model_url);
+    if (!empty($model_url) && !empty($thumbnail_url)) {
+        // Create the model viewer HTML
+        $model_viewer_html = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
+        $model_viewer_html .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
+        $model_viewer_html .= '</div>';
 
-    if (!empty($model_url)) {
-        // Create thumbnail URL for the 3D model
-        $model_thumbnail_url = plugins_url('3d-model-thumbnail.png', __FILE__);
-        error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
-
-        // Check if this is the first image in the gallery
-        static $first_image = true;
-
-        if ($first_image) {
-            // Create the model viewer div
-            $model_viewer = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
-            $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
-            $model_viewer .= '</div>';
-
-            $first_image = false;
-
-            error_log('Modified HTML: ' . $html);
-            return $model_viewer . $html;
+        // Replace the first gallery image with the model viewer
+        $gallery_images = explode('<figure', $html);
+        if (count($gallery_images) > 1) {
+            $html = '<figure>' . $model_viewer_html . '</figure>' . implode('<figure', array_slice($gallery_images, 1));
+        } else {
+            $html = $model_viewer_html;
         }
     }
 
@@ -135,10 +122,8 @@ function polymuse_add_thumbnail_to_gallery($html, $attachment_id)
 
         if (!$thumbnail_added) {
             // Match the format of other gallery thumbnails
+            
             $thumbnail_html = '<div data-thumb="' . esc_url($thumbnail_url) . '" ';
-            $thumbnail_html .= '<div class="polymuse-model-viewer woocommerce-product-gallery__image" data-gallery-item="3d-model"><model-viewer
-        src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate
-        camera-controls ar style="width: 100%; height: 100%;"></model-viewer></div>';
             $thumbnail_html .= 'data-thumb-alt="3D Model Thumbnail" ';
             $thumbnail_html .= 'data-thumb-srcset="' . esc_url($thumbnail_url) . ' 100w" ';
             $thumbnail_html .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
@@ -184,7 +169,7 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
-        // add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
+        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 2);
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_thumbnail_to_gallery', 10, 2);      
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
