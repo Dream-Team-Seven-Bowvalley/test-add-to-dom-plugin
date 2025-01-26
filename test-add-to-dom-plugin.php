@@ -98,7 +98,7 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 
     if (!empty($model_url)) {
         // Create thumbnail URL for the 3D model
-        $model_thumbnail_url = plugins_url('3d-model-thumbnail.png', __FILE__);
+        $model_thumbnail_url = plugins_url('/3d-model-thumbnail.png', __FILE__);
         error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
 
         // Check if this is the first image in the gallery
