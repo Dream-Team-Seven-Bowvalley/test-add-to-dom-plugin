@@ -108,10 +108,10 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
         if ($first_image) {
             // Modify the thumbnail HTML to include the 3D model thumbnail
             // $model_thumbnail = '<li><img src="' . $model_thumbnail_url . '" alt="3D Model Thumbnail" class="model-thumbnail" data-gallery-item="3d-model" /></li>';
-            $model_thumbnail = '<li><div class="model-thumbnail" data-gallery-item="3d-model" style="background-image: url(' . $model_thumbnail_url . ');"></div></li>';
-            error_log('Model Thumbnail HTML: ' . $model_thumbnail);
-            // Prepend the 3D model thumbnail
-            $html = $model_thumbnail . $html;
+            // $model_thumbnail = '<li><div class="model-thumbnail" data-gallery-item="3d-model" style="background-image: url(' . $model_thumbnail_url . ');"></div></li>';
+            // error_log('Model Thumbnail HTML: ' . $model_thumbnail);
+            // // Prepend the 3D model thumbnail
+            // $html = $model_thumbnail . $html;
 
             // Create the model viewer div
             $model_viewer = '<div class="woocommerce-product-gallery__image polymuse-model-viewer" data-gallery-item="3d-model">';
