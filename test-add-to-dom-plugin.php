@@ -211,7 +211,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             // $thumbnail_html .= '</a></div>';
 
             error_log('Modified HTML: ' . $html);
-            return $model_viewer . $thumbnail_html . $html;
+            return $model_viewer . $html;
         }
     }
 
