@@ -98,9 +98,10 @@ function polymuse_add_model_to_gallery($html, $attachment_id)
 
     if (!empty($model_url)) {
         // Create thumbnail URL for the 3D model
-        $model_thumbnail_url = plugins_url('3d-model-thumbnail.png', __FILE__);
-        error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
+        // $model_thumbnail_url = plugins_url('3d-model-thumbnail.png', __FILE__);
+        // error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
 
+        $model_thumbnail_url = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/chair1-cX37DzmkP4D6JaurEeJj9d1OL2uxTR.webp';
         // Check if this is the first image in the gallery
         static $first_image = true;
 
@@ -148,12 +149,12 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        
+
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_to_gallery', 10, 4);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
-        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
+        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
     }
 }
