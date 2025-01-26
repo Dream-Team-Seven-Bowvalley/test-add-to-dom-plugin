@@ -135,6 +135,7 @@ function polymuse_enqueue_assets()
 
 function polymuse_add_model_viewer_script()
 {
+    wp_enqueue_script('wp-interactivity');
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
