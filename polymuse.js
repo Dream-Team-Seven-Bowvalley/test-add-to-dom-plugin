@@ -1,15 +1,14 @@
-jQuery(document).ready(function ($) {
-    // Ensure the 3D model slide is the same height as other slides
-    function adjustModelViewerHeight() {
-        var galleryHeight = $('.woocommerce-product-gallery__wrapper').height();
-        //console.log(galleryHeight);
-        $('.polymuse-model-viewer').height(500);
-    }
+$(document).ready(function() {
+    $('.polymuse-model-link').on('click', function(event) {
+        event.preventDefault();
 
-    // Run on page load and when the window is resized
-    adjustModelViewerHeight();
-    $(window).resize(adjustModelViewerHeight);
+        // Get the model URL from the data attribute
+        var modelUrl = $(this).find('img').attr('data-model-url');
 
+        // Create the model viewer div
+        var modelViewer = $('<div>').html('<model-viewer src="' + modelUrl + '" alt="3D model" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>');
+
+        // Add the model viewer to the page
+        $('body').append(modelViewer);
+    });
 });
-
-
