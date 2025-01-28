@@ -152,7 +152,7 @@ function display_variation_data($item_name, $cart_item, $cart_item_key)
     error_log('Displaying variation data for item: ' . $item_name);
     error_log('Cart item data: ');
     error_log(print_r($cart_item, true));
-    
+
     if (isset($cart_item['color_variation'])) {
         error_log('Color variation found: ' . $cart_item['color_variation']);
         $item_name .= ' - ' . $cart_item['color_variation'];
@@ -160,16 +160,15 @@ function display_variation_data($item_name, $cart_item, $cart_item_key)
     } else {
         error_log('Color variation not found');
     }
-    
+
     return $item_name;
 }
 
 // Add variation data to order item meta
 function add_variation_data_to_order_item_meta($item_id, $values, $cart_item_key)
 {
-    if (isset($values['variation_id'])) {
-        $product = wc_get_product($values['variation_id']);
-        wc_add_order_item_meta($item_id, 'Color', $product->get_attribute('color'));
+    if (isset($values['color_variation'])) {
+        wc_add_order_item_meta($item_id, 'Color', $values['color_variation']);
     }
 }
 // Display variation data in the order email
