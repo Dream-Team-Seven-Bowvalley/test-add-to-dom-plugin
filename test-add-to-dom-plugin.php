@@ -164,13 +164,14 @@ function display_variation_data($item_name, $cart_item, $cart_item_key)
     return $item_name;
 }
 
-// Add variation data to order item meta
-function add_variation_data_to_order_item_meta($item_id, $values, $cart_item_key)
-{
-    if (isset($values['color_variation'])) {
-        wc_add_order_item_meta($item_id, 'Color', $values['color_variation']);
+// Add variation data to order item meta// Display variant color info on cart page
+function display_variant_color_info($cart_item, $cart_item_key) {
+    if (isset($cart_item['color_variation'])) {
+      echo '<p>Color: ' . $cart_item['color_variation'] . '</p>';
     }
-}
+  }
+
+ 
 // Display variation data in the order email
 function display_variation_data_in_email($item_meta, $item)
 {
@@ -197,7 +198,7 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-        add_filter('woocommerce_cart_item_name', 'display_variation_data', 10, 3);
+        add_action('woocommerce_cart_item_name_after', 'display_variant_color_info', 10, 2);
         add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
         add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
 
