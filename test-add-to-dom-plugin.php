@@ -127,13 +127,11 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-// Add hidden input field for product variation
-function add_hidden_input_field()
-{
+function add_hidden_input_field_color_variation($form_html) {
     ?>
     <input type="hidden" id="product_variation" name="product_variation" value="">
     <?php
-}
+  }
 
 // Update product variation based on the selected color
 function update_product_variation($cart_item_data, $product_id)
@@ -185,7 +183,7 @@ function test_add_to_dom_plugin()
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
-        add_action('woocommerce_before_add_to_cart_form', 'add_hidden_input_field');
+        add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
         add_filter('woocommerce_cart_item_name', 'display_variation_data', 10, 3);
         add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
