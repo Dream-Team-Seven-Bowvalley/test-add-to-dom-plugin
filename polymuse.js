@@ -16,11 +16,10 @@ jQuery(document).ready(function ($) {
 
     $('form.cart').on('submit', function () {
         console.log('Hidden input field value on submit:', $('#product_color_variation').val());
-        return new Promise(resolve => setTimeout(resolve, 5000));
     });
 
     // Add listener to "Proceed to Checkout" link
-    $('a[href*="checkout"]').on('click', function () {
+    $('a[href*="checkout"]').on('click', async function () {
         // Display product info and metadata
         // Display all product metadata and pause
         console.log('Product Information:');
@@ -36,7 +35,7 @@ jQuery(document).ready(function ($) {
         console.log('Product color variation:', $('#product_color_variation').val());
 
         // Pause for 10 seconds before proceeding to checkout
-        return new Promise(resolve => setTimeout(resolve, 10000));
+       await  new Promise(resolve => setTimeout(resolve, 10000));
     });
 
     // Run on page load and when the window is resized
