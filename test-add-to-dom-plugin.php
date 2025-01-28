@@ -26,9 +26,10 @@ function add_buttons()
         <div>
             <h3>Choose a color:</h3>
             <div>
-                <button class="circle-button green-button" id="green-border-button"></button>
-                <button class="circle-button red-button" id="red-border-button"></button>
-                <button class="circle-button blue-button" id="blue-border-button"></button>
+                <button class="circle-button green-button" id="green-border-button" data-color="green"></button>
+                <button class="circle-button red-button" id="red-border-button" data-color="red"></button>
+                <button class="blue-button circle-button" id="blue-border-button" data-color="blue"></button>
+
             </div>
             <h3>Choose a texture:</h3>
             <div class="circle-buttons-container">
@@ -94,7 +95,6 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
         if ($first_image) {
             $first_image = false;
-
             // Create the model viewer div
             $model_viewer = '<div data-thumb="' . esc_url($model_thumbnail_url) . '" ';
             $model_viewer .= 'data-thumb-alt="3D Model" ';
@@ -102,7 +102,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
             $model_viewer .= 'class="woocommerce-product-gallery__image polymuse-model-viewer">';
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
-            $model_viewer .= '</div>';          
+            $model_viewer .= '</div>';
 
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
@@ -111,6 +111,10 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
     return $html;
 }
+
+
+
+
 function polymuse_enqueue_assets()
 {
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
@@ -123,6 +127,48 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
+// Add hidden input field for product variation
+function add_hidden_input_field()
+{
+    ?>
+    <input type="hidden" id="product_variation" name="product_variation" value="">
+    <?php
+}
+
+// Update product variation based on the selected color
+function update_product_variation($cart_item_data, $product_id)
+{
+    if (isset($_POST['product_variation'])) {
+        $variation_id = $_POST['product_variation'];
+        $cart_item_data['variation_id'] = $variation_id;
+    }
+    return $cart_item_data;
+}
+function display_variation_data($item_name, $cart_item, $cart_item_key)
+{
+    if (isset($cart_item['variation_id'])) {
+        $product = wc_get_product($cart_item['variation_id']);
+        $item_name .= ' - ' . $product->get_attribute('color');
+    }
+    return $item_name;
+}
+
+
+function add_variation_data_to_order_item_meta($item_id, $values, $cart_item_key)
+{
+    if (isset($values['variation_id'])) {
+        $product = wc_get_product($values['variation_id']);
+        wc_add_order_item_meta($item_id, 'Color', $product->get_attribute('color'));
+    }
+}
+
+function display_variation_data_in_email($item_meta, $item)
+{
+    if (isset($item_meta['Color'])) {
+        $item_meta .= '<br>Color: ' . $item_meta['Color'];
+    }
+    return $item_meta;
+}
 
 function test_add_to_dom_plugin()
 {
@@ -136,9 +182,14 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
-        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);  
+        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
+        add_action('woocommerce_before_add_to_cart_form', 'add_hidden_input_field');
+        add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
+        add_filter('woocommerce_cart_item_name', 'display_variation_data', 10, 3);
+        add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
+        add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
 
     }
 }
