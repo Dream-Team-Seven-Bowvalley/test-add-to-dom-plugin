@@ -19,7 +19,6 @@ jQuery(document).ready(function ($) {
         return new Promise(resolve => setTimeout(resolve, 5000));
     });
 
-    
     // Add listener to "Proceed to Checkout" link
     $('a[href*="checkout"]').on('click', function () {
         // Display product info and metadata
