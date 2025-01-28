@@ -138,9 +138,9 @@ function add_hidden_input_field_color_variation($form_html)
 // Update product variation based on the selected color
 function update_product_variation($cart_item_data, $product_id)
 {
-    if (isset($_POST['product_variation'])) {
-        $variation_id = $_POST['product_color_variation'];
-        $cart_item_data['color_variation_id'] = $variation_id;
+    if (isset($_POST['product_color_variation'])) {
+        $color_variation = $_POST['product_color_variation'];
+        $cart_item_data['color_variation'] = $color_variation;
     }
     return $cart_item_data;
 }
