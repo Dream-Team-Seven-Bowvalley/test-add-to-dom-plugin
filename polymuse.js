@@ -19,6 +19,18 @@ jQuery(document).ready(function ($) {
         return new Promise(resolve => setTimeout(resolve, 5000));
     });
 
+    // Add listener to "Proceed to Checkout" button
+    $('.woocommerce-checkout-button').on('click', function () {
+        // Display product info and metadata
+        console.log('Product info and metadata:');
+        console.log('Product name:', $('.product_title').text());
+        console.log('Product price:', $('.price').text());
+        console.log('Product color variation:', $('#product_color_variation').val());
+
+        // Pause for 10 seconds before proceeding to checkout
+        return new Promise(resolve => setTimeout(resolve, 10000));
+    });
+
     // Run on page load and when the window is resized
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
