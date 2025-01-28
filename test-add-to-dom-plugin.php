@@ -127,9 +127,10 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
+// Add hidden input field for product color variation
 function add_hidden_input_field_color_variation($form_html) {
     ?>
-    <input type="hidden" id="product_variation" name="product_variation" value="">
+    <input type="hidden" id="product_color_variation" name="product_variation" value="">
     <?php
   }
 
@@ -137,21 +138,22 @@ function add_hidden_input_field_color_variation($form_html) {
 function update_product_variation($cart_item_data, $product_id)
 {
     if (isset($_POST['product_variation'])) {
-        $variation_id = $_POST['product_variation'];
-        $cart_item_data['variation_id'] = $variation_id;
+        $variation_id = $_POST['product_color_variation'];
+        $cart_item_data['color_variation_id'] = $variation_id;
     }
     return $cart_item_data;
 }
+// Display variation data in the cart
 function display_variation_data($item_name, $cart_item, $cart_item_key)
 {
-    if (isset($cart_item['variation_id'])) {
-        $product = wc_get_product($cart_item['variation_id']);
+    if (isset($cart_item['color_variation_id'])) {
+        $product = wc_get_product($cart_item['color_variation_id']);
         $item_name .= ' - ' . $product->get_attribute('color');
     }
     return $item_name;
 }
 
-
+// Add variation data to order item meta
 function add_variation_data_to_order_item_meta($item_id, $values, $cart_item_key)
 {
     if (isset($values['variation_id'])) {
@@ -159,7 +161,7 @@ function add_variation_data_to_order_item_meta($item_id, $values, $cart_item_key
         wc_add_order_item_meta($item_id, 'Color', $product->get_attribute('color'));
     }
 }
-
+// Display variation data in the order email
 function display_variation_data_in_email($item_meta, $item)
 {
     if (isset($item_meta['Color'])) {

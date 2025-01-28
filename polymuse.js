@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
     // Update hidden input field when a color button is clicked
     $('.circle-button').on('click', function () {
       var color = $(this).attr('id');
-      $('#product_variation').val(color);
+      $('#product_color_variation').val(color);
     });
   
     // Ensure the 3D model slide is the same height as other slides
