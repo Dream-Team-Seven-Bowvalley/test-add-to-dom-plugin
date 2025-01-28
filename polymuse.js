@@ -19,23 +19,23 @@ jQuery(document).ready(function ($) {
     });
 
     // Add listener to "Proceed to Checkout" link
-    $('a[href*="checkout"]').on('click', async function () {
+    $('a[href*="checkout"]').on('click', function () {
         // Display product info and metadata
         // Display all product metadata and pause
         console.log('Product Information:');
         console.log({
             name: $('.product_title').text(),
             price: $('.price').text(),
-            color: $('#product_color_variation').val(),
+            color: $('.product_color_variation').val(),
             sku: $('.sku').text(),
             category: $('.posted_in').text()
         });
         console.log('Product name:', $('.product_title').text());
         console.log('Product price:', $('.price').text());
-        console.log('Product color variation:', $('#product_color_variation').val());
+        console.log('Product color variation:', $('#.product_color_variation').val());
 
         // Pause for 10 seconds before proceeding to checkout
-       await  new Promise(resolve => setTimeout(resolve, 10000));
+        return new Promise(resolve => setTimeout(resolve, 10000));
     });
 
     // Run on page load and when the window is resized
