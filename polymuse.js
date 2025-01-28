@@ -16,6 +16,7 @@ jQuery(document).ready(function ($) {
 
     $('form.cart').on('submit', function () {
         console.log('Hidden input field value on submit:', $('#product_color_variation').val());
+        return new Promise(resolve => setTimeout(resolve, 5000));
     });
 
     // Run on page load and when the window is resized
