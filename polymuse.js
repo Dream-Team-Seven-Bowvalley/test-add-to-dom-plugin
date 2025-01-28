@@ -14,6 +14,10 @@ jQuery(document).ready(function ($) {
         $('.polymuse-model-viewer').height(500);
     }
 
+    $('form.cart').on('submit', function () {
+        console.log('Hidden input field value on submit:', $('#product_color_variation').val());
+    });
+
     // Run on page load and when the window is resized
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
