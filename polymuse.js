@@ -19,8 +19,9 @@ jQuery(document).ready(function ($) {
         return new Promise(resolve => setTimeout(resolve, 5000));
     });
 
-    // Add listener to "Proceed to Checkout" button
-    $('.woocommerce-checkout-button').on('click', function () {
+    
+    // Add listener to "Proceed to Checkout" link
+    $('.wc-block-cart__submit-button').on('click', function () {
         // Display product info and metadata
         console.log('Product info and metadata:');
         console.log('Product name:', $('.product_title').text());
