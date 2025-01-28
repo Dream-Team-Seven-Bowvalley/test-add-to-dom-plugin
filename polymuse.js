@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
 
     
     // Add listener to "Proceed to Checkout" link
-    $('.wc-block-cart__submit-button').on('click', function () {
+    $('a[href*="checkout"]').on('click', function () {
         // Display product info and metadata
         console.log('Product info and metadata:');
         console.log('Product name:', $('.product_title').text());
