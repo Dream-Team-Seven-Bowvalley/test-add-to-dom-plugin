@@ -128,11 +128,12 @@ function polymuse_add_model_viewer_script()
 }
 
 // Add hidden input field for product color variation
-function add_hidden_input_field_color_variation($form_html) {
+function add_hidden_input_field_color_variation($form_html)
+{
     ?>
     <input type="hidden" id="product_color_variation" name="product_color_variation" value="">
     <?php
-  }
+}
 
 // Update product variation based on the selected color
 function update_product_variation($cart_item_data, $product_id)
@@ -143,13 +144,23 @@ function update_product_variation($cart_item_data, $product_id)
     }
     return $cart_item_data;
 }
+
 // Display variation data in the cart
 function display_variation_data($item_name, $cart_item, $cart_item_key)
 {
+    error_log('Displaying variation data for item: ' . $item_name);
+    error_log('Cart item data: ');
+    error_log(print_r($cart_item, true));
+    
     if (isset($cart_item['color_variation_id'])) {
+        error_log('Color variation ID found: ' . $cart_item['color_variation_id']);
         $product = wc_get_product($cart_item['color_variation_id']);
         $item_name .= ' - ' . $product->get_attribute('color');
+        error_log('Updated item name: ' . $item_name);
+    } else {
+        error_log('Color variation ID not found');
     }
+    
     return $item_name;
 }
 
@@ -188,8 +199,8 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
         add_filter('woocommerce_cart_item_name', 'display_variation_data', 10, 3);
-        add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
-        add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
+        // add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
+        // add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
 
     }
 }
