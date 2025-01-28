@@ -146,19 +146,19 @@ function update_product_variation($cart_item_data, $product_id)
 }
 
 // Display variation data in the cart
+// Display variation data in the cart
 function display_variation_data($item_name, $cart_item, $cart_item_key)
 {
     error_log('Displaying variation data for item: ' . $item_name);
     error_log('Cart item data: ');
     error_log(print_r($cart_item, true));
     
-    if (isset($cart_item['color_variation_id'])) {
-        error_log('Color variation ID found: ' . $cart_item['color_variation_id']);
-        $product = wc_get_product($cart_item['color_variation_id']);
-        $item_name .= ' - ' . $product->get_attribute('color');
+    if (isset($cart_item['color_variation'])) {
+        error_log('Color variation found: ' . $cart_item['color_variation']);
+        $item_name .= ' - ' . $cart_item['color_variation'];
         error_log('Updated item name: ' . $item_name);
     } else {
-        error_log('Color variation ID not found');
+        error_log('Color variation not found');
     }
     
     return $item_name;
