@@ -146,32 +146,16 @@ function update_product_variation($cart_item_data, $product_id)
 }
 
 // Display variation data in the cart
-// Display variation data in the cart
-function display_variation_data($item_name, $cart_item, $cart_item_key)
+function add_color_info_to_cart_item_name($item_name, $cart_item, $cart_item_key)
 {
-    error_log('Displaying variation data for item: ' . $item_name);
-    error_log('Cart item data: ');
-    error_log(print_r($cart_item, true));
-
     if (isset($cart_item['color_variation'])) {
-        error_log('Color variation found: ' . $cart_item['color_variation']);
-        $item_name .= ' - ' . $cart_item['color_variation'];
-        error_log('Updated item name: ' . $item_name);
-    } else {
-        error_log('Color variation not found');
+        $color_info = '<span class="color-info">Color: ' . $cart_item['color_variation'] . '</span>';
+        $item_name = $item_name . $color_info;
     }
-
     return $item_name;
 }
 
-// Add variation data to order item meta// Display variant color info on cart page
-function display_variant_color_info($cart_item, $cart_item_key) {
-    if (isset($cart_item['color_variation'])) {
-      echo '<p>Color: ' . $cart_item['color_variation'] . '</p>';
-    }
-  }
 
- 
 // Display variation data in the order email
 function display_variation_data_in_email($item_meta, $item)
 {
@@ -198,7 +182,7 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-        add_action('woocommerce_cart_item_name_after', 'display_variant_color_info', 10, 2);
+        add_filter('woocommerce_cart_item_name', 'add_color_info_to_cart_item_name', 10, 3);
         add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
         add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
 
