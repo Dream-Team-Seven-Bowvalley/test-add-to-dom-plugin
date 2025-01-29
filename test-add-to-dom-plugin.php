@@ -147,11 +147,6 @@ function add_look_at_me_heading()
     echo '<h1 style="font-size: 10px;">Look at me</h1>';
 }
 
-function add_look_at_me_to_cart_item_name($item_name, $cart_item, $cart_item_key)
-{
-    $item_name .= '<br><small>Look at me</small>';
-    return $item_name;
-}
 
 
 
@@ -202,7 +197,7 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
-        add_filter('woocommerce_cart_item_name', 'add_look_at_me_to_cart_item_name', 10, 3);
+        add_filter('woocommerce_cart_item_name', 'add_look_at_me_heading', 10, 3);
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
