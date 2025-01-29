@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
     $('.circle-button').on('click', function () {
         var color = $(this).attr('data-color'); // Use data-color instead of id
         $('#product_color_variation').val(color); 
-        $('#attrubute_color').val(color);
+        $('#color').val(color);
     });
 
     // Ensure the 3D model slide is the same height as other slides
