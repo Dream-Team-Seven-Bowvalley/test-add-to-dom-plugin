@@ -155,20 +155,20 @@ function add_js_to_dom()
                 $(this).addClass("selected");
             });
 
-            // Handle hover on "Add to Cart" button (trigger change on hover)
-            $(document).on("mouseenter", ".single_add_to_cart_button", function () {
-                console.log("Hovered over Add to Cart button!");
+            // // Handle hover on "Add to Cart" button (trigger change on hover)
+            // $(document).on("mouseenter", ".single_add_to_cart_button", function () {
+            //     console.log("Hovered over Add to Cart button!");
 
-                // Get the current color selection (to avoid overwriting it)
-                const currentColor = $('select[name="attribute_color"]').val();
-                console.log("Current color before hovering:", currentColor);
+            //     // Get the current color selection (to avoid overwriting it)
+            //     const currentColor = $('select[name="attribute_color"]').val();
+            //     console.log("Current color before hovering:", currentColor);
 
-                // Set the value of the select element and trigger the change event
-                if ($colorSelect.length && currentColor) {
-                    console.log('Triggering change for color:', currentColor);
-                    $colorSelect.val(currentColor).trigger('change');
-                }
-            });
+            //     // Set the value of the select element and trigger the change event
+            //     if ($colorSelect.length && currentColor) {
+            //         console.log('Triggering change for color:', currentColor);
+            //         $colorSelect.val(currentColor).trigger('change');
+            //     }
+            // });
 
         });
     </script>
