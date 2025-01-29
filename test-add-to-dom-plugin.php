@@ -138,6 +138,7 @@ function update_product_variation($cart_item_data, $product_id)
         $color_variation = $_POST['product_color_variation'];
         $cart_item_data['product_color_variation'] = $color_variation;
     }
+    error_log('Cart item data: ' . print_r($cart_item_data, true));
     return $cart_item_data;
 }
 
