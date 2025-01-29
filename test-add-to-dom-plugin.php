@@ -38,6 +38,11 @@ function add_buttons()
                 <button class="circle-button plastic-button" id="plastic-border-button"></button>
             </div>
             <br />
+            <select id="color" name="attribute_color" class="polymuse-color-select">
+                <option value="">Choose an option</option>
+                <option value="Red" class="attached enabled">Red</option>
+                <option value="Green" class="attached enabled">Green</option>
+            </select>
         </div>
         <?php
 
