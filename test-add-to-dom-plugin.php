@@ -181,6 +181,11 @@ function bbloomer_woocommerce_cart_block_do_actions($block_content, $block)
     return $block_content;
 }
 
+function logCartItems()
+{
+    $cart = WC()->cart->get_cart();
+    error_log('Cart items: ' . print_r($cart, true));
+}
 
 function test_add_to_dom_plugin()
 {
@@ -194,7 +199,8 @@ function test_add_to_dom_plugin()
         add_filter('render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2);// Work around to edit cart page
 
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');        
+        add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading'); 
+        add_action('bbloomer_bofroe_woocommerce/cart-line-items-block', 'logCartItems');       
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
