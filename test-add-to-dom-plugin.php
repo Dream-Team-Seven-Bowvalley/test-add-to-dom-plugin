@@ -148,6 +148,7 @@ function update_product_variation($cart_item_data, $product_id)
 // Display variation data in the cart
 function add_color_info_to_cart_item_name($item_name, $cart_item, $cart_item_key)
 {
+    error_log('Cart Item: ' . print_r($cart_item, true));
     if (isset($cart_item['product_color_variation'])) {
         $color_info = '<span class="color-info">Color: ' . $cart_item['product_color_variation'] . '</span>';
         $item_name = $item_name . $color_info;
