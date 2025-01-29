@@ -156,13 +156,13 @@ function add_js_to_dom()
             const $colorSelect = $("select[name='attribute_color']");
 
             // Hide color select element if it exists
-            $colorSelect.parent().hide();
-            
+            $colorSelect.hide();
+
             // Add paragraph to display color value
-            $('<p>Selected Color: <span class="selected-color"></span></p>').insertAfter('.circle-buttons-container:first');
+            $('<p><strong><span class="selected-color"></span></strong></p>').insertAfter('.circle-buttons-container:first');
 
             // Update paragraph when color is selected
-            $(".circle-button[data-color]").on("click", function() {
+            $(".circle-button[data-color]").on("click", function () {
                 const color = $(this).data("color");
                 $('.selected-color').text(color);
             });
