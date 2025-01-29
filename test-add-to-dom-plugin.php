@@ -130,58 +130,57 @@ function add_js_to_dom()
     <script>
         console.log('DOM is ready');
         jQuery(function ($) {
-            // Find the select element for color and texture
+            console.log('DOM is ready');
+
             const $colorSelect = $("select[name='attribute_color']");
+            const $form = $(".variations_form");
 
-            // Get all gallery images
-            const $galleryImages = $(".woocommerce-product-gallery__image");
+            // Ensure WooCommerce variation update works
+            function updateVariation(color) {
+                console.log("Updating variation for color:", color);
 
-            // Get the model viewer element inside the gallery
-            const $modelViewer = $(".polymuse-model-viewer");
+                // Set dropdown value and trigger change event
+                $colorSelect.val(color).trigger("change");
 
-            // Handle color selection
-            $(".circle-button").on("click", function () {
-                const colorValue = $(this).data("color");
-                // Get the color from the id of the clicked button
-                const buttonId = $(this).attr('id');
-                const color = buttonId.replace('-border-button', '');
-                console.log('Color selected:', color);
+                // Find the variation data
+                let variations = $form.data("product_variations");
+                let selectedVariation = variations.find(v => v.attributes.attribute_color === color);
 
-                // Set the select value if it exists
-                if ($colorSelect.length) {
-                    // Capitalize first letter to match select options
-                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                    $colorSelect.val(capitalizedColor).trigger('change');
+                if (selectedVariation) {
+                    console.log("Found variation:", selectedVariation);
+
+                    // Update WooCommerce variation ID field
+                    $form.find('input[name="variation_id"], input.variation_id').val(selectedVariation.variation_id).trigger("change");
+
+                    // Trigger WooCommerce events to properly update pricing, stock, etc.
+                    $form.trigger("woocommerce_variation_has_changed");
+                } else {
+                    console.log("No matching variation found for color:", color);
                 }
+            }
 
-                // Update the button selection (highlight the selected button)
+            // Handle button clicks to change color
+            $(".circle-button").on("click", function () {
+                const color = $(this).data("color").charAt(0).toUpperCase() + $(this).data("color").slice(1); // Capitalize
+                console.log("Color button clicked:", color);
+
+                // Update variation without changing the image
+                updateVariation(color);
+
+                // Highlight the selected button
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
             });
 
-            // Override the event listener for color selection
-            $("select[name='attribute_color']").on("change", function () {
-                let selectedColor = $(this).val(); // Get the selected color
-                let variations = $(".variations_form").data("product_variations"); // Get WooCommerce variations data
-                let selectedVariation = variations.find(v => v.attributes.attribute_color === selectedColor);
-
-                if (selectedVariation) {
-                    $(".variation_id").val(selectedVariation.variation_id); // Set correct variation ID
-                }
-
-                // **Prevent WooCommerce from updating the image**
-                $(".woocommerce-product-gallery__image img").attr("src", defaultImageSrc);
-
-                // **Update the displayed text inside the dropdown (optional)**
-                if (selectedColor) {
-                    $("select[name='attribute_color'] option:first").text(selectedColor);
-                } else {
-                    $("select[name='attribute_color'] option:first").text("Choose an option");
-                }
+            // Handle dropdown change (if user manually selects from dropdown)
+            $colorSelect.on("change", function () {
+                const selectedColor = $(this).val();
+                console.log("Dropdown changed to:", selectedColor);
+                updateVariation(selectedColor);
             });
-
-
         });
+
+
     </script>
     <?php
 }
