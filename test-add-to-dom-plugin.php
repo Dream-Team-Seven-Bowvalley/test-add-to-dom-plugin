@@ -169,7 +169,7 @@ function add_js_to_dom()
             });
 
             $(document).on("hover", ".single_add_to_cart_button", function (e) {
-                e.preventDefault();
+                // e.preventDefault();
                 console.log("Add to Cart button clicked!");
 
                 const $form = $(this).closest('form');
@@ -181,7 +181,7 @@ function add_js_to_dom()
                 // Set back to original color and submit form
 
                 $('select[name="attribute_color"]').val(currentColor).trigger('change');
-                $form.submit();
+                // $form.submit();
 
             });
         });
