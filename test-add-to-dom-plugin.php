@@ -171,6 +171,7 @@ function add_js_to_dom()
                     console.log("Add to Cart button clicked!");
                 });
             });
+        });
     </script>
     <?php
 }
