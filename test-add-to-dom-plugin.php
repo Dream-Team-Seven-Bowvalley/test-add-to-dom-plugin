@@ -153,6 +153,8 @@ function add_js_to_dom()
                 // Highlight selected button
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
+                // Trigger the change event on the select element
+                $colorSelect.trigger('change');
             });
 
             // // Handle hover on "Add to Cart" button (trigger change on hover)
