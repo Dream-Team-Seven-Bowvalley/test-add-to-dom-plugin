@@ -168,10 +168,6 @@ function add_js_to_dom()
                 }
             });
 
-            // Optional: Reset color selection if necessary after hovering
-            $(document).on("mouseleave", ".single_add_to_cart_button", function () {
-                console.log("Hovered out from Add to Cart button.");
-            });
         });
     </script>
 
