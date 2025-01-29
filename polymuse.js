@@ -22,17 +22,8 @@ jQuery(document).ready(function ($) {
     $('a[href*="checkout"]').on('click', function () {
         // Display product info and metadata
         // Display all product metadata and pause
-        console.log('Product Information:');
-        console.log({
-            name: $('.product_title').text(),
-            price: $('.price').text(),
-            color: $('#product_color_variation').val(),
-            sku: $('.sku').text(),
-            category: $('.posted_in').text()
-        });
+        console.log('Product Information:');        
         console.log('Product name:', $('.product_title').text());
-        console.log('Product price:', $('.price').text());
-        console.log('Product color variation:', $('.color_variation').val());       
     });
 
     // Run on page load and when the window is resized
