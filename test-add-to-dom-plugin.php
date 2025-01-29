@@ -124,12 +124,11 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_js_to_dom()
-{
+function add_js_to_dom() {
     ?>
     <script>
-        jQuery(document).ready(function ($) {
-            console.log('DOM is ready');
+        console.log('DOM is ready');
+        jQuery(function($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
             const $textureSelect = $("select[name='attribute_texture']");
@@ -223,8 +222,7 @@ function test_add_to_dom_plugin()
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
-        add_action('wp_footer', 'add_js_to_dom');
-
+        add_action('wp_footer', 'add_js_to_dom');     
 
     }
 }
