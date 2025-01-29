@@ -86,6 +86,10 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     error_log('Model URL: ' . $model_url);
 
     if (!empty($model_url)) {
+        // Hide default placeholder image
+        if (strpos($html, 'woocommerce-product-gallery__image--placeholder') !== false) {
+            return '';
+        }
         // Create thumbnail URL for the 3D model
         $model_thumbnail_url = plugins_url('3d.webp', __FILE__);
         error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
