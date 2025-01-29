@@ -161,7 +161,7 @@ function add_js_to_dom()
             $colorSelect.hide();
 
             // Add to paragraph to display color value
-            $('<p style="margin-bottom: 0; vertical-align: bottom;"><span class="selected-color"></span></p>').insertAfter('select[name="attribute_color"]');
+            $('<label style="margin-bottom: 0; vertical-align: bottom;"><span class="selected-color"></span></label>').insertAfter('select[name="attribute_color"]');
 
             // Update paragraph when color is selected
             $(".circle-button[data-color]").on("click", function () {
