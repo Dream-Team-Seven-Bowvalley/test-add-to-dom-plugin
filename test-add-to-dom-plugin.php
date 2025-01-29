@@ -139,15 +139,15 @@ function update_product_variation($cart_item_data, $product_id)
 {
     if (isset($_POST['product_color_variation'])) {
         $variation_id = $_POST['product_color_variation'];
-        $cart_item_data['color_variation_id'] = $variation_id;
+        $cart_item_data['product_color_variation'] = $variation_id;
     }
     return $cart_item_data;
 }
 // Display variation data in the cart
 function display_variation_data($item_name, $cart_item, $cart_item_key)
 {
-    if (isset($cart_item['color_variation_id'])) {
-        $product = wc_get_product($cart_item['color_variation_id']);
+    if (isset($cart_item['product_color_variation'])) {
+        $product = wc_get_product($cart_item['product_color_variation']);
         $item_name .= ' - ' . $product->get_attribute('color');
     }
     return $item_name;
