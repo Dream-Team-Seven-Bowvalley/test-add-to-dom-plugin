@@ -157,17 +157,20 @@ function add_js_to_dom()
                 // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
-            });
 
-            // Override the event listener for color selection
-            $('select[name="attribute_color"]').on('change', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
 
-                // Get the selected color value
-                const colorValue = $(this).val();
+                   // Override the event listener for color selection
+                $('select[name="attribute_color"]').on('change', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    // Get the selected color value
+                    const colorValue = $(this).val();
+
+
+                });
+            );
             });
-        });
     </script>
     <?php
 }
