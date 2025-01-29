@@ -157,36 +157,25 @@ function add_js_to_dom()
                 // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
+
+
+                // Override the event listener for color selection
+                $('select[name="attribute_color"]').on('change', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    // Get the selected color value
+                    const colorValue = $(this).val();
+                });
+                $(document).on("click", ".single_add_to_cart_button", function () {
+                    console.log("Add to Cart button clicked!");
+                });
             });
-
-            // Override the event listener for color selection
-            $("select[name='attribute_color']").on("change", function () {
-                let selectedColor = $(this).val(); // Get the selected color
-                let variations = $(".variations_form").data("product_variations"); // Get WooCommerce variations data
-                let selectedVariation = variations.find(v => v.attributes.attribute_color === selectedColor);
-
-                if (selectedVariation) {
-                    $(".variation_id").val(selectedVariation.variation_id); // Set correct variation ID
-                }
-
-                // **Prevent WooCommerce from updating the image**
-                $(".woocommerce-product-gallery__image img").attr("src", defaultImageSrc);
-
-                // **Update the displayed text inside the dropdown (optional)**
-                if (selectedColor) {
-                    $("select[name='attribute_color'] option:first").text(selectedColor);
-                } else {
-                    $("select[name='attribute_color'] option:first").text("Choose an option");
-                }
-            });
-            $(document).on("click", ".single_add_to_cart_button", function () {
-                console.log("Add to Cart button clicked!");
-            });
-
-        });
     </script>
     <?php
 }
+
+
 
 function add_look_at_me_heading()
 {
