@@ -130,15 +130,14 @@ function add_js_to_dom()
     <script>
         console.log('DOM is ready');
         jQuery(function ($) {
-            // Override the event listener for color selection
-            $('select[name="attribute_color"]').on('change', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
+            // Find the select element for color and texture
+            const $colorSelect = $("select[name='attribute_color']");
 
-                // Get the selected color value
-                const colorValue = $(this).val();
-            });
+            // Get all gallery images
+            const $galleryImages = $(".woocommerce-product-gallery__image");
 
+            // Get the model viewer element inside the gallery
+            const $modelViewer = $(".polymuse-model-viewer");
 
             // Handle color selection
             $(".circle-button").on("click", function () {
@@ -158,14 +157,23 @@ function add_js_to_dom()
                 // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
-            });
 
 
+                // Override the event listener for color selection
+                $('select[name="attribute_color"]').on('change', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
 
+                    // Get the selected color value
+                    const colorValue = $(this).val();
+                });
+                
         });
     </script>
     <?php
 }
+
+
 
 function add_look_at_me_heading()
 {
