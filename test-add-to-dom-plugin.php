@@ -44,6 +44,7 @@ function add_buttons()
     }
 }
 
+// Add Placeholder image to product to hide later to make selection stay on the model
 // Set Product image as placeholder using local image
 function set_default_placeholder_product_image_from_url($post_id)
 {
