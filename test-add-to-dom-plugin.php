@@ -179,7 +179,9 @@ function add_js_to_dom()
                     $("select[name='attribute_color'] option:first").text("Choose an option");
                 }
             });
-
+            $(document).on("click", ".single_add_to_cart_button", function () {
+                console.log("Add to Cart button clicked!");
+            });
 
         });
     </script>
