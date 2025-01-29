@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
         $('#product_color_variation').val(color);
 
         // Update select option
-        $('#color').val(capitalColor).change(); // Change event ensures UI updates properly
+        // $('#color').val(capitalColor).change(); // Change event ensures UI updates properly
 
         // If WooCommerce uses a custom UI, trigger an event
         $('#color').trigger('change').trigger('select2:select');
