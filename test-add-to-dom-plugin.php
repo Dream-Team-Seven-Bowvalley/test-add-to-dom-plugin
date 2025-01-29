@@ -157,9 +157,12 @@ function add_js_to_dom()
 
             // Hide color select element if it exists
             $colorSelect.hide();
+            // Hide color select element if it exists
+            $colorSelect.hide();
 
-            // Add paragraph to display color value
-            $('<p><strong><span class="selected-color"></span></strong></p>').insertAfter('select[name="attribute_color"]');
+            // Add to display color value and style it for alignment paragraph
+            $('<p style="margin: 0; display: inline-block;"><strong><span class="selected-color"></span></strong></p>').insertAfter('select[name="attribute_color"]'); to display color value
+            $('<p><span class="selected-color"></span></p>').insertAfter('select[name="attribute_color"]');
 
             // Update paragraph when color is selected
             $(".circle-button[data-color]").on("click", function () {
@@ -223,6 +226,7 @@ function test_add_to_dom_plugin()
 }
 
 test_add_to_dom_plugin();
+
 
 
 
