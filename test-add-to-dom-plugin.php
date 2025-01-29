@@ -155,12 +155,15 @@ function update_product_variation($cart_item_data, $product_id)
 }
 
 // Display selected color variation on cart page
-function display_color_variation_on_cart_page($item_name, $cart_item, $cart_item_key) {
-    if (isset($cart_item['product_color_variation'])) {
-        $color_variation = $cart_item['product_color_variation'];
-        $item_name .= '<br><small>Color: ' . esc_html($color_variation) . '</small>';
+function display_color_info_on_cart_page()
+{
+    $cart_contents = WC()->cart->get_cart();
+    foreach ($cart_contents as $cart_item_key => $cart_item) {
+        if (isset($cart_item['product_color_variation'])) {
+            $color_variation = $cart_item['product_color_variation'];
+            echo '<p>Product: ' . $cart_item['data']->get_name() . ', Color: ' . $color_variation . '</p>';
+        }
     }
-    return $item_name;
 }
 
 
@@ -182,9 +185,9 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
-       
+
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-        add_filter('woocommerce_cart_item_name', 'display_color_variation_on_cart_page', 10, 3);
+        add_action('woocommerce_cart_contents', 'display_color_info_on_cart_page');
 
     }
 }
