@@ -105,7 +105,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '</div>';
 
              // Hide default placeholder image
-            // $html = '<style>.woocommerce-product-gallery__image:first-child { display: none; }</style>';
+            $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
         }
