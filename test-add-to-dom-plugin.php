@@ -201,7 +201,7 @@ function test_add_to_dom_plugin()
         add_filter( 'render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2 );// Work around to edit cart page
 
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        add_filter('woocommerce_cart_item_name', 'add_color_choice_to_cart_item_name', 10, 3);
+        add_filter('woocommerce/cart-line-items-block', 'add_color_choice_to_cart_item_name', 10, 3);
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
