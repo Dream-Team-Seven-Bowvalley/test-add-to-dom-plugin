@@ -131,33 +131,23 @@ function add_js_to_dom() {
         jQuery(function($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
-            const $textureSelect = $("select[name='attribute_texture']");
 
             // Handle color selection
             $(".circle-button").on("click", function () {
                 const colorValue = $(this).data("color");
+                // Get the color from the id of the clicked button
+                const buttonId = $(this).attr('id');
+                const color = buttonId.replace('-border-button', '');
+                console.log('Color selected:', color);
 
-                if (colorValue && $colorSelect.length) {
-                    $colorSelect.val(colorValue).trigger("change"); // Update value and trigger change event
-
-                    // Remove selected class from other buttons
-                    $(".circle-button").removeClass("selected");
-                    $(this).addClass("selected"); // Highlight the selected button
+                // Set the select value if it exists
+                if ($colorSelect.length) {
+                    $colorSelect.val(color).trigger('change');
+             
                 }
             });
 
-            // Handle texture selection
-            $(".circle-buttons-container .circle-button").on("click", function () {
-                const textureValue = $(this).attr("id").replace("-border-button", ""); // Extract texture name
-
-                if (textureValue && $textureSelect.length) {
-                    $textureSelect.val(textureValue).trigger("change"); // Update value and trigger change event
-
-                    // Remove selected class from other texture buttons
-                    $(".circle-buttons-container .circle-button").removeClass("selected");
-                    $(this).addClass("selected"); // Highlight the selected texture button
-                }
-            });
+          
         });
     </script>
     <?php
