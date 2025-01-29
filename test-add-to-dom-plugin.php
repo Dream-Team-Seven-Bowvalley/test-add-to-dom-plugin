@@ -112,15 +112,11 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     return $html;
 }
 
-
-
-
 function polymuse_enqueue_assets()
 {
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
     wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
-
 
 function polymuse_add_model_viewer_script()
 {
@@ -145,6 +141,15 @@ function update_product_variation($cart_item_data, $product_id)
     return $cart_item_data;
 }
 
+// Display selected color variation on cart page
+function display_color_variation_on_cart_page($item_name, $cart_item, $cart_item_key) {
+    if (isset($cart_item['product_color_variation'])) {
+        $color_variation = $cart_item['product_color_variation'];
+        $item_name .= '<br><small>Color: ' . esc_html($color_variation) . '</small>';
+    }
+    return $item_name;
+}
+
 
 function test_add_to_dom_plugin()
 {
@@ -164,10 +169,7 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-        // add_filter('woocommerce_cart_item_name', 'add_color_info_to_cart_item_name', 10, 3);
-        
-        // add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
-        // add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
+        add_filter('woocommerce_cart_item_name', 'display_color_variation_on_cart_page', 10, 3);
 
     }
 }
