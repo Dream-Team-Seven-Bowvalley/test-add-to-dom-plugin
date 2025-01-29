@@ -124,11 +124,12 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_js_to_dom() {
+function add_js_to_dom()
+{
     ?>
     <script>
         console.log('DOM is ready');
-        jQuery(function($) {
+        jQuery(function ($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
 
@@ -157,11 +158,19 @@ function add_js_to_dom() {
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
 
-              
-             
+
+                    Override the event listener for color selection
+                $('select[name="attribute_color"]').on('change', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    // Get the selected color value
+                    const colorValue = $(this).val();
+
+
+                });
+
             });
-          
-        });
     </script>
     <?php
 }
