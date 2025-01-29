@@ -160,6 +160,7 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        add_action('woocommerce_before_add_to_cart_form', 'add_look_at_me_heading'); // Hook into product page
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
@@ -169,12 +170,10 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-
-        add_action('woocommerce_before_cart_table', 'add_look_at_me_heading');
     }
 }
 
-test_add_to_dom_plugin();
+test_add_to_dom_plugin()
 
 
 
