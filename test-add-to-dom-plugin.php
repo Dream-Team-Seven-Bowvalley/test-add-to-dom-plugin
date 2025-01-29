@@ -65,6 +65,14 @@ function set_default_placeholder_product_image_from_url($post_id)
     }
 }
 
+// Disable remove product image option
+function remove_remove_image_link($fields)
+{
+    unset($fields['remove_product_image']);
+    return $fields;
+}
+
+
 // Add custom field to product editor
 function polymuse_custom_field()
 {
@@ -176,7 +184,7 @@ function add_js_to_dom()
                 $(this).addClass("selected");
                 // Trigger the change event on the select element
                 $colorSelect.trigger('change');
-            });          
+            });
 
         });
     </script>
@@ -239,6 +247,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
+        add_filter('woocommerce_product_image_fields', 'remove_remove_image_link');
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
