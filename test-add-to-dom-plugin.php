@@ -131,71 +131,44 @@ function add_js_to_dom() {
         jQuery(function($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
+
+            // Get all gallery images
             const $galleryImages = $(".woocommerce-product-gallery__image");
+
+            // Get the model viewer element inside the gallery
             const $modelViewer = $(".polymuse-model-viewer");
-            
-            // Handle color selection (show model viewer and change image)
+
+            // Handle color selection
             $(".circle-button").on("click", function () {
                 const colorValue = $(this).data("color");
+                // Get the color from the id of the clicked button
                 const buttonId = $(this).attr('id');
                 const color = buttonId.replace('-border-button', '');
                 console.log('Color selected:', color);
 
                 // Set the select value if it exists
                 if ($colorSelect.length) {
+                    // Capitalize first letter to match select options
                     const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
                     $colorSelect.val(capitalizedColor).trigger('change');
                 }
 
-                // Update the button selection
+                // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
 
-                // Hide all gallery images and show model viewer
-                $galleryImages.hide();
+                // Hide all gallery images
+                // $galleryImages.hide();
+
+                // Show the model viewer
                 $modelViewer.show();
-
-                // Change the model src based on the selected color
-                if (color === "green") {
-                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_GREEN_MODEL.glb');
-                } else if (color === "red") {
-                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_RED_MODEL.glb');
-                } else if (color === "blue") {
-                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_BLUE_MODEL.glb');
-                }
-
-                // Change the thumbnail image source for the selected color
-                const newImageSrc = "http://10.0.0.219/wp-content/uploads/2025/01/" + color + "-image.webp";  // Adjust for the specific images
-                $galleryImages.each(function () {
-                    $(this).find('a').attr('href', newImageSrc);
-                    $(this).find('img').attr('src', newImageSrc);
-                    $(this).find('img').attr('data-large_image', newImageSrc);
-                    $(this).find('img').attr('data-src', newImageSrc);
-                });
+             
             });
-
-            // When a thumbnail image is clicked, show the image and hide the model viewer
-            $galleryImages.on('click', function (e) {
-                e.preventDefault();  // Prevent default link action (image zoom)
-                
-                const imageSrc = $(this).find('a').attr('href'); // Get the full image URL from the anchor
-                const thumbnail = $(this).find('img');
-                
-                // Show the image and hide model viewer
-                $modelViewer.hide();
-                $galleryImages.show();
-
-                // Update the large image display
-                $('.woocommerce-product-gallery__image a').attr('href', imageSrc);
-                $('.woocommerce-product-gallery__image img').attr('src', imageSrc);
-                $('.woocommerce-product-gallery__image img').attr('data-large_image', imageSrc);
-                $('.woocommerce-product-gallery__image img').attr('data-src', imageSrc);
-            });
+          
         });
     </script>
     <?php
 }
-
 
 
 
