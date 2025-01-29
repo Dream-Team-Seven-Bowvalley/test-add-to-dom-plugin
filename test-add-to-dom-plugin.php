@@ -140,12 +140,6 @@ function add_js_to_dom() {
 
             // Override the event listener for color selection
             $('select[name="attribute_color"]').on('change', function(event) {
-                // Check if the "Add to Cart" button is clicked
-                if ($('button.single_add_to_cart_button').is(':focus')) {
-                    // Allow the default behavior
-                    return true;
-                }
-
                 event.preventDefault();
                 event.stopPropagation();
                 
@@ -182,6 +176,7 @@ function add_js_to_dom() {
     </script>
     <?php
 }
+
 
 
 function add_look_at_me_heading()
