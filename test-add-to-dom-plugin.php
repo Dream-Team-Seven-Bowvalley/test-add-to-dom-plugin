@@ -170,7 +170,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
 
-        add_action('woocommerce_before_cart_contents', 'add_look_at_me_heading');
+        add_action('woocommerce_before_cart_table', 'add_look_at_me_heading');
     }
 }
 
