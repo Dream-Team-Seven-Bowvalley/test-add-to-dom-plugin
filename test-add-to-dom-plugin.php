@@ -46,23 +46,46 @@ function add_buttons()
 
 // Add Placeholder image to product to hide later to make selection stay on the model
 // Set Product image as placeholder using local image
-function set_default_placeholder_product_image_from_url($post_id)
+function set_default_placeholder_product_image_from_url($post_id = null)
 {
-    if (get_post_type($post_id) !== 'product') {
-        return;
+    // If no post ID is provided, update all products
+    if (empty($post_id)) {
+        $args = array(
+            'post_type' => 'product',
+            'posts_per_page' => -1,
+        );
+        $products = get_posts($args);
+        foreach ($products as $product) {
+            $post_id = $product->ID;
+            // URL to the placeholder image
+            $placeholder_image_url = get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png';
+
+            // Get the attachment ID from the URL
+            $attachment_id = attachment_url_to_postid($placeholder_image_url);
+
+            // Check if the product already has an image
+            if ($attachment_id) {
+                // Set the placeholder image as the product thumbnail
+                set_post_thumbnail($post_id, $attachment_id);
+            }
+        }
+    } else {
+        // URL to the placeholder image
+        $placeholder_image_url = get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png';
+
+        // Get the attachment ID from the URL
+        $attachment_id = attachment_url_to_postid($placeholder_image_url);
+
+        // Check if the product already has an image
+        if ($attachment_id) {
+            // Set the placeholder image as the product thumbnail
+            set_post_thumbnail($post_id, $attachment_id);
+        }
     }
-
-    // URL to the placeholder image
-    $placeholder_image_url = get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png';
-
-    // Get the attachment ID from the URL
-    $attachment_id = attachment_url_to_postid($placeholder_image_url);
-
-    // Check if the product already has an image
-    if (!has_post_thumbnail($post_id) && $attachment_id) {
-        // Set the placeholder image as the product thumbnail
-        set_post_thumbnail($post_id, $attachment_id);
-    }
+}
+function activate_test_add_to_dom_plugin()
+{
+    set_default_placeholder_product_image_from_url();
 }
 
 // Add custom field to product editor
@@ -178,21 +201,6 @@ function add_js_to_dom()
                 $colorSelect.trigger('change');
             });
 
-            // // Handle hover on "Add to Cart" button (trigger change on hover)
-            // $(document).on("mouseenter", ".single_add_to_cart_button", function () {
-            //     console.log("Hovered over Add to Cart button!");
-
-            //     // Get the current color selection (to avoid overwriting it)
-            //     const currentColor = $('select[name="attribute_color"]').val();
-            //     console.log("Current color before hovering:", currentColor);
-
-            //     // Set the value of the select element and trigger the change event
-            //     if ($colorSelect.length && currentColor) {
-            //         console.log('Triggering change for color:', currentColor);
-            //         $colorSelect.val(currentColor).trigger('change');
-            //     }
-            // });
-
         });
     </script>
 
@@ -249,12 +257,13 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
 
+
+        register_activation_hook(__FILE__, 'activate_test_add_to_dom_plugin');
         // add_filter('render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2);// Work around to edit cart page
         // add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
-
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
