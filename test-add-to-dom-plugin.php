@@ -46,46 +46,23 @@ function add_buttons()
 
 // Add Placeholder image to product to hide later to make selection stay on the model
 // Set Product image as placeholder using local image
-function set_default_placeholder_product_image_from_url($post_id = null)
+function set_default_placeholder_product_image_from_url($post_id)
 {
-    // If no post ID is provided, update all products
-    if (empty($post_id)) {
-        $args = array(
-            'post_type' => 'product',
-            'posts_per_page' => -1,
-        );
-        $products = get_posts($args);
-        foreach ($products as $product) {
-            $post_id = $product->ID;
-            // URL to the placeholder image
-            $placeholder_image_url = get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png';
-
-            // Get the attachment ID from the URL
-            $attachment_id = attachment_url_to_postid($placeholder_image_url);
-
-            // Check if the product already has an image
-            if ($attachment_id) {
-                // Set the placeholder image as the product thumbnail
-                set_post_thumbnail($post_id, $attachment_id);
-            }
-        }
-    } else {
-        // URL to the placeholder image
-        $placeholder_image_url = get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png';
-
-        // Get the attachment ID from the URL
-        $attachment_id = attachment_url_to_postid($placeholder_image_url);
-
-        // Check if the product already has an image
-        if ($attachment_id) {
-            // Set the placeholder image as the product thumbnail
-            set_post_thumbnail($post_id, $attachment_id);
-        }
+    if (get_post_type($post_id) !== 'product') {
+        return;
     }
-}
-function activate_test_add_to_dom_plugin()
-{
-    set_default_placeholder_product_image_from_url();
+
+    // URL to the placeholder image
+    $placeholder_image_url = get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png';
+
+    // Get the attachment ID from the URL
+    $attachment_id = attachment_url_to_postid($placeholder_image_url);
+
+    // Check if the product already has an image
+    if (!has_post_thumbnail($post_id) && $attachment_id) {
+        // Set the placeholder image as the product thumbnail
+        set_post_thumbnail($post_id, $attachment_id);
+    }
 }
 
 // Add custom field to product editor
@@ -199,7 +176,7 @@ function add_js_to_dom()
                 $(this).addClass("selected");
                 // Trigger the change event on the select element
                 $colorSelect.trigger('change');
-            });
+            });          
 
         });
     </script>
@@ -257,8 +234,6 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
 
-
-        register_activation_hook(__FILE__, 'activate_test_add_to_dom_plugin');
         // add_filter('render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2);// Work around to edit cart page
         // add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
