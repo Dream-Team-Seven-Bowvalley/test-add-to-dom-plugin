@@ -141,48 +141,48 @@ function add_js_to_dom()
 
             // Handle color selection
             $(".circle-button").on("click", function () {
-            const colorValue = $(this).data("color");
-            // Get the color from the id of the clicked button
-            const buttonId = $(this).attr('id');
-            const color = buttonId.replace('-border-button', '');
-            console.log('Color selected:', color);
+                const colorValue = $(this).data("color");
+                // Get the color from the id of the clicked button
+                const buttonId = $(this).attr('id');
+                const color = buttonId.replace('-border-button', '');
+                console.log('Color selected:', color);
 
-            // Set the select value if it exists
-            if ($colorSelect.length) {
-                // Capitalize first letter to match select options
-                const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                $colorSelect.val(capitalizedColor).trigger('change');
-            }
+                // Set the select value if it exists
+                if ($colorSelect.length) {
+                    // Capitalize first letter to match select options
+                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                    $colorSelect.val(capitalizedColor).trigger('change');
+                }
 
-            // Update the button selection (highlight the selected button)
-            $(".circle-button").removeClass("selected");
-            $(this).addClass("selected");
+                // Update the button selection (highlight the selected button)
+                $(".circle-button").removeClass("selected");
+                $(this).addClass("selected");
             });
 
             // Override the event listener for color selection
             $('select[name="attribute_color"]').on('change', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
+                event.preventDefault();
+                event.stopPropagation();
 
-            // Get the selected color value
-            const colorValue = $(this).val();
+                // Get the selected color value
+                const colorValue = $(this).val();
             });
 
-            $(document).on("click", ".single_add_to_cart_button", function (e) {
-            e.preventDefault();
-            console.log("Add to Cart button clicked!");
-            
-            const $form = $(this).closest('form');
-            const currentColor = $('select[name="attribute_color"]').val();
+            $(document).on("hover", ".single_add_to_cart_button", function (e) {
+                e.preventDefault();
+                console.log("Add to Cart button clicked!");
 
-            // Temporarily set to empty
-            $('select[name="attribute_color"]').val('').trigger('change');
+                const $form = $(this).closest('form');
+                const currentColor = $('select[name="attribute_color"]').val();
 
-            // Set back to original color and submit form
-            setTimeout(() => {
+                // Temporarily set to empty
+                $('select[name="attribute_color"]').val('').trigger('change');
+
+                // Set back to original color and submit form
+
                 $('select[name="attribute_color"]').val(currentColor).trigger('change');
                 $form.submit();
-            }, 100);
+
             });
         });
     </script>
