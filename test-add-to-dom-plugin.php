@@ -170,6 +170,16 @@ function add_js_to_dom()
 
             $(document).on("click", ".single_add_to_cart_button", function () {
                 console.log("Add to Cart button clicked!");
+                // Get current color value
+                const currentColor = $('select[name="attribute_color"]').val();
+
+                // Temporarily set to empty
+                $('select[name="attribute_color"]').val('').trigger('change');
+
+                // Set back to original color after brief delay
+
+                $('select[name="attribute_color"]').val(currentColor).trigger('change');
+
             });
         });
     </script>
