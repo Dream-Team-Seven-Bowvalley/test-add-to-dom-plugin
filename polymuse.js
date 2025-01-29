@@ -4,13 +4,14 @@ jQuery(document).ready(function ($) {
         var color = $(this).attr('data-color'); // Use data-color instead of id
         var capitalColor = capitalizeFirstLetter(color); // Capitalize the first letter
         $('#product_color_variation').val(color); 
-        $('select[name="attribute_color"]').val(capitalColor);
+        $('#color option[value="' + capitalColor + '"]').prop('selected', true);
     });
 
     // Function to capitalize the first letter of a string
     function capitalizeFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
 
 
     // Ensure the 3D model slide is the same height as other slides
