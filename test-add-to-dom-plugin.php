@@ -129,6 +129,7 @@ function add_js_to_dom()
     ?>
     <script>
         jQuery(document).ready(function ($) {
+            console.log('DOM is ready');
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
             const $textureSelect = $("select[name='attribute_texture']");
