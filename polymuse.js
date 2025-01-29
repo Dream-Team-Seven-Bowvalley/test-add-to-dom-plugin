@@ -4,8 +4,7 @@ jQuery(document).ready(function ($) {
         console.log('Button clicked!');
         var color = $(this).attr('data-color'); // Use data-color instead of id
         console.log('Color:', color);
-        $('#product_color_variation').val(color);
-        console.log('Hidden input field value:', $('#product_color_variation').val());
+       
     })
 
     // Ensure the 3D model slide is the same height as other slides
