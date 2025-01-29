@@ -142,7 +142,9 @@ function add_js_to_dom() {
 
                 // Set the select value if it exists
                 if ($colorSelect.length) {
-                    $colorSelect.val(color).trigger('change');
+                    // Capitalize first letter to match select options
+                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                    $colorSelect.val(capitalizedColor).trigger('change');
              
                 }
             });
