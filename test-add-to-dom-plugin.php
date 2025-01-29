@@ -124,11 +124,12 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_js_to_dom() {
+function add_js_to_dom()
+{
     ?>
     <script>
         console.log('DOM is ready');
-        jQuery(function($) {
+        jQuery(function ($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
 
@@ -142,15 +143,16 @@ function add_js_to_dom() {
             // $('select[name="attribute_color"]').on('change', function(event) {
             //     event.preventDefault();
             //     event.stopPropagation();
-                
+
             //     // Get the selected color value
             //     const colorValue = $(this).val();
-                
+
             //     // Update the button selection (highlight the selected button)
             //     $(".circle-button").removeClass("selected");
             //     $(".circle-button[data-color='" + colorValue.toLowerCase() + "']").addClass("selected");
             // });
 
+            // Handle color selection
             // Handle color selection
             $(".circle-button").on("click", function () {
                 const colorValue = $(this).data("color");
@@ -166,12 +168,19 @@ function add_js_to_dom() {
                     $colorSelect.val(capitalizedColor).trigger('change');
                 }
 
+                // Update the model viewer
+                const modelViewer = $(".polymuse-model-viewer");
+                if (modelViewer.length) {
+                    // Update the model viewer's src attribute
+                    const newModelUrl = "YOUR_MODEL_URL_HERE"; // Replace with the actual model URL
+                    modelViewer.find("model-viewer").attr("src", newModelUrl);
+                }
+
                 // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
-                $(this).addClass("selected");                
-             
+                $(this).addClass("selected");
             });
-          
+
         });
     </script>
     <?php
