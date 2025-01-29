@@ -142,7 +142,7 @@ function update_product_variation($cart_item_data, $product_id)
 }
 
 function add_test_paragraph_to_cart_item($item_name, $cart_item, $cart_item_key) {
-    $item_name .= '<p>This is a test</p>';
+    $item_name .= '<p>This is a big time test test</p>';
     return $item_name;
 }
 
