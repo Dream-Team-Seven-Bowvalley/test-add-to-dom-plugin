@@ -154,8 +154,6 @@ function add_js_to_dom()
         jQuery(function ($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
-            // Hide the color selector
-            $colorSelect.parent().hide();
 
             // Handle color selection with circle buttons (click)
             $(".circle-button").on("click", function () {
