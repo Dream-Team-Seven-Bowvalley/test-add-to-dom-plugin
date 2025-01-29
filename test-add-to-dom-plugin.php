@@ -158,20 +158,11 @@ function add_js_to_dom() {
                 $(this).addClass("selected");
 
                 // Hide all gallery images
-                $galleryImages.hide();
+                // $galleryImages.hide();
 
                 // Show the model viewer
                 $modelViewer.show();
-
-                // Optionally, change the model in the viewer if you have different models for colors
-                // Example: You can change the `src` attribute of the model-viewer based on the selected color
-                if (color === "green") {
-                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_GREEN_MODEL.glb');
-                } else if (color === "red") {
-                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_RED_MODEL.glb');
-                } else if (color === "blue") {
-                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_BLUE_MODEL.glb');
-                }
+             
             });
           
         });
