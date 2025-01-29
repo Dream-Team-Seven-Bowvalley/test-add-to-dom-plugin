@@ -123,6 +123,7 @@ function polymuse_add_model_viewer_script()
 {
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
+
 function add_js_to_dom()
 {
     ?>
@@ -132,14 +133,25 @@ function add_js_to_dom()
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
 
+            // Get all gallery images
+            const $galleryImages = $(".woocommerce-product-gallery__image");
+
+            // Get the model viewer element inside the gallery
+            const $modelViewer = $(".polymuse-model-viewer");
+
             // Handle color selection
             $(".circle-button").on("click", function () {
                 const colorValue = $(this).data("color");
-                console.log('Color selected:', colorValue);
+                // Get the color from the id of the clicked button
+                const buttonId = $(this).attr('id');
+                const color = buttonId.replace('-border-button', '');
+                console.log('Color selected:', color);
 
                 // Set the select value if it exists
                 if ($colorSelect.length) {
-                    $colorSelect.val(colorValue).trigger('change');
+                    // Capitalize first letter to match select options
+                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                    $colorSelect.val(capitalizedColor).trigger('change');
                 }
 
                 // Update the button selection (highlight the selected button)
@@ -147,23 +159,18 @@ function add_js_to_dom()
                 $(this).addClass("selected");
             });
 
-            // On form submission, ensure the selected color is set
-            $("form.cart").on("submit", function () {
-                const selectedButton = $(".circle-button.selected");
-                if (selectedButton.length > 0) {
-                    const colorValue = selectedButton.data("color");
+            // Override the event listener for color selection
+            $('select[name="attribute_color"]').on('change', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
 
-                    // Set the select field value if it exists
-                    if ($colorSelect.length) {
-                        $colorSelect.val(colorValue);
-                    }
-                }
+                // Get the selected color value
+                const colorValue = $(this).val();
             });
         });
     </script>
     <?php
 }
-
 
 
 
