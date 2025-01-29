@@ -151,6 +151,16 @@ function display_cart_item_custom_data($cart_item_name, $cart_item) {
     if (isset($cart_item['product_color_variation'])) {
         $color = $cart_item['product_color_variation'];
         $quantity = $cart_item['quantity'];
+        
+        // Debug output
+        error_log('Cart Item Name: ' . $cart_item_name);
+        error_log('Cart Item Data: ' . print_r($cart_item, true));
+        
+        // You can also temporarily output the HTML structure
+        echo '<div class="debug-cart-item">';
+        echo '<pre>' . htmlspecialchars(print_r($cart_item, true)) . '</pre>';
+        echo '</div>';
+        
         return sprintf('%s - Color: %s (Qty: %d)', $cart_item_name, $color, $quantity);
     }
     return $cart_item_name;
