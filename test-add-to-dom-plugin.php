@@ -147,62 +147,46 @@ function add_look_at_me_heading()
     echo '<h1 style="font-size: 10px;">Look at me</h1>';
 }
 
-function display_cart_item_custom_data($cart_item_name, $cart_item) {
-    if (isset($cart_item['product_color_variation'])) {
-        $color = $cart_item['product_color_variation'];
-        $quantity = $cart_item['quantity'];
-        
-        // Debug output
-        error_log('Cart Item Name: ' . $cart_item_name);
-        error_log('Cart Item Data: ' . print_r($cart_item, true));
-        
-        // You can also temporarily output the HTML structure
-        echo '<div class="debug-cart-item">';
-        echo '<pre>' . htmlspecialchars(print_r($cart_item, true)) . '</pre>';
-        echo '</div>';
-        
-        return sprintf('%s - Color: %s (Qty: %d)', $cart_item_name, $color, $quantity);
-    }
-    return $cart_item_name;
-}
-
-
-
-
-
-
 // Work around to edit cart page
-function bbloomer_woocommerce_cart_block_do_actions( $block_content, $block ) {
-   $blocks = array(
-      'woocommerce/cart',
-      'woocommerce/filled-cart-block',
-      'woocommerce/cart-items-block',
-      'woocommerce/cart-line-items-block',
-      'woocommerce/cart-cross-sells-block',
-      'woocommerce/cart-cross-sells-products-block',
-      'woocommerce/cart-totals-block',
-      'woocommerce/cart-order-summary-block',
-      'woocommerce/cart-order-summary-heading-block',
-      'woocommerce/cart-order-summary-coupon-form-block',
-      'woocommerce/cart-order-summary-subtotal-block',
-      'woocommerce/cart-order-summary-fee-block',
-      'woocommerce/cart-order-summary-discount-block',
-      'woocommerce/cart-order-summary-shipping-block',
-      'woocommerce/cart-order-summary-taxes-block',
-      'woocommerce/cart-express-payment-block',
-      'woocommerce/proceed-to-checkout-block',
-      'woocommerce/cart-accepted-payment-methods-block',
-   );
-   if ( in_array( $block['blockName'], $blocks ) ) {
-      ob_start();
-      do_action( 'bbloomer_before_' . $block['blockName'] );
-      echo $block_content;
-      do_action( 'bbloomer_after_' . $block['blockName'] );
-      $block_content = ob_get_contents();
-      ob_end_clean();
-   }
-   return $block_content;
+function bbloomer_woocommerce_cart_block_do_actions($block_content, $block)
+{
+    $blocks = array(
+        'woocommerce/cart',
+        'woocommerce/filled-cart-block',
+        'woocommerce/cart-items-block',
+        'woocommerce/cart-line-items-block',
+        'woocommerce/cart-cross-sells-block',
+        'woocommerce/cart-cross-sells-products-block',
+        'woocommerce/cart-totals-block',
+        'woocommerce/cart-order-summary-block',
+        'woocommerce/cart-order-summary-heading-block',
+        'woocommerce/cart-order-summary-coupon-form-block',
+        'woocommerce/cart-order-summary-subtotal-block',
+        'woocommerce/cart-order-summary-fee-block',
+        'woocommerce/cart-order-summary-discount-block',
+        'woocommerce/cart-order-summary-shipping-block',
+        'woocommerce/cart-order-summary-taxes-block',
+        'woocommerce/cart-express-payment-block',
+        'woocommerce/proceed-to-checkout-block',
+        'woocommerce/cart-accepted-payment-methods-block',
+    );
+    if (in_array($block['blockName'], $blocks)) {
+        ob_start();
+        do_action('bbloomer_before_' . $block['blockName']);
+        echo $block_content;
+        do_action('bbloomer_after_' . $block['blockName']);
+        $block_content = ob_get_contents();
+        ob_end_clean();
+    }
+    return $block_content;
 }
+
+function get_line_items_html($block_content, $block)
+{
+    error_log('Line Items HTML: ' . $block_content);
+    return $block_content;
+}
+
 
 
 function test_add_to_dom_plugin()
@@ -214,11 +198,13 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
 
-        add_filter( 'render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2 );// Work around to edit cart page
+        add_filter('render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2);// Work around to edit cart page
 
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
         add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
-        add_filter('bbloomer_before_woocommerce/cart-line-items-block', 'display_cart_item_custom_data', 10, 2);
+
+
+        add_filter('woocommerce/cart-line-items-block', 'get_line_items_html', 10, 2);
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
