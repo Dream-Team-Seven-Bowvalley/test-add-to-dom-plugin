@@ -154,6 +154,16 @@ function add_js_to_dom()
         jQuery(function ($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
+            // Find the select element for color and texture and make it readonly
+            $colorSelect.prop('disabled', true);
+            $colorSelect.css({
+                'background': 'none',
+                'border': 'none',
+                'pointer-events': 'none',
+                '-webkit-appearance': 'none',
+                '-moz-appearance': 'none',
+                'appearance': 'none'
+            });
 
             // Handle color selection with circle buttons (click)
             $(".circle-button").on("click", function () {
