@@ -114,6 +114,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
 function polymuse_enqueue_assets()
 {
+    wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
     wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
@@ -123,25 +124,6 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-// Add hidden input field for product color variation
-// function add_hidden_input_field_color_variation($form_html)
-// {
-//     ?>
-// <input type="hidden" id="product_color_variation" name="product_color_variation" value="">
-//
-<?php
-// }
-
-// Update product variation based on the selected color
-// function update_product_variation($cart_item_data, $product_id)
-// {
-//     if (isset($_POST['product_color_variation'])) {
-//         $color_variation = $_POST['product_color_variation'];
-//         $cart_item_data['product_color_variation'] = $color_variation;
-//     }
-//     error_log('Cart item data: ' . print_r($cart_item_data, true));
-//     return $cart_item_data;
-// }
 
 function add_look_at_me_heading()
 {
