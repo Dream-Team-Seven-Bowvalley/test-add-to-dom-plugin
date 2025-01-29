@@ -124,14 +124,16 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_js_to_dom()
-{
+function add_js_to_dom() {
     ?>
     <script>
         console.log('DOM is ready');
-        jQuery(function ($) {
+        jQuery(function($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
+            
+            // Model viewer element
+            const $modelViewer = $("model-viewer");
 
             // Handle color selection
             $(".circle-button").on("click", function () {
@@ -152,15 +154,20 @@ function add_js_to_dom()
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
 
-                // Add the selected color to the model-viewer (you can use a data attribute or CSS class)
-                const modelViewer = $("model-viewer");
-                modelViewer.attr('style', 'border: 3px solid ' + color);  // You can customize this to better highlight the model-viewer
+                // Show the model viewer and hide the image
+                $modelViewer.attr('style', 'display: block;'); // Show model viewer
+                $("img").attr('style', 'display: none;'); // Hide image (if any)
+                
+                // Optional: You can also add logic to change the model viewer's appearance based on color, if needed.
+                // Example: You can change the background color of the model viewer or pass different model URLs.
+                $modelViewer.attr('style', 'border: 3px solid ' + color);  // Optional border styling
             });
-
+          
         });
     </script>
     <?php
 }
+
 
 function add_look_at_me_heading()
 {
