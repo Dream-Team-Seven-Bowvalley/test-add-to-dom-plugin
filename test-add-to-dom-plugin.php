@@ -65,7 +65,25 @@ function set_default_placeholder_product_image_local($post_id)
     }
 }
 
+function update_placeholder_image_in_db($post_id) {
+    // Make sure it's a product and avoid recursion
+    if (get_post_type($post_id) !== 'product') {
+        return;
+    }
 
+    // Path to the local WooCommerce placeholder image
+    $placeholder_image_path = ABSPATH . 'wp-content/uploads/woocommerce-placeholder.png'; // Use the absolute file path
+
+    if (file_exists($placeholder_image_path)) {
+        // Get the attachment ID from the local file path
+        $attachment_id = attachment_url_to_postid(wp_upload_dir()['url'] . '/woocommerce-placeholder.png');
+
+        if ($attachment_id) {
+            // Update the product's thumbnail ID (i.e., product image) in the database
+            update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+        }
+    }
+}
 
 // Add custom field to product editor
 function polymuse_custom_field()
@@ -256,6 +274,8 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         add_action('save_post', 'set_default_placeholder_product_image_local');
+        add_action('save_post', 'update_placeholder_image_in_db', 10, 1);
+
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
