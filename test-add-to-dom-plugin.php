@@ -38,6 +38,7 @@ function add_buttons()
                 <button class="circle-button plastic-button" id="plastic-border-button"></button>
             </div>
             <br />
+            <h1 style="font-size: 10px;">Look at me</h1>
         </div>
         <?php
 
