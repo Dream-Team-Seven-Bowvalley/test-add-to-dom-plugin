@@ -131,9 +131,12 @@ function add_js_to_dom() {
         jQuery(function($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
-            
-            // Model viewer element
-            const $modelViewer = $("model-viewer");
+
+            // Get all gallery images
+            const $galleryImages = $(".woocommerce-product-gallery__image");
+
+            // Get the model viewer element inside the gallery
+            const $modelViewer = $(".polymuse-model-viewer");
 
             // Handle color selection
             $(".circle-button").on("click", function () {
@@ -154,13 +157,28 @@ function add_js_to_dom() {
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
 
-             
+                // Hide all gallery images
+                $galleryImages.hide();
+
+                // Show the model viewer
+                $modelViewer.show();
+
+                // Optionally, change the model in the viewer if you have different models for colors
+                // Example: You can change the `src` attribute of the model-viewer based on the selected color
+                if (color === "green") {
+                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_GREEN_MODEL.glb');
+                } else if (color === "red") {
+                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_RED_MODEL.glb');
+                } else if (color === "blue") {
+                    $modelViewer.find("model-viewer").attr('src', 'URL_TO_BLUE_MODEL.glb');
+                }
             });
           
         });
     </script>
     <?php
 }
+
 
 
 function add_look_at_me_heading()
