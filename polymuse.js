@@ -4,7 +4,8 @@ jQuery(document).ready(function ($) {
         console.log('Button clicked!');
         var color = $(this).attr('data-color'); // Use data-color instead of id
         console.log('Color:', color);
-       
+        $('#product_color_variation').val(color);
+        console.log('Hidden input field value:', $('#product_color_variation').val());
     })
 
     // Ensure the 3D model slide is the same height as other slides
@@ -15,14 +16,20 @@ jQuery(document).ready(function ($) {
 
     $('form.cart').on('submit', function () {
         console.log('Hidden input field value on submit:', $('#product_color_variation').val());
+        return new Promise(resolve => setTimeout(resolve, 5000));
     });
 
+    
     // Add listener to "Proceed to Checkout" link
-    $('a[href*="checkout"]').on('click', function () {
+    $('.wc-block-cart__submit-button').on('click', function () {
         // Display product info and metadata
-        // Display all product metadata and pause
-        console.log('Product Information:');        
+        console.log('Product info and metadata:');
         console.log('Product name:', $('.product_title').text());
+        console.log('Product price:', $('.price').text());
+        console.log('Product color variation:', $('#product_color_variation').val());
+
+        // Pause for 10 seconds before proceeding to checkout
+        return new Promise(resolve => setTimeout(resolve, 10000));
     });
 
     // Run on page load and when the window is resized

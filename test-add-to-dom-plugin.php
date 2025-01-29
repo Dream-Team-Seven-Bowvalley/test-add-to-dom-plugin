@@ -128,47 +128,42 @@ function polymuse_add_model_viewer_script()
 }
 
 // Add hidden input field for product color variation
-function add_hidden_input_field_color_variation($form_html) {
+function add_hidden_input_field_color_variation($form_html)
+{
     ?>
     <input type="hidden" id="product_color_variation" name="product_color_variation" value="">
     <?php
-  }
+}
 
 // Update product variation based on the selected color
 function update_product_variation($cart_item_data, $product_id)
 {
     if (isset($_POST['product_color_variation'])) {
-        $variation_id = $_POST['product_color_variation'];
-        $cart_item_data['product_color_variation'] = $variation_id;
+        $color_variation = $_POST['product_color_variation'];
+        $cart_item_data['product_color_variation'] = $color_variation;
     }
     return $cart_item_data;
 }
+
 // Display variation data in the cart
-function display_variation_data($item_name, $cart_item, $cart_item_key)
+function add_color_info_to_cart_item_name($item_name, $cart_item, $cart_item_key)
 {
     if (isset($cart_item['product_color_variation'])) {
-        $product = wc_get_product($cart_item['product_color_variation']);
-        $item_name .= ' - ' . $product->get_attribute('color');
+        $color_info = '<span class="color-info">Color: ' . $cart_item['product_color_variation'] . '</span>';
+        $item_name = $item_name . $color_info;
     }
     return $item_name;
 }
 
-// Add variation data to order item meta
-function add_variation_data_to_order_item_meta($item_id, $values, $cart_item_key)
-{
-    if (isset($values['variation_id'])) {
-        $product = wc_get_product($values['variation_id']);
-        wc_add_order_item_meta($item_id, 'Color', $product->get_attribute('color'));
-    }
-}
-// Display variation data in the order email
-function display_variation_data_in_email($item_meta, $item)
-{
-    if (isset($item_meta['Color'])) {
-        $item_meta .= '<br>Color: ' . $item_meta['Color'];
-    }
-    return $item_meta;
-}
+
+// // Display variation data in the order email
+// function display_variation_data_in_email($item_meta, $item)
+// {
+//     if (isset($item_meta['Color'])) {
+//         $item_meta .= '<br>Color: ' . $item_meta['Color'];
+//     }
+//     return $item_meta;
+// }
 
 function test_add_to_dom_plugin()
 {
@@ -187,7 +182,7 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-        add_filter('woocommerce_cart_item_name', 'display_variation_data', 10, 3);
+        add_filter('woocommerce_cart_item_name', 'add_color_info_to_cart_item_name', 10, 3);
         add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
         // add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
 
