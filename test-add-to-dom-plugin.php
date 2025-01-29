@@ -155,6 +155,20 @@ function add_js_to_dom()
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
 
+            // Hide color select element if it exists
+            $colorSelect.parent().hide();
+            
+            // Add paragraph to display color value
+            $('<p>Selected Color: <span class="selected-color"></span></p>').insertAfter('.circle-buttons-container:first');
+
+            // Update paragraph when color is selected
+            $(".circle-button[data-color]").on("click", function() {
+                const color = $(this).data("color");
+                $('.selected-color').text(color);
+            });
+
+
+
             // Handle color selection with circle buttons (click)
             $(".circle-button").on("click", function () {
                 const colorValue = $(this).data("color");
