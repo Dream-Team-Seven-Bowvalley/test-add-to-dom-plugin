@@ -127,58 +127,42 @@ function polymuse_add_model_viewer_script()
 function add_js_to_dom() {
     ?>
     <script>
-    console.log('DOM is ready');
-    jQuery(function($) {
-        // Find the select element for color and texture
-        const $colorSelect = $("select[name='attribute_color']");
-        const $textureSelect = $("select[name='attribute_texture']");
+        console.log('DOM is ready');
+        jQuery(function($) {
+            // Find the select element for color and texture
+            const $colorSelect = $("select[name='attribute_color']");
 
-        // Get the model viewer element inside the gallery
-        const $modelViewer = $(".polymuse-model-viewer");
+            // Get all gallery images
+            const $galleryImages = $(".woocommerce-product-gallery__image");
 
-        // Override the event listener for color selection
-        $(".circle-button[data-color]").on('click', function () {
-            const colorValue = $(this).data("color");
-            console.log('Color selected:', colorValue);
+            // Get the model viewer element inside the gallery
+            const $modelViewer = $(".polymuse-model-viewer");
 
-            // Set the select value to trigger the WooCommerce variation change
-            $colorSelect.val(colorValue.charAt(0).toUpperCase() + colorValue.slice(1)).trigger('change');
+            // Handle color selection
+            $(".circle-button").on("click", function () {
+                const colorValue = $(this).data("color");
+                // Get the color from the id of the clicked button
+                const buttonId = $(this).attr('id');
+                const color = buttonId.replace('-border-button', '');
+                console.log('Color selected:', color);
 
-            // Highlight the selected color button
-            $(".circle-button").removeClass("selected");
-            $(this).addClass("selected");
+                // Set the select value if it exists
+                if ($colorSelect.length) {
+                    // Capitalize first letter to match select options
+                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                    $colorSelect.val(capitalizedColor).trigger('change');
+                }
 
-            // Update model viewer (optional, if you want to load different models)
-            const modelURL = 'URL_for_' + colorValue; // You could map colors to 3D models
-            $modelViewer.find("model-viewer").attr("src", modelURL);
+                // Update the button selection (highlight the selected button)
+                $(".circle-button").removeClass("selected");
+                $(this).addClass("selected");
+
+              
+             
+            });
+          
         });
-
-        // Override the event listener for texture selection
-        $(".circle-button[data-texture]").on('click', function () {
-            const textureValue = $(this).data("texture");
-            console.log('Texture selected:', textureValue);
-
-            // Set the texture select value and trigger WooCommerce variation change
-            $textureSelect.val(textureValue).trigger('change');
-
-            // Highlight the selected texture button
-            $(".circle-button").removeClass("selected");
-            $(this).addClass("selected");
-
-            // Optionally, you can change the model or texture on the model viewer
-        });
-
-        // Trigger form submission when Add to Cart is clicked
-        $(".single_add_to_cart_button").on('click', function() {
-            // Ensure the correct variation is selected before adding to cart
-            if (!$colorSelect.val() || !$textureSelect.val()) {
-                alert("Please select both color and texture.");
-                return false;  // Prevent adding to cart if no selection
-            }
-        });
-    });
-</script>
-
+    </script>
     <?php
 }
 
