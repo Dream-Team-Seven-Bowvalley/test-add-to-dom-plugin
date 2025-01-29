@@ -173,7 +173,7 @@ function test_add_to_dom_plugin()
     }
 }
 
-test_add_to_dom_plugin()
+test_add_to_dom_plugin();
 
 
 
