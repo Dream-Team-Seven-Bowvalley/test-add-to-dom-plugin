@@ -44,6 +44,7 @@ function add_buttons()
     }
 }
 // Set Product image as placeholder using Vercel URL
+// Set Product image as placeholder using Vercel URL
 function set_default_placeholder_product_image_from_url($post_id)
 {
     if (get_post_type($post_id) !== 'product') {
@@ -63,25 +64,6 @@ function set_default_placeholder_product_image_from_url($post_id)
     }
 }
 
-// Update product image from Vercel URL
-function update_placeholder_image_from_url_in_db($post_id)
-{
-    // Make sure it's a product and avoid recursion
-    if (get_post_type($post_id) !== 'product') {
-        return;
-    }
-
-    // URL to the placeholder image hosted on Vercel
-    $placeholder_image_url = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/3d-lNJTNIdjvgfIdUqDNeY9zEItEfzu3z.webp';
-
-    // Get the attachment ID from the URL
-    $attachment_id = attachment_url_to_postid($placeholder_image_url);
-
-    if ($attachment_id) {
-        // Update the product's thumbnail ID (i.e., product image) in the database
-        update_post_meta($post_id, '_thumbnail_id', $attachment_id);
-    }
-}
 
 // Add custom field to product editor
 function polymuse_custom_field()
@@ -272,7 +254,6 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
-        add_action('save_post', 'update_placeholder_image_from_url_in_db', 10, 1);
 
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
