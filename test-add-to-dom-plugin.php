@@ -199,7 +199,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
-        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
+        // add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
         // add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         // add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
