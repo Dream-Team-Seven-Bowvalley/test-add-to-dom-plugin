@@ -124,6 +124,44 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
+function add_js_to_dom()
+{
+    ?>
+    <script>
+        jQuery(document).ready(function ($) {
+            // Find the select element for color and texture
+            const $colorSelect = $("select[name='attribute_color']");
+            const $textureSelect = $("select[name='attribute_texture']");
+
+            // Handle color selection
+            $(".circle-button").on("click", function () {
+                const colorValue = $(this).data("color");
+
+                if (colorValue && $colorSelect.length) {
+                    $colorSelect.val(colorValue).trigger("change"); // Update value and trigger change event
+
+                    // Remove selected class from other buttons
+                    $(".circle-button").removeClass("selected");
+                    $(this).addClass("selected"); // Highlight the selected button
+                }
+            });
+
+            // Handle texture selection
+            $(".circle-buttons-container .circle-button").on("click", function () {
+                const textureValue = $(this).attr("id").replace("-border-button", ""); // Extract texture name
+
+                if (textureValue && $textureSelect.length) {
+                    $textureSelect.val(textureValue).trigger("change"); // Update value and trigger change event
+
+                    // Remove selected class from other texture buttons
+                    $(".circle-buttons-container .circle-button").removeClass("selected");
+                    $(this).addClass("selected"); // Highlight the selected texture button
+                }
+            });
+        });
+    </script>
+    <?php
+}
 
 function add_look_at_me_heading()
 {
@@ -184,7 +222,7 @@ function test_add_to_dom_plugin()
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
-      
+        add_action('wp_footer', 'add_js_to_dom');
 
 
     }
