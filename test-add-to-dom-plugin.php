@@ -43,45 +43,43 @@ function add_buttons()
 
     }
 }
-// Set Product image as placeholder 
-function set_default_placeholder_product_image_local($post_id)
+// Set Product image as placeholder using Vercel URL
+function set_default_placeholder_product_image_from_url($post_id)
 {
     if (get_post_type($post_id) !== 'product') {
         return;
     }
 
-    // Path to the local WooCommerce placeholder image
-    $placeholder_image_path = ABSPATH . 'wp-content/uploads/woocommerce-placeholder.png'; // Use the absolute file path
+    // URL to the placeholder image hosted on Vercel
+    $placeholder_image_url = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/3d-lNJTNIdjvgfIdUqDNeY9zEItEfzu3z.webp';
 
-    if (file_exists($placeholder_image_path)) {
-        // Get the attachment ID from the local file path
-        $attachment_id = attachment_url_to_postid(wp_upload_dir()['url'] . '/woocommerce-placeholder.png');
+    // Get the attachment ID from the URL
+    $attachment_id = attachment_url_to_postid($placeholder_image_url);
 
-        // Check if the product already has an image
-        if (!has_post_thumbnail($post_id)) {
-            // Set the placeholder image as the product thumbnail
-            set_post_thumbnail($post_id, $attachment_id);
-        }
+    // Check if the product already has an image
+    if (!has_post_thumbnail($post_id) && $attachment_id) {
+        // Set the placeholder image as the product thumbnail
+        set_post_thumbnail($post_id, $attachment_id);
     }
 }
 
-function update_placeholder_image_in_db($post_id) {
+// Update product image from Vercel URL
+function update_placeholder_image_from_url_in_db($post_id)
+{
     // Make sure it's a product and avoid recursion
     if (get_post_type($post_id) !== 'product') {
         return;
     }
 
-    // Path to the local WooCommerce placeholder image
-    $placeholder_image_path = ABSPATH . 'wp-content/uploads/woocommerce-placeholder.png'; // Use the absolute file path
+    // URL to the placeholder image hosted on Vercel
+    $placeholder_image_url = 'https://yiteg94znhby2sle.public.blob.vercel-storage.com/3d-lNJTNIdjvgfIdUqDNeY9zEItEfzu3z.webp';
 
-    if (file_exists($placeholder_image_path)) {
-        // Get the attachment ID from the local file path
-        $attachment_id = attachment_url_to_postid(wp_upload_dir()['url'] . '/woocommerce-placeholder.png');
+    // Get the attachment ID from the URL
+    $attachment_id = attachment_url_to_postid($placeholder_image_url);
 
-        if ($attachment_id) {
-            // Update the product's thumbnail ID (i.e., product image) in the database
-            update_post_meta($post_id, '_thumbnail_id', $attachment_id);
-        }
+    if ($attachment_id) {
+        // Update the product's thumbnail ID (i.e., product image) in the database
+        update_post_meta($post_id, '_thumbnail_id', $attachment_id);
     }
 }
 
@@ -273,8 +271,9 @@ function test_add_to_dom_plugin()
         // add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
-        add_action('save_post', 'set_default_placeholder_product_image_local');
-        add_action('save_post', 'update_placeholder_image_in_db', 10, 1);
+        add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
+        add_action('save_post', 'update_placeholder_image_from_url_in_db', 10, 1);
+
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
