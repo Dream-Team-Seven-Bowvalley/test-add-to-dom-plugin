@@ -87,7 +87,6 @@ function polymuse_save_custom_field($post_id)
     }
 }
 
-
 // Add 3D model and thumbnail to gallery
 function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 {
@@ -155,6 +154,8 @@ function add_js_to_dom()
         jQuery(function ($) {
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
+            // Hide the color selector
+            $colorSelect.parent().hide();
 
             // Handle color selection with circle buttons (click)
             $(".circle-button").on("click", function () {
@@ -182,47 +183,6 @@ function add_js_to_dom()
     </script>
 
     <?php
-}
-
-
-
-function add_look_at_me_heading()
-{
-    echo '<h1 style="font-size: 10px;">Look at me</h1>';
-}
-
-// Work around to edit cart page
-function bbloomer_woocommerce_cart_block_do_actions($block_content, $block)
-{
-    $blocks = array(
-        'woocommerce/cart',
-        'woocommerce/filled-cart-block',
-        'woocommerce/cart-items-block',
-        'woocommerce/cart-line-items-block',
-        'woocommerce/cart-cross-sells-block',
-        'woocommerce/cart-cross-sells-products-block',
-        'woocommerce/cart-totals-block',
-        'woocommerce/cart-order-summary-block',
-        'woocommerce/cart-order-summary-heading-block',
-        'woocommerce/cart-order-summary-coupon-form-block',
-        'woocommerce/cart-order-summary-subtotal-block',
-        'woocommerce/cart-order-summary-fee-block',
-        'woocommerce/cart-order-summary-discount-block',
-        'woocommerce/cart-order-summary-shipping-block',
-        'woocommerce/cart-order-summary-taxes-block',
-        'woocommerce/cart-express-payment-block',
-        'woocommerce/proceed-to-checkout-block',
-        'woocommerce/cart-accepted-payment-methods-block',
-    );
-    if (in_array($block['blockName'], $blocks)) {
-        ob_start();
-        do_action('bbloomer_before_' . $block['blockName']);
-        echo $block_content;
-        do_action('bbloomer_after_' . $block['blockName']);
-        $block_content = ob_get_contents();
-        ob_end_clean();
-    }
-    return $block_content;
 }
 
 function test_add_to_dom_plugin()
