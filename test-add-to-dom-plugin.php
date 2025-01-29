@@ -112,15 +112,11 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     return $html;
 }
 
-
-
-
 function polymuse_enqueue_assets()
 {
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
     wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
-
 
 function polymuse_add_model_viewer_script()
 {
@@ -136,34 +132,54 @@ function add_hidden_input_field_color_variation($form_html)
 }
 
 // Update product variation based on the selected color
-function update_product_variation($cart_item_data, $product_id)
-{
-    if (isset($_POST['product_color_variation'])) {
-        $color_variation = $_POST['product_color_variation'];
-        $cart_item_data['product_color_variation'] = $color_variation;
-    }
-    return $cart_item_data;
-}
-
-// Display variation data in the cart
-function add_color_info_to_cart_item_name($item_name, $cart_item, $cart_item_key)
-{
-    if (isset($cart_item['product_color_variation'])) {
-        $color_info = '<span class="color-info">Color: ' . $cart_item['product_color_variation'] . '</span>';
-        $item_name = $item_name . $color_info;
-    }
-    return $item_name;
-}
-
-
-// // Display variation data in the order email
-// function display_variation_data_in_email($item_meta, $item)
+// function update_product_variation($cart_item_data, $product_id)
 // {
-//     if (isset($item_meta['Color'])) {
-//         $item_meta .= '<br>Color: ' . $item_meta['Color'];
+//     if (isset($_POST['product_color_variation'])) {
+//         $color_variation = $_POST['product_color_variation'];
+//         $cart_item_data['product_color_variation'] = $color_variation;
 //     }
-//     return $item_meta;
+//     error_log('Cart item data: ' . print_r($cart_item_data, true));
+//     return $cart_item_data;
 // }
+
+function add_look_at_me_heading()
+{
+    echo '<h1 style="font-size: 10px;">Look at me</h1>';
+}
+
+// Work around to edit cart page
+function bbloomer_woocommerce_cart_block_do_actions($block_content, $block)
+{
+    $blocks = array(
+        'woocommerce/cart',
+        'woocommerce/filled-cart-block',
+        'woocommerce/cart-items-block',
+        'woocommerce/cart-line-items-block',
+        'woocommerce/cart-cross-sells-block',
+        'woocommerce/cart-cross-sells-products-block',
+        'woocommerce/cart-totals-block',
+        'woocommerce/cart-order-summary-block',
+        'woocommerce/cart-order-summary-heading-block',
+        'woocommerce/cart-order-summary-coupon-form-block',
+        'woocommerce/cart-order-summary-subtotal-block',
+        'woocommerce/cart-order-summary-fee-block',
+        'woocommerce/cart-order-summary-discount-block',
+        'woocommerce/cart-order-summary-shipping-block',
+        'woocommerce/cart-order-summary-taxes-block',
+        'woocommerce/cart-express-payment-block',
+        'woocommerce/proceed-to-checkout-block',
+        'woocommerce/cart-accepted-payment-methods-block',
+    );
+    if (in_array($block['blockName'], $blocks)) {
+        ob_start();
+        do_action('bbloomer_before_' . $block['blockName']);
+        echo $block_content;
+        do_action('bbloomer_after_' . $block['blockName']);
+        $block_content = ob_get_contents();
+        ob_end_clean();
+    }
+    return $block_content;
+}
 
 function test_add_to_dom_plugin()
 {
@@ -173,20 +189,20 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
+
+        add_filter('render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2);// Work around to edit cart page
+
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');       
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
-        
-        add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
-        add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
-        // add_filter('woocommerce_cart_item_name', 'add_color_info_to_cart_item_name', 10, 3);
-        // add_action('woocommerce_add_order_item_meta', 'add_variation_data_to_order_item_meta', 10, 3);
-        // add_filter('woocommerce_email_order_item_meta', 'display_variation_data_in_email', 10, 2);
 
+        // add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
+        // add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
     }
 }
 
