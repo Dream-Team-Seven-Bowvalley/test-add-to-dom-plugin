@@ -1,21 +1,16 @@
 jQuery(document).ready(function ($) {
-    // Update hidden input field when a color button is clicked
-    $('.circle-button').on('click', function () {
+     // Update hidden input field when a color button is clicked
+     $('.circle-button').on('click', function () {
         var color = $(this).attr('data-color'); // Use data-color instead of id
         var capitalColor = capitalizeFirstLetter(color); // Capitalize the first letter
-        $('#product_color_variation').val(color);
-        $('select[name="attribute_color"] option').each(function () {
-            if ($(this).val() === capitalColor) {
-                $(this).prop('selected', true);
-            }
-        });
+        $('#product_color_variation').val(color); 
+        $('select[name="attribute_color"]').val(capitalColor);
     });
 
     // Function to capitalize the first letter of a string
     function capitalizeFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
-
 
 
     // Ensure the 3D model slide is the same height as other slides
