@@ -146,12 +146,12 @@ function add_js_to_dom() {
                 const color = buttonId.replace('-border-button', '');
                 console.log('Color selected:', color);
 
-                // Set the select value if it exists
-                if ($colorSelect.length) {
-                    // Capitalize first letter to match select options
-                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                    $colorSelect.val(capitalizedColor).trigger('change');
-                }
+                // // Set the select value if it exists
+                // if ($colorSelect.length) {
+                //     // Capitalize first letter to match select options
+                //     const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                //     $colorSelect.val(capitalizedColor).trigger('change');
+                // }
 
                 // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
