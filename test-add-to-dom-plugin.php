@@ -128,21 +128,36 @@ function add_js_to_dom()
 {
     ?>
     <script>
-        console.log('DOM is ready');
         jQuery(function ($) {
             console.log('DOM is ready');
 
             const $colorSelect = $("select[name='attribute_color']");
             const $form = $(".variations_form");
 
-            // Ensure WooCommerce variation update works
+            // Override WooCommerce onChange to prevent `check_variations`
+            r.prototype.onChange = function (t) {
+                var a = t.data.variationForm;
+
+                // Reset variation ID
+                a.$form.find('input[name="variation_id"], input.variation_id').val("").trigger("change");
+                a.$form.trigger("clear_reset_announcement");
+                a.$form.find(".wc-no-matching-variations").parent().remove();
+
+                // ❌ Skip the check_variations call
+                // a.useAjax ? a.$form.trigger("check_variations") : (a.$form.trigger("woocommerce_variation_select_change"), a.$form.trigger("check_variations"));
+
+                // ✅ Keep only the important event
+                a.$form.trigger("woocommerce_variation_has_changed");
+            };
+
+            // Ensure WooCommerce updates the selected variation without changing images
             function updateVariation(color) {
                 console.log("Updating variation for color:", color);
 
                 // Set dropdown value and trigger change event
                 $colorSelect.val(color).trigger("change");
 
-                // Find the variation data
+                // Find variation data
                 let variations = $form.data("product_variations");
                 let selectedVariation = variations.find(v => v.attributes.attribute_color === color);
 
@@ -152,19 +167,18 @@ function add_js_to_dom()
                     // Update WooCommerce variation ID field
                     $form.find('input[name="variation_id"], input.variation_id').val(selectedVariation.variation_id).trigger("change");
 
-                    // Trigger WooCommerce events to properly update pricing, stock, etc.
+                    // Trigger WooCommerce event
                     $form.trigger("woocommerce_variation_has_changed");
                 } else {
                     console.log("No matching variation found for color:", color);
                 }
             }
 
-            // Handle button clicks to change color
+            // Handle color button clicks
             $(".circle-button").on("click", function () {
                 const color = $(this).data("color").charAt(0).toUpperCase() + $(this).data("color").slice(1); // Capitalize
                 console.log("Color button clicked:", color);
 
-                // Update variation without changing the image
                 updateVariation(color);
 
                 // Highlight the selected button
@@ -172,14 +186,13 @@ function add_js_to_dom()
                 $(this).addClass("selected");
             });
 
-            // Handle dropdown change (if user manually selects from dropdown)
+            // Handle dropdown changes
             $colorSelect.on("change", function () {
                 const selectedColor = $(this).val();
                 console.log("Dropdown changed to:", selectedColor);
                 updateVariation(selectedColor);
             });
         });
-
 
     </script>
     <?php

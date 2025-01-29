@@ -44,3 +44,13 @@
     </div>
 
 </form>
+
+r.prototype.onChange = function(t) {
+var a = t.data.variationForm;
+a.$form.find('input[name="variation_id"], input.variation_id').val("").trigger("change"),
+a.$form.trigger("clear_reset_announcement"),
+a.$form.find(".wc-no-matching-variations").parent().remove(),
+a.useAjax ? a.$form.trigger("check_variations") : (a.$form.trigger("woocommerce_variation_select_change"),
+a.$form.trigger("check_variations")),
+a.$form.trigger("woocommerce_variation_has_changed")
+}
