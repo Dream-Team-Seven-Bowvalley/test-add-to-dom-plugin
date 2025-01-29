@@ -142,6 +142,11 @@ function update_product_variation($cart_item_data, $product_id)
     return $cart_item_data;
 }
 
+function add_look_at_me_heading()
+{
+    echo '<h1 style="font-size: 10px;">Look at me</h1>';
+}
+
 
 
 // Work around to edit cart page
@@ -177,17 +182,6 @@ function bbloomer_woocommerce_cart_block_do_actions( $block_content, $block ) {
    return $block_content;
 }
 
-function add_color_choice_to_cart_item_name($item_name, $cart_item, $cart_item_key)
-{
-    if (isset($cart_item['product_color_variation'])) {
-        $color_choice = $cart_item['product_color_variation'];
-        $item_name .= '<br/>Color: ' . $color_choice;
-    }
-    return $item_name;
-}
-
-
-
 
 function test_add_to_dom_plugin()
 {
@@ -201,7 +195,7 @@ function test_add_to_dom_plugin()
         add_filter( 'render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2 );// Work around to edit cart page
 
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_color_choice_to_cart_item_name', 10, 3);
+        add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
