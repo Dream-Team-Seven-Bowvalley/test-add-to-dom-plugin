@@ -157,12 +157,16 @@ function add_js_to_dom() {
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
 
-                ;
-
-                
-             
+                // Show the model viewer
+                $modelViewer.show();
+                $galleryImages.not($modelViewer).hide();
             });
-          
+
+            // Handle thumbnail clicks
+            $galleryImages.on("click", function() {
+                // Show the clicked image
+                $(this).show().siblings().hide();
+            });
         });
     </script>
     <?php
