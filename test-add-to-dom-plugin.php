@@ -144,7 +144,7 @@ function update_product_variation($cart_item_data, $product_id)
 
 function add_look_at_me_heading() {
     if (is_cart()) {
-        echo '<h1>Look at me</h1>';
+        echo '<h1 style="font-size: 10px;">Look at me</h1>';
     }
 }
  
