@@ -127,65 +127,69 @@ function polymuse_add_model_viewer_script()
 function add_js_to_dom()
 {
     ?>
-    <script>
-        console.log('DOM is ready');
-        jQuery(function ($) {
-            // Find the select element for color and texture
-            const $colorSelect = $("select[name='attribute_color']");
+   <script>
+    console.log('DOM is ready');
+    jQuery(function ($) {
+        // Find the select element for color and texture
+        const $colorSelect = $("select[name='attribute_color']");
 
-            // Get all gallery images
-            const $galleryImages = $(".woocommerce-product-gallery__image");
+        // Handle color selection with circle buttons
+        $(".circle-button").on("click", function () {
+            const colorValue = $(this).data("color");
+            const buttonId = $(this).attr('id');
+            const color = buttonId.replace('-border-button', '');
 
-            // Get the model viewer element inside the gallery
-            const $modelViewer = $(".polymuse-model-viewer");
+            console.log('Color selected:', color);
 
-            // Handle color selection
-            $(".circle-button").on("click", function () {
-                const colorValue = $(this).data("color");
-                // Get the color from the id of the clicked button
-                const buttonId = $(this).attr('id');
-                const color = buttonId.replace('-border-button', '');
-                console.log('Color selected:', color);
+            if ($colorSelect.length) {
+                // Capitalize first letter to match select options
+                const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                $colorSelect.val(capitalizedColor).trigger('change');
+            }
 
-                // Set the select value if it exists
-                if ($colorSelect.length) {
-                    // Capitalize first letter to match select options
-                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                    $colorSelect.val(capitalizedColor).trigger('change');
-                }
-
-                // Update the button selection (highlight the selected button)
-                $(".circle-button").removeClass("selected");
-                $(this).addClass("selected");
-            });
-
-            // Override the event listener for color selection
-            $('select[name="attribute_color"]').on('change', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                // Get the selected color value
-                const colorValue = $(this).val();
-            });
-
-            $(document).on("hover", ".single_add_to_cart_button", function (e) {
-                // e.preventDefault();
-                console.log("Add to Cart button clicked!");
-
-                const $form = $(this).closest('form');
-                const currentColor = $('select[name="attribute_color"]').val();
-
-                // Temporarily set to empty
-                $('select[name="attribute_color"]').val('').trigger('change');
-
-                // Set back to original color and submit form
-
-                $('select[name="attribute_color"]').val(currentColor).trigger('change');
-                // $form.submit();
-
-            });
+            // Highlight selected button
+            $(".circle-button").removeClass("selected");
+            $(this).addClass("selected");
         });
-    </script>
+
+        // Override the event listener for color selection
+        $colorSelect.on('change', function () {
+            const colorValue = $(this).val();
+            console.log('Color selection changed to:', colorValue);
+            // Add additional actions if needed for color change
+        });
+
+        // Handle hover on "Add to Cart" button
+        $(document).on("mouseenter", ".single_add_to_cart_button", function () {
+            console.log("Hovered over Add to Cart button!");
+
+            // Get the current color selection
+            const currentColor = $('select[name="attribute_color"]').val();
+            console.log("Current color before hovering:", currentColor);
+
+            // Temporarily change color to simulate hover behavior
+            const hoverColor = 'blue'; // Change this to your preferred hover color
+
+            // Set the color on hover (you can use any default or pre-defined color for this)
+            if ($colorSelect.length) {
+                console.log('Changing color on hover to:', hoverColor);
+                $colorSelect.val(hoverColor).trigger('change');
+            }
+        });
+
+        // Optional: Reset color selection if necessary after hovering
+        $(document).on("mouseleave", ".single_add_to_cart_button", function () {
+            console.log("Hovered out from Add to Cart button.");
+
+            // Reset back to the previous color (if needed)
+            const currentColor = $('select[name="attribute_color"]').val();
+            console.log('Reverting back to the original color:', currentColor);
+
+            // You could store the previous color before hovering and reset it here
+        });
+    });
+</script>
+
     <?php
 }
 
