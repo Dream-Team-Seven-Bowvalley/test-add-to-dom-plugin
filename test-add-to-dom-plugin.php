@@ -138,6 +138,19 @@ function add_js_to_dom() {
             // Get the model viewer element inside the gallery
             const $modelViewer = $(".polymuse-model-viewer");
 
+            // Override the event listener for color selection
+            $('select[name="attribute_color"]').on('change', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Get the selected color value
+                const colorValue = $(this).val();
+                
+                // Update the button selection (highlight the selected button)
+                $(".circle-button").removeClass("selected");
+                $(".circle-button[data-color='" + colorValue.toLowerCase() + "']").addClass("selected");
+            });
+
             // Handle color selection
             $(".circle-button").on("click", function () {
                 const colorValue = $(this).data("color");
@@ -155,18 +168,10 @@ function add_js_to_dom() {
 
                 // Update the button selection (highlight the selected button)
                 $(".circle-button").removeClass("selected");
-                $(this).addClass("selected");
-
-                // Show the model viewer
-                $modelViewer.show();
-                $galleryImages.not($modelViewer).hide();
+                $(this).addClass("selected");                
+             
             });
-
-            // Handle thumbnail clicks
-            $galleryImages.on("click", function() {
-                // Show the clicked image
-                $(this).show().siblings().hide();
-            });
+          
         });
     </script>
     <?php
