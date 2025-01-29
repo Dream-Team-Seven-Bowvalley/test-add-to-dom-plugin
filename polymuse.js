@@ -20,13 +20,19 @@ jQuery(document).ready(function ($) {
 
     // Add listener to "Proceed to Checkout" link
     $('a[href*="checkout"]').on('click', function () {
-        let productInfo = {};
-        $('.product').each(function () {
-            // For every product element, get its data attributes and content
-            let productData = $(this).data();
-            productInfo = { ...productInfo, ...productData };
+        // Display product info and metadata
+        // Display all product metadata and pause
+        console.log('Product Information:');
+        console.log({
+            name: $('.product_title').text(),
+            price: $('.price').text(),
+            color: $('#product_color_variation').val(),
+            sku: $('.sku').text(),
+            category: $('.posted_in').text()
         });
-        console.log('Product info:', productInfo);       
+        console.log('Product name:', $('.product_title').text());
+        console.log('Product price:', $('.price').text());
+        console.log('Product color variation:', $('.color_variation').val());       
     });
 
     // Run on page load and when the window is resized
