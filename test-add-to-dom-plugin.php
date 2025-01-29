@@ -181,6 +181,17 @@ function bbloomer_woocommerce_cart_block_do_actions($block_content, $block)
     return $block_content;
 }
 
+function add_color_variation_to_email($args, $order)
+{
+    foreach ($args['items'] as &$item) {
+        $product_color_variation = get_post_meta($item['product_id'], '_product_color_variation', true);
+        if (!empty($product_color_variation)) {
+            $item['name'] .= ' - Color: ' . $product_color_variation;
+        }
+    }
+    return $args;
+}
+
 
 
 function test_add_to_dom_plugin()
@@ -205,6 +216,7 @@ function test_add_to_dom_plugin()
 
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
+        add_filter('woocommerce_email_order_items_args', 'add_color_variation_to_email', 10, 2);
     }
 }
 
