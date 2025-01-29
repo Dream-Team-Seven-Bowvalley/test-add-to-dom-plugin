@@ -1,14 +1,17 @@
 jQuery(document).ready(function ($) {
-     // Update hidden input field when a color button is clicked
-    // Log the color selected from the button
-    console.log('Button Clicked Color:', capitalColor);
+    // Update hidden input field when a color button is clicked
+    $('.circle-button').on('click', function () {
+        // Log the color selected from the button
+        console.log('Button Clicked Color:', capitalColor);
 
-    // Set the selected value in the dropdown
-    $('#color').val(capitalColor).change();
+        // Set the selected value in the dropdown
+        $('#color').val(capitalColor).change();
 
-    // Log the currently selected color from the <select> dropdown
-    var selectedColor = $('#color').find(':selected').text();
-    console.log('Dropdown Selected Color:', selectedColor);
+        // Log the currently selected color from the <select> dropdown
+        var selectedColor = $('#color').find(':selected').text();
+        console.log('Dropdown Selected Color:', selectedColor);
+
+    });
 
     // Function to capitalize the first letter of a string
     function capitalizeFirstLetter(str) {

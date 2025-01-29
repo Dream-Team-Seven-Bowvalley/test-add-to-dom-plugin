@@ -124,12 +124,12 @@ function polymuse_add_model_viewer_script()
 }
 
 // Add hidden input field for product color variation
-function add_hidden_input_field_color_variation($form_html)
-{
-    ?>
-    <input type="hidden" id="product_color_variation" name="product_color_variation" value="">
-    <?php
-}
+// function add_hidden_input_field_color_variation($form_html)
+// {
+//     ?>
+//     <input type="hidden" id="product_color_variation" name="product_color_variation" value="">
+//     <?php
+// }
 
 // Update product variation based on the selected color
 // function update_product_variation($cart_item_data, $product_id)
