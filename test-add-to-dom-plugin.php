@@ -44,12 +44,6 @@ function add_buttons()
     }
 }
 // Set Product image as placeholder 
-function polymuse_set_default_product_image($html)
-{
-    $placeholder_image_url = plugins_url('placeholder-image.jpg', __FILE__);
-    $html = str_replace('src=""', 'src="' . $placeholder_image_url . '"', $html);
-    return $html;
-}
 
 // Add custom field to product editor
 function polymuse_custom_field()
@@ -111,7 +105,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
-            // Hide default placeholder image
+             // Hide default placeholder image
             $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
@@ -239,7 +233,7 @@ function test_add_to_dom_plugin()
         // add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
-        add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_set_default_product_image');
+
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
