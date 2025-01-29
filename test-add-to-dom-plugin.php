@@ -141,7 +141,7 @@ function update_product_variation($cart_item_data, $product_id)
     return $cart_item_data;
 }
 
-function add_test_paragraph_to_cart_item($cart_item, $cart_item_key) {
+function add_test_paragraph_($cart_item, $cart_item_key) {
     echo '<p>This is a big time test test</p>';
 }
 
@@ -165,7 +165,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
 
-        add_action('woocommerce_cart__contents', 'add_test_paragraph_to_cart_item', 10, 2);
+        add_action('woocommerce_before_cart_contents', 'add_test_paragraph', 10, 2);
 
 
     }
