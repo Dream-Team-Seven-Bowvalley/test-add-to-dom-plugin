@@ -124,7 +124,8 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_js_to_dom() {
+function add_js_to_dom()
+{
     ?>
     <script>
         console.log('DOM is ready');
@@ -165,6 +166,10 @@ function add_js_to_dom() {
 
                 // Get the selected color value
                 const colorValue = $(this).val();
+            });
+
+            $(document).on("click", ".single_add_to_cart_button", function () {
+                console.log("Add to Cart button clicked!");
             });
         });
     </script>
