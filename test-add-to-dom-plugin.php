@@ -86,10 +86,6 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     error_log('Model URL: ' . $model_url);
 
     if (!empty($model_url)) {
-        // Hide default placeholder image
-        if (strpos($html, 'woocommerce-product-gallery__image--placeholder') !== false) {
-            return '';
-        }
         // Create thumbnail URL for the 3D model
         $model_thumbnail_url = plugins_url('3d.webp', __FILE__);
         error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
@@ -108,6 +104,8 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
+            // Hide default placeholder image
+            $html = '<style>.woocommerce-product-gallery__image:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
         }
