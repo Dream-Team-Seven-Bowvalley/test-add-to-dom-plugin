@@ -1,18 +1,14 @@
 jQuery(document).ready(function ($) {
      // Update hidden input field when a color button is clicked
-     $('.circle-button').on('click', function () {
-        var color = $(this).attr('data-color'); // Get color from button
-        var capitalColor = capitalizeFirstLetter(color); // Capitalize first letter
+    // Log the color selected from the button
+    console.log('Button Clicked Color:', capitalColor);
 
-        // Set hidden input value
-        $('#product_color_variation').val(color);
+    // Set the selected value in the dropdown
+    $('#color').val(capitalColor).change();
 
-        // Update select option
-        // $('#color').val(capitalColor).change(); // Change event ensures UI updates properly
-
-        // If WooCommerce uses a custom UI, trigger an event
-        $('#color').trigger('change').trigger('select2:select');
-    });
+    // Log the currently selected color from the <select> dropdown
+    var selectedColor = $('#color').find(':selected').text();
+    console.log('Dropdown Selected Color:', selectedColor);
 
     // Function to capitalize the first letter of a string
     function capitalizeFirstLetter(str) {
