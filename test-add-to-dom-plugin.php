@@ -142,14 +142,13 @@ function update_product_variation($cart_item_data, $product_id)
     return $cart_item_data;
 }
 
-function add_custom_element_to_cart_page() {
-    ?>
-    <div>
-        <h2>Custom Element</h2>
-        <p>This is a custom element added to the cart page.</p>
-    </div>
-    <?php
+function add_look_at_me_heading() {
+    if (is_cart()) {
+        echo '<h1>Look at me</h1>';
+    }
 }
+ 
+
 
 
 
@@ -170,10 +169,9 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
-        add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);      
-
-        add_action('woocommerce_before_cart', 'add_custom_element_to_cart_page');
-
+        add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2); 
+        
+        add_action('woocommerce_before_cart_contents', 'add_look_at_me_heading');
     }
 }
 
