@@ -154,13 +154,7 @@ function add_js_to_dom() {
                 $(".circle-button").removeClass("selected");
                 $(this).addClass("selected");
 
-                // Show the model viewer and hide the image
-                $modelViewer.attr('style', 'display: block;'); // Show model viewer
-                $("img").attr('style', 'display: none;'); // Hide image (if any)
-                
-                // Optional: You can also add logic to change the model viewer's appearance based on color, if needed.
-                // Example: You can change the background color of the model viewer or pass different model URLs.
-                $modelViewer.attr('style', 'border: 3px solid ' + color);  // Optional border styling
+             
             });
           
         });
