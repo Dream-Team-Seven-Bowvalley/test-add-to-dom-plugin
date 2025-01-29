@@ -184,6 +184,10 @@ function test_add_to_dom_plugin()
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
+        add_action('wp_footer', function () {
+            echo '<script>console.log("WP Footer is loading scripts");</script>';
+        });
+
 
     }
 }
