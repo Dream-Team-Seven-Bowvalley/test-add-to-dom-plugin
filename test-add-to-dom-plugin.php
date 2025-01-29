@@ -149,6 +149,38 @@ function add_look_at_me_heading()
 
 
 
+ 
+function bbloomer_woocommerce_cart_block_do_actions( $block_content, $block ) {
+   $blocks = array(
+      'woocommerce/cart',
+      'woocommerce/filled-cart-block',
+      'woocommerce/cart-items-block',
+      'woocommerce/cart-line-items-block',
+      'woocommerce/cart-cross-sells-block',
+      'woocommerce/cart-cross-sells-products-block',
+      'woocommerce/cart-totals-block',
+      'woocommerce/cart-order-summary-block',
+      'woocommerce/cart-order-summary-heading-block',
+      'woocommerce/cart-order-summary-coupon-form-block',
+      'woocommerce/cart-order-summary-subtotal-block',
+      'woocommerce/cart-order-summary-fee-block',
+      'woocommerce/cart-order-summary-discount-block',
+      'woocommerce/cart-order-summary-shipping-block',
+      'woocommerce/cart-order-summary-taxes-block',
+      'woocommerce/cart-express-payment-block',
+      'woocommerce/proceed-to-checkout-block',
+      'woocommerce/cart-accepted-payment-methods-block',
+   );
+   if ( in_array( $block['blockName'], $blocks ) ) {
+      ob_start();
+      do_action( 'bbloomer_before_' . $block['blockName'] );
+      echo $block_content;
+      do_action( 'bbloomer_after_' . $block['blockName'] );
+      $block_content = ob_get_contents();
+      ob_end_clean();
+   }
+   return $block_content;
+}
 
 
 function test_add_to_dom_plugin()
@@ -159,8 +191,11 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
+
+        add_filter( 'render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2 );
+
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-        add_action('woocommerce_before_cart_contents', 'add_look_at_me_heading'); // Hook into product page
+        add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading'); // Hook into product page
 
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
