@@ -159,7 +159,7 @@ function add_js_to_dom()
                 $(this).addClass("selected");
 
 
-                    Override the event listener for color selection
+                // Override the event listener for color selection
                 $('select[name="attribute_color"]').on('change', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
