@@ -131,6 +131,19 @@ function add_hidden_input_field_color_variation($form_html)
     <?php
 }
 
+// // Update product variation based on the selected color
+// function update_product_variation($cart_item_data, $product_id)
+// {
+//     if (isset($_POST['product_color_variation'])) {
+//         $color_variation = $_POST['product_color_variation'];
+//         $cart_item_data['product_color_variation'] = $color_variation;
+//         var_dump($cart_item_data); // Add this line to see the cart item data in the console
+//     }
+//     return $cart_item_data;
+// }
+
+
+
 // Update product variation based on the selected color
 function update_product_variation($cart_item_data, $product_id)
 {
@@ -151,6 +164,7 @@ function display_color_variation_on_cart_page($item_name, $cart_item, $cart_item
 }
 
 
+
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -168,6 +182,7 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
         add_action('woocommerce_before_add_to_cart_button', 'add_hidden_input_field_color_variation');
+       
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
         add_filter('woocommerce_cart_item_name', 'display_color_variation_on_cart_page', 10, 3);
 
