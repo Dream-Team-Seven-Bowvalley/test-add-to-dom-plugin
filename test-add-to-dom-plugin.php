@@ -129,9 +129,37 @@ function add_js_to_dom()
     ?>
     <script>
         console.log('DOM is ready');
-        jQuery(document).ready(function ($) {
-            let defaultImageSrc = $(".woocommerce-product-gallery__image img").attr("src"); // Store the default image
+        jQuery(function ($) {
+            // Find the select element for color and texture
+            const $colorSelect = $("select[name='attribute_color']");
 
+            // Get all gallery images
+            const $galleryImages = $(".woocommerce-product-gallery__image");
+
+            // Get the model viewer element inside the gallery
+            const $modelViewer = $(".polymuse-model-viewer");
+
+            // Handle color selection
+            $(".circle-button").on("click", function () {
+                const colorValue = $(this).data("color");
+                // Get the color from the id of the clicked button
+                const buttonId = $(this).attr('id');
+                const color = buttonId.replace('-border-button', '');
+                console.log('Color selected:', color);
+
+                // Set the select value if it exists
+                if ($colorSelect.length) {
+                    // Capitalize first letter to match select options
+                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                    $colorSelect.val(capitalizedColor).trigger('change');
+                }
+
+                // Update the button selection (highlight the selected button)
+                $(".circle-button").removeClass("selected");
+                $(this).addClass("selected");
+            });
+
+            // Override the event listener for color selection
             $("select[name='attribute_color']").on("change", function () {
                 let selectedColor = $(this).val(); // Get the selected color
                 let variations = $(".variations_form").data("product_variations"); // Get WooCommerce variations data
@@ -151,13 +179,12 @@ function add_js_to_dom()
                     $("select[name='attribute_color'] option:first").text("Choose an option");
                 }
             });
-        });
 
+
+        });
     </script>
     <?php
 }
-
-
 
 function add_look_at_me_heading()
 {
