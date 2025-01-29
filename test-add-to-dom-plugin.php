@@ -176,20 +176,25 @@ function add_js_to_dom()
                 const buttonId = $(this).attr('id');
                 const color = buttonId.replace('-border-button', '');
 
-                console.log('Color selected:', color);
+                // Remove the label if "clear" is clicked
+                if (color === 'clear') {
+                    $('select[name="attribute_color"]').next('label').remove();
+                } else {
+                    console.log('Color selected:', color);
 
-                if ($colorSelect.length) {
-                    // Capitalize first letter to match select options
-                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                    // Set the color value in the select box without triggering change
-                    $colorSelect.val(capitalizedColor);
+                    if ($colorSelect.length) {
+                        // Capitalize first letter to match select options
+                        const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
+                        // Set the color value in the select box without triggering change
+                        $colorSelect.val(capitalizedColor);
+                    }
+
+                    // Highlight selected button
+                    $(".circle-button").removeClass("selected");
+                    $(this).addClass("selected");
+                    // Trigger the change event on the select element
+                    $colorSelect.trigger('change');
                 }
-
-                // Highlight selected button
-                $(".circle-button").removeClass("selected");
-                $(this).addClass("selected");
-                // Trigger the change event on the select element
-                $colorSelect.trigger('change');
             });
 
         });
