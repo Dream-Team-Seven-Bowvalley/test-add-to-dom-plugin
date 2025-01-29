@@ -141,9 +141,10 @@ function update_product_variation($cart_item_data, $product_id)
     return $cart_item_data;
 }
 
-function add_test_paragraph_to_cart_item($item_name, $cart_item, $cart_item_key) {
-    $item_name .= '<p>This is a big time test test</p>';
-    return $item_name;
+function add_test_paragraph_to_cart_item()
+{
+    echo '<p>This is a big time test test</p>';
+
 }
 
 
@@ -167,7 +168,7 @@ function test_add_to_dom_plugin()
         add_filter('woocommerce_add_cart_item_data', 'update_product_variation', 10, 2);
 
         add_action('woocommerce_cart_line_item_block', 'add_test_paragraph_to_cart_item', 10, 3);
-      
+
 
     }
 }
