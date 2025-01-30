@@ -146,7 +146,7 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_js_to_dom()
+function handle_color_selector_for_variant_products()
 {
     ?>
     <script>
@@ -155,8 +155,6 @@ function add_js_to_dom()
             // Find the select element for color and texture
             const $colorSelect = $("select[name='attribute_color']");
 
-            // Hide color select element if it exists
-            $colorSelect.hide();
             // Hide color select element if it exists
             $colorSelect.hide();
 
@@ -168,7 +166,6 @@ function add_js_to_dom()
                 const color = $(this).data("color");
                 $('.selected-color').text(color);
             });
-
 
             // Handle color selection with circle buttons (click)
             $(".circle-button").on("click", function () {
@@ -190,7 +187,7 @@ function add_js_to_dom()
                 $(this).addClass("selected");
                 // Trigger the change event on the select element
                 $colorSelect.trigger('change');
-                
+
             });
 
         });
@@ -208,8 +205,6 @@ function test_add_to_dom_plugin()
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
 
-        // add_filter('render_block', 'bbloomer_woocommerce_cart_block_do_actions', 9999, 2);// Work around to edit cart page
-        // add_action('bbloomer_before_woocommerce/cart-line-items-block', 'add_look_at_me_heading');
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
@@ -220,7 +215,7 @@ function test_add_to_dom_plugin()
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
-        add_action('wp_footer', 'add_js_to_dom');
+        add_action('wp_footer', 'handle_color_selector_for_variant_products');
 
     }
 }
