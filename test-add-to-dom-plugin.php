@@ -15,53 +15,6 @@
  * Requires Plugins:  WooCommerce
  */
 
-// Add buttons
-
-
-function add_buttons()
-{
-    global $product;
-
-    if (is_product()) {
-        // Retrieve the JSON data from the product meta
-        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);      
-
-        // Decode the JSON data
-        $json_data = json_decode($variant_json_data, true);
-
-        ?>
-        <div>
-            <?php foreach ($json_data as $variant_group) { ?>
-                <h3><?php echo esc_html($variant_group['title']); ?>:</h3>
-                <div>
-                    <?php foreach ($variant_group['variants'] as $variant) { 
-                        $variant_title = esc_attr($variant['title']);
-                        $variant_value = isset($variant['value']) ? esc_attr($variant['value']) : null;
-                        ?>
-
-                        <?php if ($variant_value) { ?>
-                            <!-- If color hex exists, use it for background -->
-                            <button class="circle-button" 
-                                    id="<?php echo $variant_title; ?>-button" 
-                                    data-color="<?php echo $variant_value; ?>" 
-                                    style="background-color: <?php echo $variant_value; ?>">
-                            </button>
-                        <?php } else { ?>
-                            <!-- If no hex, use regular button -->
-                            <button class="wp-element-button" 
-                                    id="<?php echo $variant_title; ?>-button">
-                                <?php echo $variant_title; ?>
-                            </button>
-                        <?php } ?>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-            <br />
-        </div>
-        <?php
-    }
-}
-
 
 // Add Placeholder image to product to hide later to make selection stay on the model
 // Set Product image as placeholder using local image
@@ -175,6 +128,48 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
     return $html;
 }
+// Add Buttons
+
+function add_buttons()
+{
+    global $product;
+
+    if (is_product()) {
+        // Retrieve the JSON data from the product meta
+        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);
+
+        // Decode the JSON data
+        $json_data = json_decode($variant_json_data, true);
+
+        ?>
+        <div>
+            <?php foreach ($json_data as $variant_group) { ?>
+                <h3><?php echo esc_html($variant_group['title']); ?>:</h3>
+                <div>
+                    <?php foreach ($variant_group['variants'] as $variant) {
+                        $variant_title = esc_attr($variant['title']);
+                        $variant_value = isset($variant['value']) ? esc_attr($variant['value']) : null;
+                        ?>
+
+                        <?php if ($variant_value) { ?>
+                            <!-- If color hex exists, use it for background -->
+                            <button class="circle-button" id="<?php echo $variant_title; ?>-button"
+                                data-color="<?php echo $variant_value; ?>" style="background-color: <?php echo $variant_value; ?>">
+                            </button>
+                        <?php } else { ?>
+                            <!-- If no hex, use regular button -->
+                            <button class="wp-element-button" id="<?php echo $variant_title; ?>-button">
+                                <?php echo $variant_title; ?>
+                            </button>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <br />
+        </div>
+        <?php
+    }
+}
 
 function polymuse_enqueue_assets()
 {
@@ -210,14 +205,14 @@ function test_add_to_dom_plugin()
         // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
 
-        
+
         // Add variant style buttons to product page
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
-        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
-      
+        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
+
 
     }
 }
