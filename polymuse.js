@@ -2,11 +2,26 @@ jQuery(document).ready(function ($) {
     function adjustModelViewerHeight() {
         $('.polymuse-model-viewer').height(500);
     }
-    
+
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
     function handleVariantSelection() {
+        // Hide all select elements and insert a label to display selected values
+        $("select").each(function () {
+            const $select = $(this);
+            const attributeName = $select.attr("name"); // Example: "attribute_color"
+
+            // Hide the dropdown
+            $select.hide();
+
+            // Insert a label after the select to display the selected variant
+            $('<label class="selected-variant-label">' +
+                `<span class="selected-variant" data-attribute="${attributeName}">Choose an option</span>` +
+              '</label>').insertAfter($select);
+        });
+
+        // Handle variant button clicks
         $(".wp-element-button, .circle-button[data-color]").on("click", function () {
             const $button = $(this);
             let variantTitle = $button.attr("id").replace("-button", "").trim(); // Extract variant title
@@ -14,7 +29,7 @@ jQuery(document).ready(function ($) {
             
             console.log("🟢 Variant Selected:", variantTitle, variantValue);
 
-            // **Find the correct attribute name dynamically**
+            // **Find the correct select field dynamically**
             let $matchingSelect = $("select").filter(function () {
                 return $(this).find(`option[value="${variantTitle}"]`).length > 0;
             });
@@ -28,12 +43,19 @@ jQuery(document).ready(function ($) {
                 if ($selectedOption.length) {
                     console.log(`✅ Selecting variant: ${variantTitle}`);
                     $matchingSelect.val($selectedOption.val()).trigger("change");
+
+                    // Update label next to the select dropdown
+                    $(`.selected-variant[data-attribute="${$matchingSelect.attr("name")}"]`).text(variantTitle);
                 } else {
                     console.log(`⚠️ No matching option found for "${variantTitle}"`);
                 }
             } else {
                 console.log(`❌ No select field found for "${variantTitle}"`);
             }
+
+            // Highlight the selected button
+            $button.siblings().removeClass("selected");
+            $button.addClass("selected");
         });
     }
 
