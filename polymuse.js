@@ -11,9 +11,7 @@ jQuery(document).ready(function ($) {
 
     const $colorSelect = $("select[name='attribute_color']");
     $(".circle-button[data-color]").on("click", function () {
-        console.log('Circle button clicked');
         const color = $(this).data("color");
-        console.log('Looking for color:', color);
         const $selectedOption = $colorSelect.find(`option[value="${color}"]`);
         console.log('Selected option:', $selectedOption.length ? $selectedOption.val() : 'not found');
         $colorSelect.val($selectedOption.val()).trigger('change');
