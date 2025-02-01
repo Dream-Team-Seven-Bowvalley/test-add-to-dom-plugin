@@ -16,37 +16,7 @@
  */
 
 // Add buttons
-// function add_buttons()
-// {
-//     global $product;
 
-//     if (is_product()) {
-//         // Retrieve the JSON data from the product meta
-//         $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);      
-
-//         // Decode the JSON data
-//         $json_data = json_decode($variant_json_data, true);
-
-//         ?>
-//         <div>
-//             <?php foreach ($json_data as $variant_group) { ?>
-//                 <h3><?php echo $variant_group['title']; ?>:</h3>
-//                 <div>
-//                     <?php foreach ($variant_group['variants'] as $variant) { ?>
-//                         <?php if ($variant['type'] == 'color') { ?>
-//                             <button class="circle-button" id="<?php echo $variant['title']; ?>-button" data-color="<?php echo $variant['value']; ?>" style="background-color: <?php echo $variant['value']; ?>"></button>
-//                         <?php } else { ?>
-//                             <button class="wp-element-button" id="<?php echo $variant['title']; ?>-button"><?php echo $variant['title']; ?></button>
-//                         <?php } ?>
-//                     <?php } ?>
-//                 </div>
-//             <?php } ?>
-//             <br />
-//         </div>
-//         <?php
-
-//     }
-// }
 
 function add_buttons()
 {
