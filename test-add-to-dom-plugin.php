@@ -231,9 +231,13 @@ function test_add_to_dom_plugin()
         // Add variant style buttons to product page
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
-        // Add 3D model URL field to product editor
+        // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
+        add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_variant_json_data');
+
+        // Save custom field data
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_model_url');
+        add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_variant_json_data');
 
         // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
