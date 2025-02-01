@@ -165,64 +165,13 @@ function polymuse_enqueue_assets()
 {
     wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
-    wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
+    wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
 
 function polymuse_add_model_viewer_script()
 {
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
-
-function handle_color_selector_for_variant_products()
-{
-    ?>
-    <script>
-        console.log('DOM is ready');
-        jQuery(function ($) {
-            // Find the select element for color and texture
-            const $colorSelect = $("select[name='attribute_color']");
-
-            // Hide color select element if it exists
-            $colorSelect.hide();
-
-            // Add to paragraph to display color value
-            $('<label style="margin-bottom: 0; vertical-align: bottom;"><span class="selected-color"></span></label>').insertAfter('select[name="attribute_color"]');
-
-            // Update paragraph when color is selected
-            $(".circle-button[data-color]").on("click", function () {
-                const color = $(this).data("color");
-                $('.selected-color').text(color);
-            });
-
-            // Handle color selection with circle buttons (click)
-            $(".circle-button").on("click", function () {
-                const colorValue = $(this).data("color");
-                const buttonId = $(this).attr('id');
-                const color = buttonId.replace('-border-button', '');
-
-                console.log('Color selected:', color);
-
-                if ($colorSelect.length) {
-                    // Capitalize first letter to match select options
-                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                    // Set the color value in the select box without triggering change
-                    $colorSelect.val(capitalizedColor);
-                }
-
-                // Highlight selected button
-                $(".circle-button").removeClass("selected");
-                $(this).addClass("selected");
-                // Trigger the change event on the select element
-                $colorSelect.trigger('change');
-
-            });
-
-        });
-    </script>
-
-    <?php
-}
-
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -253,7 +202,7 @@ function test_add_to_dom_plugin()
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
-        // The below functions allows the ploymuse plugin to play nice when you switch from simple product to variable product
+        
       
 
     }
