@@ -163,7 +163,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
 function polymuse_enqueue_assets()
 {
-    wp_enqueue_script('jquery');
+    // wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
     wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
