@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
     const $colorSelect = $("select[name='attribute_color']");
     $(".circle-button[data-color]").on("click", function () {
         console.log('Circle button clicked');
-        const color = $(this).data("color");
+        const color = '#' + $(this).data("color");
         $('.selected-color').text(color);
     });
 
