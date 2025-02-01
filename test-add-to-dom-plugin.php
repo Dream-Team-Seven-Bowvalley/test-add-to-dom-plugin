@@ -103,7 +103,10 @@ function polymuse_save_custom_field_variant_json_data($post_id)
 {
     $variant_json_data = $_POST['_variant_json_data'];
     if (!empty($variant_json_data)) {
-        update_post_meta($post_id, '_variant_json_data', esc_url($variant_json_data));
+        // Sanitize the JSON data
+        $sanitized_json_data = wp_kses_post($variant_json_data);
+        // Save the sanitized JSON data
+        update_post_meta($post_id, '_variant_json_data', $sanitized_json_data);
     }
 }
 
