@@ -21,6 +21,15 @@ function add_buttons()
     global $product;
 
     if (is_product()) {
+        // Retrieve the JSON data from the product meta
+        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);
+        
+        // Output the JSON data to the browser console
+        ?>
+        <script>
+            console.log('Variant JSON Data:', <?php echo json_encode($variant_json_data); ?>);
+        </script>
+        <?php
 
         ?>
         <div>
