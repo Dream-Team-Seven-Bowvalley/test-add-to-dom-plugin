@@ -165,7 +165,7 @@ function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
-    wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
+    // wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
 
 function polymuse_add_model_viewer_script()
@@ -182,7 +182,6 @@ function test_add_to_dom_plugin()
     ) {
         // The plugin works correctly when there is a default that is hidden(allowing the 3d model to takes its place)
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
-        // add_action('wp_footer', 'handle_color_selector_for_variant_products');
 
         // Add variant style buttons to product page
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
@@ -200,9 +199,7 @@ function test_add_to_dom_plugin()
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
-        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
-
-        
+        add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');       
       
 
     }
