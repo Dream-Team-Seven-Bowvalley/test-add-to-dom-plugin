@@ -233,7 +233,7 @@ function test_add_to_dom_plugin()
     ) {
         // The plugin works correctly when there is a default that is hidden(allowing the 3d model to takes its place)
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
-        add_action('wp_footer', 'handle_color_selector_for_variant_products');
+        // add_action('wp_footer', 'handle_color_selector_for_variant_products');
 
         // Add variant style buttons to product page
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
