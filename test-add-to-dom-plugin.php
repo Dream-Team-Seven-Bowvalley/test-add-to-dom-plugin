@@ -183,8 +183,6 @@ function test_add_to_dom_plugin()
         // The plugin works correctly when there is a default that is hidden(allowing the 3d model to takes its place)
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
 
-        // Add variant style buttons to product page
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
@@ -196,6 +194,10 @@ function test_add_to_dom_plugin()
 
         // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
+
+        
+        // Add variant style buttons to product page
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
