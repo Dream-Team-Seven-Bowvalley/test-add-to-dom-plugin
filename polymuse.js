@@ -9,29 +9,30 @@ jQuery(document).ready(function ($) {
     function handleVariantSelection() {
         $(".wp-element-button, .circle-button[data-color]").on("click", function () {
             const $button = $(this);
-            let variantTitle = $button.attr("id").replace("-button", "").trim(); // Clean title
-            let variantValue = $button.data("color") || $button.text().trim(); // Get value
+            let variantTitle = $button.attr("id").replace("-button", "").trim(); // Extract variant title
+            let variantValue = $button.data("color") || $button.text().trim(); // Use color hex or text
+            
+            console.log("🟢 Variant Selected:", variantTitle, variantValue);
 
-            console.log("Variant Selected:", variantTitle, variantValue);
+            // **Find the correct attribute name dynamically**
+            let $matchingSelect = $("select").filter(function () {
+                return $(this).find(`option[value="${variantTitle}"]`).length > 0;
+            });
 
-            // Convert title to match WooCommerce attribute naming
-            let attributeName = `attribute_${variantTitle.toLowerCase().replace(/\s+/g, '_')}`;
-            console.log(`Looking for select field: ${attributeName}`);
+            if ($matchingSelect.length) {
+                console.log(`🔍 Found select field: ${$matchingSelect.attr("name")}`);
 
-            // Find the corresponding WooCommerce select field
-            const $variantSelect = $(`select[name="${attributeName}"]`);
-
-            if ($variantSelect.length) {
-                const $selectedOption = $variantSelect.find(`option[value="${variantValue}"]`);
+                // Find the correct option and select it
+                let $selectedOption = $matchingSelect.find(`option[value="${variantTitle}"]`);
 
                 if ($selectedOption.length) {
-                    console.log(`Selecting variant: ${variantValue} for ${variantTitle}`);
-                    $variantSelect.val($selectedOption.val()).trigger("change");
+                    console.log(`✅ Selecting variant: ${variantTitle}`);
+                    $matchingSelect.val($selectedOption.val()).trigger("change");
                 } else {
-                    console.log("No matching option found in the select dropdown.");
+                    console.log(`⚠️ No matching option found for "${variantTitle}"`);
                 }
             } else {
-                console.log(`No select field found for ${variantTitle} (expected name: ${attributeName})`);
+                console.log(`❌ No select field found for "${variantTitle}"`);
             }
         });
     }
