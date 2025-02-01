@@ -236,7 +236,7 @@ function test_add_to_dom_plugin()
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_variant_json_data');
 
         // Save custom field data
-        // add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_model_url');
+        add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_model_url');
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_variant_json_data');
 
         // Add 3D model and thumbnail to gallery
