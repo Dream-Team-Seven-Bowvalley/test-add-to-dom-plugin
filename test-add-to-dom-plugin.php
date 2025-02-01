@@ -43,7 +43,7 @@ function add_buttons()
                         <?php if ($variant['type'] == 'color') { ?>
                             <button class="circle-button" id="<?php echo $variant['title']; ?>-button" data-color="<?php echo $variant['value']; ?>" style="background-color: <?php echo $variant['value']; ?>"></button>
                         <?php } else { ?>
-                            <button class="regular-button" id="<?php echo $variant['title']; ?>-button"><?php echo $variant['title']; ?></button>
+                            <button class="wp-element-button" id="<?php echo $variant['title']; ?>-button"><?php echo $variant['title']; ?></button>
                         <?php } ?>
                     <?php } ?>
                 </div>
