@@ -151,7 +151,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
-            // Hide default placeholder image
+            // Hide default this will make selecting variants work properly
             $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
