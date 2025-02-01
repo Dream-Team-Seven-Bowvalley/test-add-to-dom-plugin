@@ -254,7 +254,7 @@ function test_add_to_dom_plugin()
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
         // The below functions allows the ploymuse plugin to play nice when you switch from simple product to variable product
-        add_action('wp_footer', 'handle_color_selector_for_variant_products');
+      
 
     }
 }
