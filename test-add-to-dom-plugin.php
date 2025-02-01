@@ -78,12 +78,32 @@ function polymuse_custom_field_model_url()
     );
 }
 
+function polymuse_custom_field_variant_json_data()
+{
+    woocommerce_wp_text_input(
+        array(
+            'id' => '_variant_json_data',
+            'label' => 'Variant JSON Data',
+            'description' => 'Enter the JSON data for the variant product',
+            'desc_tip' => true,
+        )
+    );
+}
+
 // Save custom field data
 function polymuse_save_custom_field_model_url($post_id)
 {
     $model_url = $_POST['_3d_model_url'];
     if (!empty($model_url)) {
         update_post_meta($post_id, '_3d_model_url', esc_url($model_url));
+    }
+}
+
+function polymuse_save_custom_field_variant_json_data($post_id)
+{
+    $variant_json_data = $_POST['_variant_json_data'];
+    if (!empty($variant_json_data)) {
+        update_post_meta($post_id, '_variant_json_data', esc_url($variant_json_data));
     }
 }
 
