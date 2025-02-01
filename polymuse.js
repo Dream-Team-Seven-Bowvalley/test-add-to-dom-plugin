@@ -8,25 +8,28 @@ jQuery(document).ready(function ($) {
 
     function handleVariantSelection() {
         // Hide all select elements and insert a label to display selected values
-        $("select").each(function () {
-            const $select = $(this);
-            const attributeName = $select.attr("name"); // Example: "attribute_color"
+        // $("select").each(function () {
+        //     const $select = $(this);
+        //     const attributeName = $select.attr("name"); // Example: "attribute_color"
 
-            // Hide the dropdown
-            $select.hide();
+        //     // Hide the dropdown
+        //     $select.hide();
 
-            // Insert a label after the select to display the selected variant
-            $('<label class="selected-variant-label">' +
-                `<span class="selected-variant" data-attribute="${attributeName}">Choose an option</span>` +
-              '</label>').insertAfter($select);
-        });
+        //     // Insert a label after the select to display the selected variant
+        //     $('<label class="selected-variant-label">' +
+        //         `<span class="selected-variant" data-attribute="${attributeName}">Choose an option</span>` +
+        //       '</label>').insertAfter($select);
+        // });
+
+        // Hide the variations table
+        $('.variations').hide();
 
         // Handle variant button clicks
         $(".wp-element-button, .circle-button[data-color]").on("click", function () {
             const $button = $(this);
             let variantTitle = $button.attr("id").replace("-button", "").trim(); // Extract variant title
             let variantValue = $button.data("color") || $button.text().trim(); // Use color hex or text
-            
+
             console.log("🟢 Variant Selected:", variantTitle, variantValue);
 
             // **Find the correct select field dynamically**
