@@ -31,21 +31,23 @@ function add_buttons()
         </script>
         <?php
 
+        // Decode the JSON data
+        $json_data = json_decode($variant_json_data, true);
+
         ?>
         <div>
-            <h3>Choose a color:</h3>
-            <div>
-                <button class="circle-button green-button" id="green-border-button" data-color="green"></button>
-                <button class="circle-button red-button" id="red-border-button" data-color="red"></button>
-                <button class="blue-button circle-button" id="blue-border-button" data-color="blue"></button>
-
-            </div>
-            <h3>Choose a texture:</h3>
-            <div class="circle-buttons-container">
-                <button class="circle-button wood-button" id="wood-border-button"></button>
-                <button class="circle-button metal-button" id="metal-border-button"></button>
-                <button class="circle-button plastic-button" id="plastic-border-button"></button>
-            </div>
+            <?php foreach ($json_data as $variant_group) { ?>
+                <h3><?php echo $variant_group['title']; ?>:</h3>
+                <div>
+                    <?php foreach ($variant_group['variants'] as $variant) { ?>
+                        <?php if ($variant['type'] == 'color') { ?>
+                            <button class="circle-button" id="<?php echo $variant['title']; ?>-button" data-color="<?php echo $variant['value']; ?>" style="background-color: <?php echo $variant['value']; ?>"></button>
+                        <?php } else { ?>
+                            <button class="regular-button" id="<?php echo $variant['title']; ?>-button"><?php echo $variant['title']; ?></button>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            <?php } ?>
             <br />
         </div>
         <?php
