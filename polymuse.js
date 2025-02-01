@@ -9,12 +9,12 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-
     const $colorSelect = $("select[name='attribute_color']");
     $(".circle-button[data-color]").on("click", function () {
         console.log('Circle button clicked');
-        const color = '#' + $(this).data("color");
-        $('.selected-color').text(color);
+        const color = $(this).data("color");
+        const $selectedOption = $colorSelect.find(`option[value="${color}"]`);
+        $colorSelect.val($selectedOption.val()).trigger('change');
     });
 
 });
