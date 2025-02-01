@@ -1,8 +1,4 @@
 jQuery(document).ready(function ($) {
-    // Update hidden input field when a color button is clicked
-    $('.circle-button').on('click', function () {
-        console.log('Circle button clicked');
-    });
 
     // Ensure the 3D model slide is the same height as other slides
     function adjustModelViewerHeight() {
@@ -12,5 +8,14 @@ jQuery(document).ready(function ($) {
     // Run on page load and when the window is resized
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
+
+
+    const $colorSelect = $("select[name='attribute_color']");
+    $(".circle-button[data-color]").on("click", function () {
+        console.log('Circle button clicked');
+        const color = $(this).data("color");
+        $('.selected-color').text(color);
+    });
+
 });
 
