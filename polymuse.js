@@ -21,36 +21,56 @@ jQuery(document).ready(function ($) {
                 '</label>').insertAfter($select);
         });
 
-        // Hide the variations table
-        // $('.variations').hide();
-
         // Handle variant button clicks
         $(".wp-element-button, .circle-button[data-color]").on("click", function () {
             const $button = $(this);
-            let variantTitle = $button.attr("id").replace("-button", "").trim(); // Extract variant title
+            let variantTitle = $button.attr("id")?.replace("-button", "").trim(); // Extract variant title
             let variantValue = $button.data("color") || $button.text().trim(); // Use color hex or text
-            let nodes = $button.data("nodes") ? JSON.parse($button.attr("data-nodes")) : [];
-            let materials = $button.data("materials") ? JSON.parse($button.attr("data-materials")) : [];
 
-            console.log("🟢 Variant Selected:", variantTitle, variantValue, nodes, materials);
+            console.log("🟢 Variant Selected:", variantTitle, variantValue);
 
-            // Update the 3D model color
-            const modelViewer = document.querySelector("model-viewer");
-            if (modelViewer && variantValue && materials.length > 0) {
-                materials.forEach((materialName) => {
-                    const material = modelViewer.model.materials.find(m => m.name === materialName);
-                    if (material) {
-                        material.pbrMetallicRoughness.setBaseColorFactor(variantValue);
-                        console.log(`🎨 Color changed for ${materialName}: ${variantValue}`);
+            // **Find the correct select field dynamically**
+            let $matchingSelect = $("select").filter(function () {
+                return $(this).find(`option[value="${variantTitle}"]`).length > 0;
+            });
+
+            if ($matchingSelect.length) {
+                console.log(`🔍 Found select field: ${$matchingSelect.attr("name")}`);
+
+                // Find the correct option and select it
+                let $selectedOption = $matchingSelect.find(`option[value="${variantTitle}"]`);
+
+                if ($selectedOption.length) {
+                    console.log(`✅ Selecting variant: ${variantTitle}`);
+                    $matchingSelect.val($selectedOption.val()).trigger("change");
+
+                    // Update label next to the select dropdown
+                    $(`.selected-variant[data-attribute="${$matchingSelect.attr("name")}"]`).text(variantTitle);
+
+                    // Update the 3D model color
+                    const modelViewer = document.querySelector("model-viewer");
+                    if (modelViewer && variantValue) {
+                        const materials = modelViewer.model?.materials || [];
+                        if (materials.length > 0) {
+                            materials.forEach((material) => {
+                                material.pbrMetallicRoughness.setBaseColorFactor(variantValue);
+                                console.log(`🎨 Color changed for ${material.name}: ${variantValue}`);
+                            });
+                        } else {
+                            console.warn("⚠️ No materials found in model.");
+                        }
                     }
-                });
+                } else {
+                    console.log(`⚠️ No matching option found for "${variantTitle}"`);
+                }
+            } else {
+                console.log(`❌ No select field found for "${variantTitle}"`);
             }
 
             // Highlight the selected button
             $button.siblings().removeClass("selected");
             $button.addClass("selected");
         });
-
     }
 
     handleVariantSelection();
