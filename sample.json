@@ -1,0 +1,72 @@
+[
+    {
+        "type": "color_texture",
+        "title": "Body",
+        "id": {
+            "seconds": 1738176308,
+            "nanoseconds": 59000000
+        },
+        "nodes": [
+            "Object432"
+        ],
+        "variants": [
+            {
+                "id": 1738206264675,
+                "title": "Purple",
+                "value": "#4a90e2",
+                "type": "color",
+                "nodes": [
+                    "Object432"
+                ],
+                "materials": [
+                    "SofaBody"
+                ]
+            },
+            {
+                "id": 1738206352709,
+                "title": "Yellow",
+                "value": "#faee5d",
+                "type": "color",
+                "nodes": [
+                    "Object432"
+                ],
+                "materials": [
+                    "SofaBody"
+                ]
+            }
+        ]
+    },
+    {
+        "id": {
+            "seconds": 1738297166,
+            "nanoseconds": 909000000
+        },
+        "nodes": [
+            "Box1274"
+        ],
+        "variants": [
+            {
+                "id": 1738297168877,
+                "title": "Show Leg",
+                "value": null,
+                "type": "show_hide",
+                "nodes": [
+                    "Box1274"
+                ],
+                "nodes_to_hide": []
+            },
+            {
+                "id": 1738297176293,
+                "title": "HIde Leg",
+                "value": null,
+                "type": "show_hide",
+                "nodes": [],
+                "nodes_to_hide": [
+                    "Box1274"
+                ]
+            }
+        ],
+        "title": "Legs",
+        "type": "show_hide"
+    }
+]

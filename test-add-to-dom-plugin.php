@@ -15,34 +15,6 @@
  * Requires Plugins:  WooCommerce
  */
 
-// Add buttons
-function add_buttons()
-{
-    global $product;
-
-    if (is_product()) {
-
-        ?>
-        <div>
-            <h3>Choose a color:</h3>
-            <div>
-                <button class="circle-button green-button" id="green-border-button" data-color="green"></button>
-                <button class="circle-button red-button" id="red-border-button" data-color="red"></button>
-                <button class="blue-button circle-button" id="blue-border-button" data-color="blue"></button>
-
-            </div>
-            <h3>Choose a texture:</h3>
-            <div class="circle-buttons-container">
-                <button class="circle-button wood-button" id="wood-border-button"></button>
-                <button class="circle-button metal-button" id="metal-border-button"></button>
-                <button class="circle-button plastic-button" id="plastic-border-button"></button>
-            </div>
-            <br />
-        </div>
-        <?php
-
-    }
-}
 
 // Add Placeholder image to product to hide later to make selection stay on the model
 // Set Product image as placeholder using local image
@@ -66,7 +38,7 @@ function set_default_placeholder_product_image_from_url($post_id)
 }
 
 // Add custom field to product editor
-function polymuse_custom_field()
+function polymuse_custom_field_model_url()
 {
     woocommerce_wp_text_input(
         array(
@@ -78,12 +50,35 @@ function polymuse_custom_field()
     );
 }
 
+function polymuse_custom_field_variant_json_data()
+{
+    woocommerce_wp_text_input(
+        array(
+            'id' => '_variant_json_data',
+            'label' => 'Variant JSON Data',
+            'description' => 'Enter the JSON data for the variant product',
+            'desc_tip' => true,
+        )
+    );
+}
+
 // Save custom field data
-function polymuse_save_custom_field($post_id)
+function polymuse_save_custom_field_model_url($post_id)
 {
     $model_url = $_POST['_3d_model_url'];
     if (!empty($model_url)) {
         update_post_meta($post_id, '_3d_model_url', esc_url($model_url));
+    }
+}
+
+function polymuse_save_custom_field_variant_json_data($post_id)
+{
+    $variant_json_data = $_POST['_variant_json_data'];
+    if (!empty($variant_json_data)) {
+        // Sanitize the JSON data
+        $sanitized_json_data = wp_kses_post($variant_json_data);
+        // Save the sanitized JSON data
+        update_post_meta($post_id, '_variant_json_data', $sanitized_json_data);
     }
 }
 
@@ -124,7 +119,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
-            // Hide default placeholder image
+            // Hide default this will make selecting variants work properly
             $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
             return $model_viewer . $html;
@@ -133,69 +128,60 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
     return $html;
 }
+// Add Buttons
+
+function add_buttons()
+{
+    global $product;
+
+    if (is_product()) {
+        // Retrieve the JSON data from the product meta
+        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);
+
+        // Decode the JSON data
+        $json_data = json_decode($variant_json_data, true);
+
+        ?>
+        <div>
+            <?php foreach ($json_data as $variant_group) { ?>
+                <h3><?php echo esc_html($variant_group['title']); ?>:</h3>
+                <div>
+                    <?php foreach ($variant_group['variants'] as $variant) {
+                        $variant_title = esc_attr($variant['title']);
+                        $variant_value = isset($variant['value']) ? esc_attr($variant['value']) : null;
+                        ?>
+
+                        <?php if ($variant_value) { ?>
+                            <!-- If color hex exists, use it for background -->
+                            <button class="circle-button" id="<?php echo $variant_title; ?>-button"
+                                data-color="<?php echo $variant_value; ?>" style="background-color: <?php echo $variant_value; ?>">
+                            </button>
+                        <?php } else { ?>
+                            <!-- If no hex, use regular button -->
+                            <button class="wp-element-button" id="<?php echo $variant_title; ?>-button">
+                                <?php echo $variant_title; ?>
+                            </button>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <br />
+        </div>
+        <?php
+    }
+}
 
 function polymuse_enqueue_assets()
 {
-    wp_enqueue_script('jquery');
+    // wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
-    wp_enqueue_script('polymuse-script', plugins_url('polymuse.js', __FILE__), array('jquery'), '1.0', true);
+    wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
 
 function polymuse_add_model_viewer_script()
 {
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
-
-function handle_color_selector_for_variant_products()
-{
-    ?>
-    <script>
-        console.log('DOM is ready');
-        jQuery(function ($) {
-            // Find the select element for color and texture
-            const $colorSelect = $("select[name='attribute_color']");
-
-            // Hide color select element if it exists
-            $colorSelect.hide();
-
-            // Add to paragraph to display color value
-            $('<label style="margin-bottom: 0; vertical-align: bottom;"><span class="selected-color"></span></label>').insertAfter('select[name="attribute_color"]');
-
-            // Update paragraph when color is selected
-            $(".circle-button[data-color]").on("click", function () {
-                const color = $(this).data("color");
-                $('.selected-color').text(color);
-            });
-
-            // Handle color selection with circle buttons (click)
-            $(".circle-button").on("click", function () {
-                const colorValue = $(this).data("color");
-                const buttonId = $(this).attr('id');
-                const color = buttonId.replace('-border-button', '');
-
-                console.log('Color selected:', color);
-
-                if ($colorSelect.length) {
-                    // Capitalize first letter to match select options
-                    const capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
-                    // Set the color value in the select box without triggering change
-                    $colorSelect.val(capitalizedColor);
-                }
-
-                // Highlight selected button
-                $(".circle-button").removeClass("selected");
-                $(this).addClass("selected");
-                // Trigger the change event on the select element
-                $colorSelect.trigger('change');
-
-            });
-
-        });
-    </script>
-
-    <?php
-}
-
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -204,23 +190,35 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
-
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
-
+        // The plugin works correctly when there is a default that is hidden(allowing the 3d model to takes its place)
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
 
-        add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field');
-        add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field');
+
+        // Add 3D model URL and Json data field to product editor
+        add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
+        add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_variant_json_data');
+
+        // Save custom field data
+        add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_model_url');
+        add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_variant_json_data');
+
+        // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
+
+
+        // Add variant style buttons to product page
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+
+        // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
 
-        add_action('wp_footer', 'handle_color_selector_for_variant_products');
 
     }
 }
 
 test_add_to_dom_plugin();
+
 
 
 
