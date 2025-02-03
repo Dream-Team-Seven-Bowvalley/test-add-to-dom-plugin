@@ -141,12 +141,14 @@ function updateModelViewer(color, nodes, materials) {
     const modelViewer = document.querySelector('model-viewer');
 
     // Update the model viewer's materials
-    materials.forEach(material => {
-        const materialElement = modelViewer.querySelector(`#${material}`);
-        if (materialElement) {
-            materialElement.material = color;
-        }
-    });
+    if (materials && Array.isArray(materials)) {
+        materials.forEach(material => {
+            const materialElement = modelViewer.querySelector(`#${material}`);
+            if (materialElement) {
+                materialElement.material = color;
+            }
+        });
+    }
 
     // Update the model viewer's nodes
     nodes.forEach(node => {
