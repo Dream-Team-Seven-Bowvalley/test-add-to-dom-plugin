@@ -171,6 +171,54 @@ function add_buttons()
     }
 }
 
+function add_buttons1()
+{
+    global $product;
+
+    if (is_product()) {
+        // Retrieve the JSON data from the product meta
+        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);
+
+        // Decode the JSON data
+        $json_data = json_decode($variant_json_data, true);
+
+        ?>
+        <div>
+            <?php foreach ($json_data as $variant_group) { ?>
+                <h3><?php echo esc_html($variant_group['title']); ?>:</h3>
+                <div>
+                    <?php foreach ($variant_group['variants'] as $variant) {
+                        $variant_title = esc_attr($variant['title']);
+                        $variant_value = isset($variant['value']) ? esc_attr($variant['value']) : null;
+                        $variant_nodes = isset($variant['nodes']) ? $variant['nodes'] : [];
+                        $variant_materials = isset($variant['materials']) ? $variant['materials'] : [];
+                        ?>
+
+                        <?php if ($variant_value) { ?>
+                            <!-- If color hex exists, use it for background -->
+                            <button class="circle-button" id="<?php echo $variant_title; ?>-button"
+                                data-color="<?php echo $variant_value; ?>"
+                                data-nodes="<?php echo json_encode($variant_nodes); ?>"
+                                data-materials="<?php echo json_encode($variant_materials); ?>"
+                                style="background-color: <?php echo $variant_value; ?>">
+                            </button>
+                        <?php } else { ?>
+                            <!-- If no hex, use regular button -->
+                            <button class="wp-element-button" id="<?php echo $variant_title; ?>-button"
+                                data-nodes="<?php echo json_encode($variant_nodes); ?>"
+                                data-materials="<?php echo json_encode($variant_materials); ?>">
+                                <?php echo $variant_title; ?>
+                            </button>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <br />
+        </div>
+        <?php
+    }
+}
+
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
@@ -193,7 +241,6 @@ function test_add_to_dom_plugin()
         // The plugin works correctly when there is a default that is hidden(allowing the 3d model to takes its place)
         add_action('save_post', 'set_default_placeholder_product_image_from_url', 10, 1);
 
-
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_variant_json_data');
@@ -205,15 +252,12 @@ function test_add_to_dom_plugin()
         // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
 
-
         // Add variant style buttons to product page
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
-
-
     }
 }
 
