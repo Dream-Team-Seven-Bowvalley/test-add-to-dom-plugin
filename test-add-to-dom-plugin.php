@@ -219,6 +219,101 @@ function add_buttons1()
     }
 }
 
+function add_buttons2() {
+    global $product;
+
+    if (is_product()) {
+        // Retrieve the JSON data from the product meta
+        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);
+
+        // Decode the JSON data
+        $json_data = json_decode($variant_json_data, true);
+
+        ?>
+        <div>
+            <?php foreach ($json_data as $variant_group) { ?>
+                <h3><?php echo esc_html($variant_group['title']); ?>:</h3>
+                <div>
+                    <?php foreach ($variant_group['variants'] as $variant) {
+                        $variant_title = esc_attr($variant['title']);
+                        $variant_value = isset($variant['value']) ? esc_attr($variant['value']) : null;
+                        $variant_id = esc_attr($variant['id']);
+                        $variant_type = esc_attr($variant['type']);
+                        $variant_nodes = isset($variant['nodes']) ? $variant['nodes'] : [];
+                        $variant_nodes_to_hide = isset($variant['nodes_to_hide']) ? $variant['nodes_to_hide'] : [];
+                        $variant_materials = isset($variant['materials']) ? $variant['materials'] : [];
+                    ?>
+
+                        <?php if ($variant_type == "color" && $variant_value) { ?>
+                            <!-- Color button -->
+                            <button class="circle-button" id="variant-<?php echo $variant_id; ?>-button"
+                                data-color="<?php echo $variant_value; ?>" 
+                                data-title="<?php echo $variant_title; ?>"
+                                data-type="color" 
+                                data-variant-id="<?php echo $variant_id; ?>"
+                                data-materials="<?php echo implode(",", $variant_materials); ?>"
+                                style="background-color: <?php echo $variant_value; ?>">
+                            </button>
+                        <?php } elseif ($variant_type == "show_hide") { ?>
+                            <!-- Show/Hide button -->
+                            <button class="wp-element-button" id="variant-<?php echo $variant_id; ?>-button"
+                                data-type="show_hide" 
+                                data-title="<?php echo $variant_title; ?>"
+                                data-variant-id="<?php echo $variant_id; ?>"
+                                data-nodes="<?php echo implode(",", $variant_nodes); ?>"
+                                data-nodes-to-hide="<?php echo implode(",", $variant_nodes_to_hide); ?>">
+                                <?php echo $variant_title; ?>
+                            </button>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <br />
+        </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                // Color buttons
+                $('.circle-button').on('click', function() {
+                    var color = $(this).data('color');
+                    var materials = $(this).data('materials').split(",");
+
+                    // Apply color to product parts
+                    $.each(materials, function(index, material) {
+                        var productPart = $('.' + material.toLowerCase());
+                        if (productPart.length) {
+                            productPart.css('background-color', color);
+                        }
+                    });
+                });
+
+                // Show/Hide buttons
+                $('.wp-element-button').on('click', function() {
+                    var nodesToHide = $(this).data('nodes-to-hide').split(",");
+                    var nodesToShow = $(this).data('nodes').split(",");
+
+                    // Hide nodes
+                    $.each(nodesToHide, function(index, node) {
+                        var elementToHide = $('.' + node.toLowerCase());
+                        if (elementToHide.length) {
+                            elementToHide.hide();
+                        }
+                    });
+
+                    // Show nodes
+                    $.each(nodesToShow, function(index, node) {
+                        var elementToShow = $('.' + node.toLowerCase());
+                        if (elementToShow.length) {
+                            elementToShow.show();
+                        }
+                    });
+                });
+            });
+        </script>
+        <?php
+    }
+}
+
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
@@ -253,7 +348,7 @@ function test_add_to_dom_plugin()
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
 
         // Add variant style buttons to product page
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons2');
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
