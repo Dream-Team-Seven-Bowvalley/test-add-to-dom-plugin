@@ -128,8 +128,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 
     return $html;
 }
-// Add Buttons
-
+// Add Buttons to product page stable
 function add_buttons()
 {
     global $product;
@@ -171,54 +170,7 @@ function add_buttons()
     }
 }
 
-function add_buttons1()
-{
-    global $product;
-
-    if (is_product()) {
-        // Retrieve the JSON data from the product meta
-        $variant_json_data = get_post_meta($product->get_id(), '_variant_json_data', true);
-
-        // Decode the JSON data
-        $json_data = json_decode($variant_json_data, true);
-
-        ?>
-        <div>
-            <?php foreach ($json_data as $variant_group) { ?>
-                <h3><?php echo esc_html($variant_group['title']); ?>:</h3>
-                <div>
-                    <?php foreach ($variant_group['variants'] as $variant) {
-                        $variant_title = esc_attr($variant['title']);
-                        $variant_value = isset($variant['value']) ? esc_attr($variant['value']) : null;
-                        $variant_nodes = isset($variant['nodes']) ? $variant['nodes'] : [];
-                        $variant_materials = isset($variant['materials']) ? $variant['materials'] : [];
-                        ?>
-
-                        <?php if ($variant_value) { ?>
-                            <!-- If color hex exists, use it for background -->
-                            <button class="circle-button" id="<?php echo $variant_title; ?>-button"
-                                data-color="<?php echo $variant_value; ?>"
-                                data-nodes="<?php echo json_encode($variant_nodes); ?>"
-                                data-materials="<?php echo json_encode($variant_materials); ?>"
-                                style="background-color: <?php echo $variant_value; ?>">
-                            </button>
-                        <?php } else { ?>
-                            <!-- If no hex, use regular button -->
-                            <button class="wp-element-button" id="<?php echo $variant_title; ?>-button"
-                                data-nodes="<?php echo json_encode($variant_nodes); ?>"
-                                data-materials="<?php echo json_encode($variant_materials); ?>">
-                                <?php echo $variant_title; ?>
-                            </button>
-                        <?php } ?>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-            <br />
-        </div>
-        <?php
-    }
-}
-
+// Attempt to change model info
 function add_buttons2() {
     global $product;
 
@@ -246,7 +198,7 @@ function add_buttons2() {
 
                         <?php if ($variant_type == "color" && $variant_value) { ?>
                             <!-- Color button -->
-                            <button class="circle-button" id="variant-<?php echo $variant_id; ?>-button"
+                            <button class="circle-button variant-button" id="variant-<?php echo $variant_id; ?>-button"
                                 data-color="<?php echo $variant_value; ?>" 
                                 data-title="<?php echo $variant_title; ?>"
                                 data-type="color" 
@@ -256,7 +208,7 @@ function add_buttons2() {
                             </button>
                         <?php } elseif ($variant_type == "show_hide") { ?>
                             <!-- Show/Hide button -->
-                            <button class="wp-element-button" id="variant-<?php echo $variant_id; ?>-button"
+                            <button class="wp-element-button variant-button" id="variant-<?php echo $variant_id; ?>-button"
                                 data-type="show_hide" 
                                 data-title="<?php echo $variant_title; ?>"
                                 data-variant-id="<?php echo $variant_id; ?>"
@@ -274,7 +226,7 @@ function add_buttons2() {
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 // Color buttons
-                $('.circle-button').on('click', function() {
+                $('.variant-button.circle-button').on('click', function() {
                     var color = $(this).data('color');
                     var materials = $(this).data('materials').split(",");
 
@@ -288,7 +240,7 @@ function add_buttons2() {
                 });
 
                 // Show/Hide buttons
-                $('.wp-element-button').on('click', function() {
+                $('.variant-button.wp-element-button').on('click', function() {
                     var nodesToHide = $(this).data('nodes-to-hide').split(",");
                     var nodesToShow = $(this).data('nodes').split(",");
 

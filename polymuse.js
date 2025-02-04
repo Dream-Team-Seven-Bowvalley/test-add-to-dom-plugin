@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
                     // Update label next to the select dropdown
                     $(`.selected-variant[data-attribute="${$matchingSelect.attr("name")}"]`).text(variantTitle);
 
-                    // Update the 3D model color
+                    // Update the 3D model color(For education not useful for production)
                     const $modelViewer = $("model-viewer");
                     if ($modelViewer.length && variantValue) {
                         const materials = $modelViewer[0].model?.materials || [];
