@@ -48,9 +48,9 @@ jQuery(document).ready(function ($) {
                     $(`.selected-variant[data-attribute="${$matchingSelect.attr("name")}"]`).text(variantTitle);
 
                     // Update the 3D model color
-                    const modelViewer = document.querySelector("model-viewer");
-                    if (modelViewer && variantValue) {
-                        const materials = modelViewer.model?.materials || [];
+                    const $modelViewer = $("model-viewer");
+                    if ($modelViewer.length && variantValue) {
+                        const materials = $modelViewer[0].model?.materials || [];
                         if (materials.length > 0) {
                             materials.forEach((material) => {
                                 material.pbrMetallicRoughness.setBaseColorFactor(variantValue);
