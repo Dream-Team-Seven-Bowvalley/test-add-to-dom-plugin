@@ -97,6 +97,7 @@ function add_buttons()
         <?php
     }
 }
+
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
@@ -107,6 +108,53 @@ function polymuse_add_model_viewer_script()
 {
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
+
+function add_variant_options_script()
+{
+    echo '<script>
+    jQuery(document).ready(function ($) {
+        // Check if the model viewer exists
+        const modelViewer = $(".polymuse-model-viewer")[0];
+
+        // If model viewer exists, listen for the load event
+        if (modelViewer) {
+            console.log("Model viewer found");
+
+            // Add event listener for the load event
+            modelViewer.addEventListener("load", function() {
+                const model = modelViewer.model;
+                const materials = model.materials;
+                const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
+
+                console.log("model", model);
+                console.log("materials", materials);
+                console.log("variants", variants);
+
+                // Add buttons for variants after model is loaded
+                const variantButtonsContainer = $("#variant-options-container");
+                // variantButtonsContainer.empty();  // Clear previous buttons
+
+                if (variants.length > 0) {
+                    variants.forEach(variant => {
+                        const button = $("<button></button>");
+                        button.text(variant); // Set button text as the variant name
+                        button.on("click", function () {
+                            modelViewer.variantName = variant;  // Update model viewer with the selected variant
+                        });
+                        variantButtonsContainer.append(button);
+                    });
+                } else {
+                    variantButtonsContainer.text("No variants available");
+                }
+            });
+        } else {
+            console.log("Model viewer not found");
+        }
+    });
+    </script>';
+}
+
+
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -114,7 +162,7 @@ function test_add_to_dom_plugin()
     if (
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {       
+    ) {
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
 
@@ -130,6 +178,8 @@ function test_add_to_dom_plugin()
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
+
+        add_action('wp_footer', 'add_variant_options_script');
     }
 }
 
