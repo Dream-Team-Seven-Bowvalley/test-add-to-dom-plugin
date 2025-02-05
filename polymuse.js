@@ -11,48 +11,38 @@ jQuery(document).ready(function ($) {
     if (modelViewer) {
         console.log('Look at me');
 
-        // Function to initialize the model viewer
-        function initializeModelViewer() {
-            if (modelViewer.model) {
-                handleModelLoaded();
-            } else {
-                $(modelViewer).on('load', function () {
-                    handleModelLoaded();
-                });
-            }
-        }
 
-        // Function to handle the model loaded event
-        function handleModelLoaded() {
-            console.log('Model loaded');
-            const model = modelViewer.model;
-            const materials = model.materials;
-            const variants = modelViewer.availableVariants || [];
 
-            console.log('Model:', model);
-            console.log('Materials:', materials);
-            console.log('Variants:', variants);
+        
 
-            // Add buttons for variants after model is loaded
-            const variantButtonsContainer = $('#variant-options-container');
-            variantButtonsContainer.empty();
+        console.log('Model info:');
+        const model = modelViewer.model;
+        const materials = model.materials;
+        const variants = modelViewer.availableVariants || [];
 
-            if (variants.length > 0) {
-                variants.forEach(variant => {
-                    console.log('Adding variant button:', variant);
-                    const button = $('<button></button>');
-                    button.text(variant);
-                    button.on('click', function () {
-                        modelViewer.variantName = variant;
-                    });
-                    variantButtonsContainer.append(button);
-                });
-            } else {
-                variantButtonsContainer.text('No variants available');
-            }
-        }
+        console.log('Model:', model);
+        console.log('Materials:', materials);
+        console.log('Variants:', variants);
 
-        // Initialize the model viewer
-        initializeModelViewer();
+        // Add buttons for variants after model is loaded
+        const variantButtonsContainer = $('#variant-options-container');
+        variantButtonsContainer.empty();
+
+        // if (variants.length > 0) {
+        //     variants.forEach(variant => {
+        //         console.log('Adding variant button:', variant);
+        //         const button = $('<button></button>');
+        //         button.text(variant);
+        //         button.on('click', function () {
+        //             modelViewer.variantName = variant;
+        //         });
+        //         variantButtonsContainer.append(button);
+        //     });
+        // } else {
+        //     variantButtonsContainer.text('No variants available');
+        // }
     }
+
+
+}
 });
