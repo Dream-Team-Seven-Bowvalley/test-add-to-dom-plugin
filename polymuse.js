@@ -11,8 +11,19 @@ jQuery(document).ready(function ($) {
     if (modelViewer) {
         console.log('Look at me');
 
-        // Wait for the model to load and become available
-        modelViewer.addEventListener('load', function () {
+        // Function to initialize the model viewer
+        function initializeModelViewer() {
+            if (modelViewer.model) {
+                handleModelLoaded();
+            } else {
+                $(modelViewer).on('load', function () {
+                    handleModelLoaded();
+                });
+            }
+        }
+
+        // Function to handle the model loaded event
+        function handleModelLoaded() {
             console.log('Model loaded');
             const model = modelViewer.model;
             const materials = model.materials;
@@ -39,6 +50,9 @@ jQuery(document).ready(function ($) {
             } else {
                 variantButtonsContainer.text('No variants available');
             }
-        });
+        }
+
+        // Initialize the model viewer
+        initializeModelViewer();
     }
 });
