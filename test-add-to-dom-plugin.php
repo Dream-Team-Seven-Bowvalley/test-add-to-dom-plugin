@@ -84,6 +84,79 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     return $html;
 }
 
+function polymuse_add_model_and_thumbnail_to_gallery1($html, $attachment_id)
+{
+    global $product;
+
+    // Debug logging
+    error_log('polymuse_add_model_and_thumbnail_to_gallery called');
+    error_log('Attachment ID: ' . $attachment_id);
+    error_log('HTML received: ' . $html);
+
+    if (!$product) {
+        error_log('No product found');
+        return $html;
+    }
+
+    $model_url = get_post_meta($product->get_id(), '_3d_model_url', true);
+    error_log('Model URL: ' . $model_url);
+
+    if (!empty($model_url)) {
+        // Create thumbnail URL for the 3D model
+        $model_thumbnail_url = plugins_url('3d.webp', __FILE__);
+        error_log('Model Thumbnail URL: ' . $model_thumbnail_url);
+
+        // Check if this is the first image in the gallery
+        static $first_image = true;
+
+        if ($first_image) {
+            $first_image = false;
+            // Create the model viewer div
+            $model_viewer = '<div id="polymuse-model-viewer-container">';
+            $model_viewer .= '<model-viewer id="polymuse-model-viewer" ';
+            $model_viewer .= 'src="' . esc_url($model_url) . '" ';
+            $model_viewer .= 'alt="3D model of ' . esc_attr($product->get_name()) . '" ';
+            $model_viewer .= 'auto-rotate camera-controls ar ';
+            $model_viewer .= 'style="width: 100%; height: 500px;"></model-viewer>';
+            $model_viewer .= '</div>';
+            $model_viewer .= '<div id="variant-options-container"></div>';
+
+            // Add script to handle variant selection
+            $model_viewer .= '<script>';
+            $model_viewer .= 'const modelViewer = document.getElementById("polymuse-model-viewer");';
+            $model_viewer .= 'const variantButtonsContainer = document.getElementById("variant-options-container");';
+            $model_viewer .= 'modelViewer.addEventListener("load", () => {';
+            $model_viewer .= 'const model = modelViewer.model;';
+            $model_viewer .= 'console.log(model);';
+            $model_viewer .= 'const materials = modelViewer.model.materials;';
+            $model_viewer .= 'console.log(materials);';
+            $model_viewer .= 'const variants = modelViewer.availableVariants;';
+            $model_viewer .= 'console.log("Available variants:", variants);';
+            $model_viewer .= 'if (variants && variants.length > 0) {';
+            $model_viewer .= 'variants.forEach(variant => {';
+            $model_viewer .= 'const button = document.createElement("button");';
+            $model_viewer .= 'button.textContent = variant;';
+            $model_viewer .= 'button.addEventListener("click", () => {';
+            $model_viewer .= 'modelViewer.variantName = variant;';
+            $model_viewer .= '});';
+            $model_viewer .= 'variantButtonsContainer.appendChild(button);';
+            $model_viewer .= '});';
+            $model_viewer .= '} else {';
+            $model_viewer .= 'variantButtonsContainer.textContent = "No variants available";';
+            $model_viewer .= '}';
+            $model_viewer .= '});';
+            $model_viewer .= '</script>';
+
+            // Hide default this will make selecting variants work properly
+            // $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
+            error_log('Modified HTML: ' . $html);
+            return $model_viewer . $html;
+        }
+    }
+
+    return $html;
+}
+
 // Add variant style buttons container to product page
 function add_buttons()
 {
@@ -109,47 +182,6 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
-function add_variant_options_script()
-{
-    echo '<script>
-    jQuery(document).ready(function ($) {
-        // Check if the model viewer exists
-        const modelViewer = $(".polymuse-model-viewer")[0];
-
-        // If model viewer exists, listen for the load event
-        if (modelViewer) {
-            console.log("Model viewer found");           
-          
-                const model = modelViewer.model;
-                const materials = model.materials;
-                const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
-
-                console.log("model", model);
-                console.log("materials", materials);
-                console.log("variants", variants);
-
-                // Add buttons for variants after model is loaded
-                const variantButtonsContainer = $("#variant-options-container");
-                // variantButtonsContainer.empty();  // Clear previous buttons
-
-                if (variants.length > 0) {
-                    variants.forEach(variant => {
-                        const button = $("<button></button>");
-                        button.text(variant); // Set button text as the variant name
-                        button.on("click", function () {
-                            modelViewer.variantName = variant;  // Update model viewer with the selected variant
-                        });
-                        variantButtonsContainer.append(button);
-                    });
-                } else {
-                    variantButtonsContainer.text("No variants available");
-                }        
-        } else {
-            console.log("Model viewer not found");
-        }
-    });
-    </script>';
-}
 
 
 function test_add_to_dom_plugin()
@@ -175,8 +207,6 @@ function test_add_to_dom_plugin()
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
-
-        add_action('wp_footer', 'add_variant_options_script');
     }
 }
 
