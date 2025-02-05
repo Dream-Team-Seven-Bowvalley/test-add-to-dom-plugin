@@ -29,19 +29,10 @@ jQuery(document).ready(function ($) {
             const variantButtonsContainer = $('#variant-options-container');
             variantButtonsContainer.empty();
 
-            if (variants.length > 0) {
-                variants.forEach(variant => {
-                    const button = $('<button></button>');
-                    button.text(variant); // Set button text as the variant name
-                    button.on('click', function () {
-                        // Update the model viewer with the selected variant
-                        modelViewer.variantName = variant;
-                    });
-                    variantButtonsContainer.append(button);
-                });
-            } else {
-                variantButtonsContainer.text('No variants available');
-            }
+            const button = $('<button></button>');
+            button.text('hello');
+            variantButtonsContainer.append(button);
+            // variantButtonsContainer.text('No variants available');
         });
     }
 
