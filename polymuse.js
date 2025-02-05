@@ -13,26 +13,23 @@ jQuery(document).ready(function ($) {
     // If model viewer exists, listen for the load event
     if (modelViewer) {
         modelViewer.addEventListener('load', function () {
-            // Wait for the model to be fully loaded
-            const model = modelViewer.model;
-            const materials = modelViewer.model.materials;
-            const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
+            // ... (your existing code to get model, materials, variants)
 
-            console.log('model', model);
-            console.log('materials', materials);
-            console.log('variants', variants);
-
-            // Add buttons for variants after model is loaded
             const variantButtonsContainer = $('#variant-options-container');
-            // variantButtonsContainer.empty();  // Clear previous buttons
+
+            // Clear previous buttons (important!)
+            variantButtonsContainer.empty();
 
             if (variants.length > 0) {
                 variants.forEach(variant => {
                     const button = $('<button></button>');
-                    button.text(variant); // Set button text as the variant name
+                    button.text(variant);
+
+                    // Attach event listener directly to the button
                     button.on('click', function () {
-                        modelViewer.variantName = variant;  // Update model viewer with the selected variant
+                        modelViewer.variantName = variant;
                     });
+
                     variantButtonsContainer.append(button);
                 });
             } else {
