@@ -26,7 +26,14 @@ jQuery(document).ready(function ($) {
             }, 3000);
         }
 
+        modelViewer.addEventListener('load', () => {  // The ONLY reliable way
+            console.log('Model viewer loaded (event fired)');
+            // Your code to work with the model goes HERE.
+            // Now you can access modelViewer.model, etc.
+        });
 
-
+        modelViewer.addEventListener('error', (error) => {
+            console.error('Model viewer loading error:', error);
+        });
     }
 });
