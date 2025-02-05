@@ -177,7 +177,7 @@ function add_buttons2() {
     if (is_product()) {
         
         // Create a container div for variant options
-        echo '<div id="variant-options-container"></div>';
+        echo '<div id="variant-options-container">Hello</div>';
     }
 }
 
