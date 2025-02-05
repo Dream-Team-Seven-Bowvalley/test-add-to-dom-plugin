@@ -171,13 +171,16 @@ function add_buttons()
 }
 
 // Attempt to change model info
-function add_buttons2() {
+function add_buttons2()
+{
     global $product;
 
     if (is_product()) {
-        
+
         // Create a container div for variant options
-        echo '<div id="variant-options-container">Hello</div>';
+        ?>
+        <div id="variant-options-container">Hello</div>
+        <?php
     }
 }
 
