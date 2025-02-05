@@ -7,39 +7,47 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-    // Check if the model viewer exists
-    const modelViewer = $('.polymuse-model-viewer')[0];
+    // *** KEY CHANGE:  Use a MutationObserver ***
+    const variantButtonsContainer = $('#variant-options-container');
 
-    // If model viewer exists, listen for the load event
-    if (modelViewer) {
-        modelViewer.addEventListener('load', function () {
-            // ... (your existing code to get model, materials, variants)
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes) {
+                mutation.addedNodes.forEach(function(node) {
+                    // Check if the model-viewer has been added
+                    if (node.classList && node.classList.contains('polymuse-model-viewer')) {
+                        const modelViewer = node.querySelector('model-viewer'); // Get the model-viewer inside
 
-            const variantButtonsContainer = $('#variant-options-container');
+                        if (modelViewer) {
+                            modelViewer.addEventListener('load', function () {
+                                const model = modelViewer.model;
+                                const materials = modelViewer.model.materials;
+                                const variants = modelViewer.availableVariants || [];
 
-            // Clear previous buttons (important!)
-            // variantButtonsContainer.empty();
+                                variantButtonsContainer.empty(); // Clear previous buttons
 
-            const testDiv = $('<div>look at my test</div>');
-            variantButtonsContainer.append(testDiv);
-            console.log('Variant options container contents:', variantButtonsContainer.html());
-
-            // if (variants.length > 0) {
-            //     variants.forEach(variant => {
-            //         const button = $('<button>words</button>');
-            //         button.text(variant);
-
-            //         // Attach event listener directly to the button
-            //         button.on('click', function () {
-            //             modelViewer.variantName = variant;
-            //         });
-
-            //         variantButtonsContainer.append(button);
-            //     });
-            // } else {
-            //     variantButtonsContainer.text('No variants available');
-            // }
+                                if (variants.length > 0) {
+                                    variants.forEach(variant => {
+                                        const button = $('<button></button>');
+                                        button.text(variant);
+                                        button.on('click', function () {
+                                            modelViewer.variantName = variant;
+                                        });
+                                        variantButtonsContainer.append(button);
+                                    });
+                                } else {
+                                    variantButtonsContainer.text('No variants available');
+                                }
+                            });
+                        }
+                    }
+                });
+            }
         });
-    }
+    });
+
+    // Start observing the container for changes (specifically, when the model-viewer is added)
+    observer.observe(variantButtonsContainer[0], { childList: true, subtree: true }); // subtree for nested elements
+
 
 });
