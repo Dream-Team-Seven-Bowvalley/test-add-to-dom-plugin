@@ -118,10 +118,8 @@ function add_variant_options_script()
 
         // If model viewer exists, listen for the load event
         if (modelViewer) {
-            console.log("Model viewer found");
-
-            // Add event listener for the load event
-            modelViewer.addEventListener("load", function() {
+            console.log("Model viewer found");           
+          
                 const model = modelViewer.model;
                 const materials = model.materials;
                 const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
@@ -145,8 +143,7 @@ function add_variant_options_script()
                     });
                 } else {
                     variantButtonsContainer.text("No variants available");
-                }
-            });
+                }        
         } else {
             console.log("Model viewer not found");
         }
