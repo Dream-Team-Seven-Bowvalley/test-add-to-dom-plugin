@@ -7,42 +7,52 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-    // Check if the model viewer exists
-    const modelViewer = $('.polymuse-model-viewer')[0];
+    const modelViewer = document.querySelector('.polymuse-model-viewer'); // Use querySelector
 
-    // If model viewer exists, listen for the load event
     if (modelViewer) {
         console.log('Model viewer found');
-       
-        
-        const model = modelViewer.model;
-        const materials = modelViewer.model.materials;
-        const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
 
-        console.log('model', model);
-        console.log('materials', materials);
-        console.log('variants', variants);
+        modelViewer.addEventListener('load', () => { // Listen for the model-viewer load event
+            console.log('Model viewer loaded');
 
-        // Add buttons for variants after model is loaded
-        const variantButtonsContainer = $('#variant-options-container');
-        // variantButtonsContainer.empty();  // Clear previous buttons
+            const model = modelViewer.model;
+            console.log('model', model);
 
-        if (variants.length > 0) {
-            variants.forEach(variant => {
-                const button = $('<button></button>');
-                button.text(variant); // Set button text as the variant name
-                button.on('click', function () {
-                    modelViewer.variantName = variant;  // Update model viewer with the selected variant
-                });
-                variantButtonsContainer.append(button);
+            model.addEventListener('load', () => { // listen for the model load event
+                console.log('Model Loaded');
+                const materials = model.materials;
+                const variants = model.availableVariants || [];
+
+                console.log('materials', materials);
+                console.log('variants', variants);
+
+                const variantButtonsContainer = $('#variant-options-container');
+                if (variants.length > 0) {
+                    variants.forEach(variant => {
+                        const button = $('<button></button>');
+                        button.text(variant);
+                        button.on('click', function () {
+                            modelViewer.variantName = variant;
+                        });
+                        variantButtonsContainer.append(button);
+                    });
+                } else {
+                    variantButtonsContainer.text('No variants available');
+                }
             });
-        } else {
-            variantButtonsContainer.text('No variants available');
-        }
+
+
+            model.addEventListener('error', (error) => {
+                console.error('Model loading error:', error);
+            });
+
+        });
+
+        modelViewer.addEventListener('error', (error) => {
+            console.error('Model viewer loading error:', error);
+        });
+
     } else {
         console.log('Model viewer not found');
     }
 });
-
-
-
