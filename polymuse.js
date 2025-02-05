@@ -38,7 +38,10 @@ jQuery(document).ready(function ($) {
         } else {
             variantButtonsContainer.text('No variants available');
         }
-    });
+    } else {
+        console.log('Model viewer not found');
     }
-
 });
+
+
+
