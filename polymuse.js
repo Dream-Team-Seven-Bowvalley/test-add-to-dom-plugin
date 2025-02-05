@@ -18,9 +18,13 @@ jQuery(document).ready(function ($) {
             const materials = modelViewer.model.materials;
             const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
 
+            console.log('model', model);
+            console.log('materials', materials);
+            console.log('variants', variants);
+
             // Add buttons for variants after model is loaded
             const variantButtonsContainer = $('#variant-options-container');
-            variantButtonsContainer.empty();  // Clear previous buttons
+            // variantButtonsContainer.empty();  // Clear previous buttons
 
             if (variants.length > 0) {
                 variants.forEach(variant => {
