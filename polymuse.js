@@ -18,23 +18,27 @@ jQuery(document).ready(function ($) {
             const variantButtonsContainer = $('#variant-options-container');
 
             // Clear previous buttons (important!)
-            variantButtonsContainer.empty();
+            // variantButtonsContainer.empty();
 
-            if (variants.length > 0) {
-                variants.forEach(variant => {
-                    const button = $('<button>words</button>');
-                    button.text(variant);
+            const testDiv = $('<div>look at my test</div>');
+            variantButtonsContainer.append(testDiv);
+            console.log('Variant options container contents:', variantButtonsContainer.html());
 
-                    // Attach event listener directly to the button
-                    button.on('click', function () {
-                        modelViewer.variantName = variant;
-                    });
+            // if (variants.length > 0) {
+            //     variants.forEach(variant => {
+            //         const button = $('<button>words</button>');
+            //         button.text(variant);
 
-                    variantButtonsContainer.append(button);
-                });
-            } else {
-                variantButtonsContainer.text('No variants available');
-            }
+            //         // Attach event listener directly to the button
+            //         button.on('click', function () {
+            //             modelViewer.variantName = variant;
+            //         });
+
+            //         variantButtonsContainer.append(button);
+            //     });
+            // } else {
+            //     variantButtonsContainer.text('No variants available');
+            // }
         });
     }
 
