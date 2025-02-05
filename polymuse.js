@@ -7,35 +7,27 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-    // Get the model viewer element
+    // Check if the model viewer exists
     const modelViewer = $('.polymuse-model-viewer')[0];
 
-    // Check if the model viewer element exists
+    // If model viewer exists, listen for the load event
     if (modelViewer) {
-        // Wait for the model to load
         modelViewer.addEventListener('load', function () {
-            // Get materials and variants data (adjust based on your model's format)
+            // Wait for the model to be fully loaded
             const model = modelViewer.model;
-            console.log(model);
-
             const materials = modelViewer.model.materials;
-            console.log(materials);
-
-            // Example check for available variants (you may need to adjust this logic depending on your model)
             const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
-            console.log('Available variants:', variants);
 
-            // Create buttons for each variant if available
+            // Add buttons for variants after model is loaded
             const variantButtonsContainer = $('#variant-options-container');
-            variantButtonsContainer.empty();
+            variantButtonsContainer.empty();  // Clear previous buttons
 
             if (variants.length > 0) {
                 variants.forEach(variant => {
                     const button = $('<button></button>');
                     button.text(variant); // Set button text as the variant name
                     button.on('click', function () {
-                        // Update the model viewer with the selected variant
-                        modelViewer.variantName = variant;
+                        modelViewer.variantName = variant;  // Update model viewer with the selected variant
                     });
                     variantButtonsContainer.append(button);
                 });
