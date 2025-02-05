@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
             }, 3000);
         }
 
-        modelViewer.addEventListener('load', () => {  // The ONLY reliable way
+        modelViewer.addEventListener('loaded', () => {  // The ONLY reliable way
             console.log('Model viewer loaded (event fired)');
             // Your code to work with the model goes HERE.
             // Now you can access modelViewer.model, etc.
