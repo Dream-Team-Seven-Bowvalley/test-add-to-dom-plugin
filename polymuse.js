@@ -12,28 +12,31 @@ jQuery(document).ready(function ($) {
 
     // If model viewer exists, listen for the load event
     if (modelViewer) {
-        console.log("look at me")
-        modelViewer.addEventListener('load', function () {
-            // ... (your existing code to get model, materials, variants)
 
-            const variantButtonsContainer = $('#variant-options-container');       
+        // Wait for the model to be fully loaded
+        const model = modelViewer.model;
+        const materials = modelViewer.model.materials;
+        const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
 
-            if (variants.length > 0) {
-                variants.forEach(variant => {
-                    const button = $('<button>words</button>');
-                    button.text(variant);
+        console.log('model', model);
+        console.log('materials', materials);
+        console.log('variants', variants);
 
-                    // Attach event listener directly to the button
-                    button.on('click', function () {
-                        modelViewer.variantName = variant;
-                    });
+        // Add buttons for variants after model is loaded
+        const variantButtonsContainer = $('#variant-options-container');
+        // variantButtonsContainer.empty();  // Clear previous buttons
 
-                    variantButtonsContainer.append(button);
+        if (variants.length > 0) {
+            variants.forEach(variant => {
+                const button = $('<button></button>');
+                button.text(variant); // Set button text as the variant name
+                button.on('click', function () {
+                    modelViewer.variantName = variant;  // Update model viewer with the selected variant
                 });
-            } else {
-                variantButtonsContainer.text('No variants available');
-            }
-        });
+                variantButtonsContainer.append(button);
+            });
+        } else {
+            variantButtonsContainer.text('No variants available');
+        }
     }
-
 });
