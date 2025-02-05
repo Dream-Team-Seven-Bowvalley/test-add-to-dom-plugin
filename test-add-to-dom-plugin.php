@@ -74,16 +74,6 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
-            $model_viewer .='<script>';
-              $model_viewer .='const modelViewer = $(\'.polymuse-model-viewer\')[0];';
-              $model_viewer .='$(modelViewer).on(\'load\', function () {';
-                  $model_viewer .='console.log(\'Model viewer loaded\');';
-                  $model_viewer .='const model = modelViewer.model;';
-                  $model_viewer .='console.log(model);';
-              $model_viewer .='});';
-            $model_viewer .='</script>';
-    
-
             // Hide default this will make selecting variants work properly
             // $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
@@ -107,6 +97,7 @@ function add_buttons()
         <?php
     }
 }
+
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
@@ -118,6 +109,7 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
+
 function test_add_to_dom_plugin()
 {
     $plugin_path = trailingslashit(WP_PLUGIN_DIR) . 'woocommerce/woocommerce.php';
@@ -125,7 +117,7 @@ function test_add_to_dom_plugin()
     if (
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {
+    ) {       
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
 
@@ -135,7 +127,7 @@ function test_add_to_dom_plugin()
         // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
 
-        // Add variant style buttons to product page
+        // Add variant options buttons container to product page
         add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         // Enqueue assets
