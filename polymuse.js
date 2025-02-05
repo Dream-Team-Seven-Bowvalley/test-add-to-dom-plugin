@@ -1,4 +1,4 @@
-jQuery(document).ready(async function ($) {
+jQuery(document).ready(function ($) {
 
     function adjustModelViewerHeight() {
         $('.polymuse-model-viewer').height(500);
@@ -14,13 +14,13 @@ jQuery(document).ready(async function ($) {
     if (modelViewer) {
         console.log('Model viewer found');
         // Wait for the model to be fully loaded
-        // const model = modelViewer.model;
-        const materials = await  modelViewer.model.materials;
-        // const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
+        const model = modelViewer.model;
+        const materials = modelViewer.model.materials;
+        const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
 
-        // console.log('model', model);
+        console.log('model', model);
         console.log('materials', materials);
-        // console.log('variants', variants);
+        console.log('variants', variants);
 
         // Add buttons for variants after model is loaded
         const variantButtonsContainer = $('#variant-options-container');
