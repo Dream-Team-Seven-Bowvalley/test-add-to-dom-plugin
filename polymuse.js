@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
 
             if (variants.length > 0) {
                 variants.forEach(variant => {
-                    const button = $('<button></button>');
+                    const button = $('<button>words</button>');
                     button.text(variant);
 
                     // Attach event listener directly to the button
