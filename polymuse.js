@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-    const modelViewer = document.querySelector('.polymuse-model-viewer'); // Use querySelector
+    const modelViewer = $('.polymuse-model-viewer')[0];
 
     if (modelViewer) {
         console.log('Model viewer found');
@@ -16,10 +16,17 @@ jQuery(document).ready(function ($) {
             console.log('Model viewer already loaded');
         } else {
             console.log('Model viewer not loaded');
-            modelViewer.addEventListener('load', () => {
-                console.log('Model viewer loaded');
-            });
+            setTimeout(() => {
+                if (modelViewer.loaded) {
+                    console.log('Model viewer loaded');
+                }
+                else {
+                    console.log('Model viewer not loaded');
+                }
+            }, 3000);
         }
+
+
 
     }
 });
