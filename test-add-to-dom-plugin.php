@@ -70,7 +70,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= 'data-thumb-alt="3D Model" ';
             $model_viewer .= 'data-thumb-srcset="' . esc_url($model_thumbnail_url) . ' 100w" ';
             $model_viewer .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
-            $model_viewer .= 'class="woocommerce-product-gallery__image polymuse-model-viewer">';
+            $model_viewer .= 'class="woocommerce-product-gallery__image polymuse-model-viewer" id="polymuse-model-viewer">';
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
@@ -84,9 +84,8 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     return $html;
 }
 
-
 // Add variant style buttons container to product page
-function add_buttons2()
+function add_buttons()
 {
     global $product;
 
@@ -98,14 +97,12 @@ function add_buttons2()
         <?php
     }
 }
-
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
     wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
 }
-
 function polymuse_add_model_viewer_script()
 {
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
@@ -117,22 +114,18 @@ function test_add_to_dom_plugin()
     if (
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {
-       
-
+    ) {       
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
-        // add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_variant_json_data');
 
-        // Save custom field data
+        // Save custom field data when entered
         add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_model_url');
-        // add_action('woocommerce_process_product_meta', 'polymuse_save_custom_field_variant_json_data');
 
         // Add 3D model and thumbnail to gallery
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
 
         // Add variant style buttons to product page
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons2');
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');

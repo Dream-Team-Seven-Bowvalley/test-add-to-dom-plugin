@@ -6,7 +6,7 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize({ passive: true }, adjustModelViewerHeight);
 
-    const modelViewer = $('.polymuse-model-viewer')[0];
+    const modelViewer = $('#polymuse-model-viewer');
 
     if (modelViewer) {
         console.log('Look at me');
