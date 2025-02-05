@@ -10,20 +10,12 @@ jQuery(document).ready(function ($) {
     // Check if the model viewer exists
     const modelViewer = $('.polymuse-model-viewer')[0];
 
-
     // If model viewer exists, listen for the load event
     if (modelViewer) {
         console.log('Model viewer found');
-        // Wait for the model to be fully loaded
-
-
-        $(modelViewer).on('load', function () {
-            console.log('Model viewer loaded');
-            const model = modelViewer.model;
-            console.log(model);
-        });
-
-        // const model = modelViewer.model;
+       
+        
+        const model = modelViewer.model;
         const materials = modelViewer.model.materials;
         const variants = modelViewer.availableVariants || [];  // Adjust this logic if needed
 
