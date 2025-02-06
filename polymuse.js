@@ -9,11 +9,10 @@ jQuery(document).ready(function ($) {
 
     // Dynamic import of the model-viewer library
     import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js')
-        .then(() => {  // Library loaded successfully
+        .then(() => {
             console.log('Model Viewer library loaded dynamically!');
-            // Now you can safely use model-viewer
 
-            const modelViewer = $('.polymuse-model-viewer')[0]; // jQuery selector
+            const modelViewer = $('.polymuse-model-viewer')[0];
 
             if (modelViewer) {
                 console.log('Model viewer found:', modelViewer);
@@ -30,26 +29,25 @@ jQuery(document).ready(function ($) {
                 if (modelViewer.hasAttribute('src')) {
                     console.log('Model viewer source:', modelViewer.getAttribute('src'));
                 }
-                // if(modelViewer.loaded)
-                // const lookAtMeDiv = document.createElement('div');
-                // lookAtMeDiv.textContent = 'Look at me';
-                // $('#variant-options-container').append(lookAtMeDiv);
 
-                checkIfModelViewerIsLoaded(modelViewer);
+                checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
+
             } else {
                 console.log('Model Viewer element not found.');
             }
 
         })
-        .catch(error => { // Handle errors if the module fails to load
+        .catch(error => {
             console.error('Error loading Model Viewer library:', error);
         });
 
     function checkIfModelViewerIsLoaded(modelViewer) {
-        if (modelViewer.loaded) console.log('Model viewer loaded');
-        else {
+        if (modelViewer && modelViewer.loaded) { // Check if modelViewer exists and is loaded
+            console.log('Model viewer loaded');
+        } else {
             console.log('Model viewer not loaded');
-            setTimeout(checkIfModelViewerIsLoaded(modelViewer), 1000);
+            setTimeout(() => checkIfModelViewerIsLoaded(modelViewer), 1000); // Correct: Pass function REFERENCE
         }
     }
 });
+
