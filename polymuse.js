@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
     $(window).resize(adjustModelViewerHeight);
     
 
-    const modelViewer = $('.polymuse-model-viewer')[0];
+    const modelViewer = $('#polymuse-model-viewer')[0];
     const modelViewerFirstChild = modelViewer ? modelViewer.firstElementChild : null;
     console.log('First child of model viewer:', modelViewerFirstChild);
 
