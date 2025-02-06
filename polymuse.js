@@ -34,6 +34,8 @@ jQuery(document).ready(function ($) {
                 // const lookAtMeDiv = document.createElement('div');
                 // lookAtMeDiv.textContent = 'Look at me';
                 // $('#variant-options-container').append(lookAtMeDiv);
+
+                checkIfModelViewerIsLoaded();
             } else {
                 console.log('Model Viewer element not found.');
             }
