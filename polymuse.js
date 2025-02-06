@@ -38,11 +38,11 @@ jQuery(document).ready(function ($) {
             console.log('Model viewer source:', modelViewer.getAttribute('src'));
         }
 
-        modelViewer.load().then(() => {
-            console.log('Model viewer loaded (promise resolved)');
+        // Wait for the custom element to be ready
+        customElements.whenDefined('model-viewer').then(() => {
+            console.log('Model viewer loaded (custom element ready)');
             // Your code to work with the model goes here
         }).catch((error) => {
-
             console.error('Model viewer loading error:', error);
         });
         // Goes for ever 
