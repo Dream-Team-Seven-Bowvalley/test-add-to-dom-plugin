@@ -16,6 +16,12 @@ jQuery(document).ready(function ($) {
 
             if (modelViewer) {
                 console.log('Model viewer found:', modelViewer);
+                
+                modelViewer.on('load', () => {
+                    console.log('Model viewer loaded (event fired)');
+                    // Your code to work with the model goes here
+                });
+                
                 const model = modelViewer.model;
                 console.log('Model viewer model:', model);
 
