@@ -6,8 +6,17 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-    const modelViewer = $('model-viewer')[0];
+    setupModelViewerVariants();
 
+    // For variable product page
+    changeVariantInputToLabel();
+
+});
+
+// if model viewer is found, create variant buttons
+function setupModelViewerVariants() {
+    // Get the model viewer element
+    const modelViewer = $('model-viewer')[0];
     if (modelViewer) {
         console.log('Model viewer found:', modelViewer);
 
@@ -42,7 +51,7 @@ jQuery(document).ready(function ($) {
             if (variantButtonsContainer) {
                 if (variants && variants.length > 0) {
                     variants.forEach(variant => {
-                        const button = $('<button class="alt wp-element-button"></button>')[0];// test jq style of doing this 
+                        const button = $('<button class="variant-selector-button alt wp-element-button"></button>')[0];
                         button.textContent = variant;
                         button.addEventListener('click', () => {
                             modelViewer.variantName = variant;
@@ -57,4 +66,27 @@ jQuery(document).ready(function ($) {
     } else {
         console.log('Model Viewer element not found.');
     }
-});
+}
+
+// Change variant input to label
+function changeVariantInputToLabel() {
+    const variantInput = $('#model-variant')[0];
+    if (variantInput) {
+        const variantLabel = $('<label id="variantLabel"> </label>')[0];
+        variantLabel.textContent = variantInput.value;
+        variantInput.replaceWith(variantLabel);
+    }
+}
+
+// Add on click event to variant buttons to variantLabel text
+function addVariantButtonOnClick() {
+    const variantButtons = $('.variant-selector-button');
+    const variantLabel = $('#variantLabel')[0];
+    if (variantButtons && variantLabel) {
+        variantButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                variantLabel.textContent = button.textContent;
+            });
+        });
+    }
+}
