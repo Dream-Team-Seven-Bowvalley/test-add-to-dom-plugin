@@ -97,16 +97,16 @@ function add_buttons()
         <?php
     }
 }
+function polymuse_add_model_viewer_script()
+{
+    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
+}
 
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
     wp_enqueue_style('polymuse-styles', plugins_url('/styles.css', __FILE__));
     wp_enqueue_script('polymuse-script', plugins_url('/polymuse.js', __FILE__), array('jquery'), '1.0', true);
-}
-function polymuse_add_model_viewer_script()
-{
-    echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
 
@@ -117,7 +117,7 @@ function test_add_to_dom_plugin()
     if (
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {       
+    ) {
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
 
