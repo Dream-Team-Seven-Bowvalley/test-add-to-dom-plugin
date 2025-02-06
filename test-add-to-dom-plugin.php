@@ -74,6 +74,27 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar style="width: 100%; height: 100%;"></model-viewer>';
             $model_viewer .= '</div>';
 
+            $model_viewer .= '<script type="module">';  // Start the script tag
+            $model_viewer .= 'import("https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js")';
+            $model_viewer .= '.then(() => {'; // Correct way to handle the promise
+            $model_viewer .= '    const modelViewer = document.getElementById("polymuse-model-viewer");'; // Vanilla JS is better here
+            $model_viewer .= '    if (modelViewer) {';
+            $model_viewer .= '        console.log("Model Viewer found");';
+            $model_viewer .= '        modelViewer.addEventListener("load", () => {';
+            $model_viewer .= '            console.log("Model viewer loaded (event fired)");';
+            $model_viewer .= '            // Your code to work with the model goes here';
+            $model_viewer .= '        });';
+            $model_viewer .= '        modelViewer.addEventListener("error", (error) => {';
+            $model_viewer .= '            console.error("Model viewer loading error:", error);';
+            $model_viewer .= '        });';
+            $model_viewer .= '    } else {';
+            $model_viewer .= '        console.log("Model Viewer element not found");';
+            $model_viewer .= '    }';
+            $model_viewer .= '}).catch(error => {';
+            $model_viewer .= '    console.error("Error loading Model Viewer library:", error);';
+            $model_viewer .= '});';
+            $model_viewer .= '</script>';
+
             // Hide default this will make selecting variants work properly
             // $html = '<style>.woocommerce-product-gallery__image--placeholder:first-child { display: none; }</style>';
             error_log('Modified HTML: ' . $html);
@@ -117,7 +138,7 @@ function test_add_to_dom_plugin()
     if (
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
-    ) {       
+    ) {
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
 
