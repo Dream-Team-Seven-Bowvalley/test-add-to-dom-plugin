@@ -6,9 +6,7 @@ jQuery(document).ready(function ($) {
 
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
-
-
-    console.log('Model Viewer library loaded dynamically!');
+    
 
     const modelViewer = $('.polymuse-model-viewer')[0];
 
@@ -17,6 +15,11 @@ jQuery(document).ready(function ($) {
 
         $(modelViewer).on('load', () => {
             console.log('Model viewer loaded (event fired)');
+            // Your code to work with the model goes here
+        });
+
+        $(modelViewer).on('model-ready', () => {
+            console.log('Model viewer loaded (model-ready event fired)');
             // Your code to work with the model goes here
         });
 
