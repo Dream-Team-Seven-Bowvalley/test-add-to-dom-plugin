@@ -21,8 +21,8 @@ jQuery(document).ready(function ($) {
         });
 
         // Undefined
-        const model = modelViewer.model;
-        console.log('Model viewer model:', model);
+        // const model = modelViewer.model;
+        // console.log('Model viewer model:', model);
 
         // Never fires
         modelViewer.addEventListener('load', () => {
@@ -41,6 +41,8 @@ jQuery(document).ready(function ($) {
         // Wait for the custom element to be ready
         customElements.whenDefined('model-viewer').then(() => {
             console.log('Model viewer loaded (custom element ready)');
+            const model = modelViewer.model;
+            console.log('Model viewer model:', model);
             // Your code to work with the model goes here
         }).catch((error) => {
             console.error('Model viewer loading error:', error);
