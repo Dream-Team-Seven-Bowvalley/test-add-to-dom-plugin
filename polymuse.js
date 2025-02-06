@@ -35,7 +35,7 @@ jQuery(document).ready(function ($) {
                 // lookAtMeDiv.textContent = 'Look at me';
                 // $('#variant-options-container').append(lookAtMeDiv);
 
-                checkIfModelViewerIsLoaded();
+                checkIfModelViewerIsLoaded(modelViewer);
             } else {
                 console.log('Model Viewer element not found.');
             }
@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
             console.error('Error loading Model Viewer library:', error);
         });
 
-    function checkIfModelViewerIsLoaded() {
+    function checkIfModelViewerIsLoaded(modelViewer) {
         if (modelViewer.loaded) console.log('Model viewer loaded');
         else {
             console.log('Model viewer not loaded');
