@@ -9,9 +9,11 @@ jQuery(document).ready(function ($) {
 
     const modelViewer = $('.polymuse-model-viewer')[0];
 
+    if (modelViewer) {
+        console.log('Model viewer found:', modelViewer);
+    }
 
-
-    modelViewer.addEventListener('load', () => {  
+    modelViewer.addEventListener('load', () => {
         console.log('Model viewer loaded (event fired)');
     });
 
