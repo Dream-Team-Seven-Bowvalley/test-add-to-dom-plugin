@@ -1,55 +1,44 @@
-jQuery(document).ready(function ($) {
-    function adjustModelViewerHeight() {
-      $('.polymuse-model-viewer').height(500);
-    }
-  
-    adjustModelViewerHeight();
-    $(window).resize(adjustModelViewerHeight);
-  
+jQuery(document).ready(function($) {
     const modelViewer = $('model-viewer')[0];
+    const variantButtonsContainer = $('#variant-buttons')[0];
   
-    if (modelViewer) {
-      console.log('Model viewer found:', modelViewer);
+    $(modelViewer).on('load', function() {
+      const model = modelViewer.model;
+      console.log(model);
   
-      $(modelViewer).on('load', () => {
-        console.log('Model viewer loaded (event fired)');
-        const model = modelViewer.model;
-        console.log('Model:', model);
+      const materials = modelViewer.model.materials;
+      console.log(materials);
   
-        const materials = modelViewer.model.materials;
-        console.log(materials);
+      // Check for available variants
+      const variants = modelViewer.availableVariants;
+      console.log('Available variants:', variants);
   
-        // Check for available variants
-        const variants = modelViewer.availableVariants;
-        console.log('Available variants:', variants);
+      // Get material info for each variant
+      const variantInfo = {};
+      if (variants) {
+        variants.forEach(variant => {
+          modelViewer.variantName = variant;
+          const material = modelViewer.model.materials[0]; // Assuming first material
+          if (material && material.pbrMetallicRoughness && material.pbrMetallicRoughness.baseColorFactor) {
+            variantInfo[variant] = material.pbrMetallicRoughness.baseColorFactor;
+          }
+        });
+        // Reset to first variant
+        modelViewer.variantName = variants[0];
+      }
   
-        // Get material info for each variant
-        const variantInfo = {};
-        if (variants) {
-          variants.forEach(variant => {
+      // Create buttons for each variant
+      if (variants && variants.length > 0) {
+        variants.forEach(variant => {
+          const button = $('<button>');
+          button.text(variant);
+          button.on('click', function() {
             modelViewer.variantName = variant;
-            const material = modelViewer.model.materials[0]; // Assuming first material
-            if (material && material.pbrMetallicRoughness && material.pbrMetallicRoughness.baseColorFactor) {
-              variantInfo[variant] = material.pbrMetallicRoughness.baseColorFactor;
-            }
           });
-          // Reset to first variant
-          modelViewer.variantName = variants[0];
-        }
-  
-        // Create buttons for each variant
-        const variantButtonsContainer = $('#variant-buttons-container');
-        if (variantButtonsContainer.length > 0 && variants && variants.length > 0) {
-          variants.forEach(variant => {
-            const button = $('<button>').text(variant);
-            button.on('click', () => {
-              modelViewer.variantName = variant;
-            });
-            variantButtonsContainer.append(button);
-          });
-        }
-      });
-    } else {
-      console.log('Model Viewer element not found.');
-    }
+          $(variantButtonsContainer).append(button);
+        });
+      } else {
+        $(variantButtonsContainer).text('No variants available');
+      }
+    });
   });
