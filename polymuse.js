@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
             }
 
             // Create buttons for each variant
-            const variantButtonsContainer = $('#variant-buttons')[0];
+            const variantButtonsContainer = $('#variant-options-container')[0];
             if (variantButtonsContainer) {
                 if (variants && variants.length > 0) {
                     variants.forEach(variant => {
