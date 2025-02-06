@@ -102,6 +102,61 @@ function polymuse_add_model_viewer_script()
     echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>';
 }
 
+function render_js_in_footer_script()
+{
+    echo '<script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            function adjustModelViewerHeight() {
+                $(".polymuse-model-viewer").height(500);
+            }
+
+            adjustModelViewerHeight();
+            $(window).resize(adjustModelViewerHeight);
+
+            console.log("Model Viewer library loaded dynamically!");
+
+            const modelViewer = $(".polymuse-model-viewer")[0];
+
+            if (modelViewer) {
+                console.log("Model viewer found:", modelViewer);
+
+                $(modelViewer).on("load", () => {
+                    console.log("Model viewer loaded (event fired)");
+                });
+
+                const model = modelViewer.model;
+                console.log("Model viewer model:", model);
+
+                modelViewer.addEventListener("load", () => {
+                    console.log("Model viewer loaded (event fired)");
+                });
+
+                modelViewer.addEventListener("error", (error) => {
+                    console.error("Model viewer loading error:", error);
+                });
+
+                if (modelViewer.hasAttribute("src")) {
+                    console.log("Model viewer source:", modelViewer.getAttribute("src"));
+                }
+
+                checkIfModelViewerIsLoaded(modelViewer);
+            } else {
+                console.log("Model Viewer element not found.");
+            }
+
+            function checkIfModelViewerIsLoaded(modelViewer) {
+                if (modelViewer && modelViewer.loaded) {
+                    console.log("Model viewer loaded");
+                } else {
+                    console.log("Model viewer not loaded");
+                    setTimeout(() => checkIfModelViewerIsLoaded(modelViewer), 1000);
+                }
+            }
+        });
+    </script>';
+}
+
+
 function polymuse_enqueue_assets()
 {
     // wp_enqueue_script('jquery');
@@ -133,6 +188,7 @@ function test_add_to_dom_plugin()
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');
         add_action('wp_enqueue_scripts', 'polymuse_enqueue_assets');
+        add_action('wp_footer', 'render_js_in_footer_script');
     }
 }
 
