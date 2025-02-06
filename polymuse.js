@@ -5,10 +5,12 @@ jQuery(document).ready(function ($) {
     }
 
     adjustModelViewerHeight();
-    window.addEventListener('resize', adjustModelViewerHeight, { passive: true });
+    $(window).resize(adjustModelViewerHeight);
     
 
     const modelViewer = $('.polymuse-model-viewer')[0];
+    const modelViewerFirstChild = modelViewer ? modelViewer.firstElementChild : null;
+    console.log('First child of model viewer:', modelViewerFirstChild);
 
     if (modelViewer) {
         console.log('Model viewer found:', modelViewer);
