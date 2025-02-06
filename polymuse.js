@@ -18,15 +18,18 @@ jQuery(document).ready(function ($) {
             if (modelViewer) {
                 console.log('Model viewer found:', modelViewer);
 
-                const model = modelViewer.model;
-                console.log(model);
+                modelViewer.addEventListener('load', () => {
+                    console.log('Model viewer loaded (event fired)');
+                    // Your code to work with the model goes here
+                });
 
-                const materials = modelViewer.model.materials;
-                console.log(materials);
+                modelViewer.addEventListener('error', (error) => {
+                    console.error('Model viewer loading error:', error);
+                });
 
-                // Check for available variants
-                const variants = modelViewer.availableVariants;
-                console.log('Available variants:', variants);
+                const lookAtMeDiv = document.createElement('div');
+                lookAtMeDiv.textContent = 'Look at me';
+                modelViewer.parentNode.insertBefore(lookAtMeDiv, modelViewer);
             } else {
                 console.log('Model Viewer element not found.');
             }
