@@ -6,44 +6,22 @@ jQuery(document).ready(function ($) {
 
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
-    
+
 
     const modelViewer = $('#product-model-viewer-element');
-   
+
 
     if (modelViewer) {
         console.log('Model viewer found:', modelViewer);
 
         $(modelViewer).on('load', () => {
             console.log('Model viewer loaded (event fired)');
-            // Your code to work with the model goes here
-        });
-
-        $(modelViewer).on('model-ready', () => {
-            console.log('Model viewer loaded (model-ready event fired)');
-            // Your code to work with the model goes here
-        });
-
-        // Undefined
-        const model = modelViewer.model;
-        console.log('Model viewer model:', model);
-
-        // Never fires
-        modelViewer.addEventListener('load', () => {
-            console.log('Model viewer loaded (event fired)');
-            // Your code to work with the model goes here
-        });
-        // Never fires
-        modelViewer.addEventListener('error', (error) => {
-            console.error('Model viewer loading error:', error);
-        });
-        // Never fires
-        if (modelViewer.hasAttribute('src')) {
-            console.log('Model viewer source:', modelViewer.getAttribute('src'));
-        }
+            const model = modelViewer.model;
+            console.log('Model viewer model:', model);
+        });   
 
         // Goes for ever 
-        // checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
+        checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
 
     } else {
         console.log('Model Viewer element not found.');
