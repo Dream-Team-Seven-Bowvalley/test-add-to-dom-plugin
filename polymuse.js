@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
     }
 
     adjustModelViewerHeight();
-    $(window).resize(adjustModelViewerHeight);
+    window.addEventListener('resize', adjustModelViewerHeight, { passive: true });
     
 
     const modelViewer = $('.polymuse-model-viewer')[0];
