@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
 
         $(modelViewer).on('load', () => {
             console.log('Model viewer loaded (event fired)');
-            const model = modelViewer.model;
+            const model = modelViewer.getModel();
             console.log('Model viewer model:', model);
             checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
         });      
