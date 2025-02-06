@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
             console.log('Available variants:', variants);
 
             // Get the container
-            const container = $('#variant-options-container');
+            const container = $('#variant-options-container')[0];
 
             if (container) {
                 // Add materials info
