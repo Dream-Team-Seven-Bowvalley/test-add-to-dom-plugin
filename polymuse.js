@@ -8,14 +8,13 @@ jQuery(document).ready(function ($) {
     $(window).resize(adjustModelViewerHeight);
     
 
-    const modelViewer = $('#polymuse-model-viewer');
-    const modelViewerFirstChild = modelViewer ? modelViewer.firstElementChild : null;
-    console.log('First child of model viewer:', modelViewerFirstChild);
+    const modelViewer = $('#product-model-viewer-element');
+   
 
     if (modelViewer) {
         console.log('Model viewer found:', modelViewer);
 
-        $(modelViewerFirstChild).on('load', () => {
+        $(modelViewer).on('load', () => {
             console.log('Model viewer loaded (event fired)');
             // Your code to work with the model goes here
         });
