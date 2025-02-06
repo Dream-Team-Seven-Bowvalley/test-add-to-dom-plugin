@@ -18,16 +18,41 @@ jQuery(document).ready(function ($) {
             console.log('Model viewer loaded (event fired)');
             const model = modelViewer.model;
             console.log('Model:', model);
-            
+
             const materials = modelViewer.model.materials;
             console.log(materials);
-            
+
             // Check for available variants
             const variants = modelViewer.availableVariants;
             console.log('Available variants:', variants);
-            
+
+            // Get the container
+            const container = $('#variant-options-container');
+
+            if (container) {
+                // Add materials info
+                if (materials && materials.length > 0) {
+                    const materialsDiv = document.createElement('div');
+                    materialsDiv.innerHTML = '<h4>Materials:</h4>';
+                    materials.forEach(material => {
+                        materialsDiv.innerHTML += `<div>${material.name}</div>`;
+                    });
+                    container.appendChild(materialsDiv);
+                }
+
+                // Add variants info
+                if (variants && variants.length > 0) {
+                    const variantsDiv = document.createElement('div');
+                    variantsDiv.innerHTML = '<h4>Variants:</h4>';
+                    variants.forEach(variant => {
+                        variantsDiv.innerHTML += `<button onclick="modelViewer.variantName='${variant}'">${variant}</button>`;
+                    });
+                    container.appendChild(variantsDiv);
+                }
+            }
+
             // checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
-        });      
+        });
 
 
     } else {
