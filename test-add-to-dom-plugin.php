@@ -93,7 +93,7 @@ function add_buttons()
 
         // Create a container div for variant options
         ?>
-        <div id="variant-options-container">hey</div>
+        <div id="variant-options-container"></div>
         <?php
     }
 }
