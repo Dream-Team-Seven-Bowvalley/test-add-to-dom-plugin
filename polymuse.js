@@ -18,10 +18,9 @@ jQuery(document).ready(function ($) {
             console.log('Model viewer loaded (event fired)');
             const model = modelViewer.model;
             console.log('Model viewer model:', model);
-        });   
+            checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
+        });      
 
-        // Goes for ever 
-        checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
 
     } else {
         console.log('Model Viewer element not found.');
