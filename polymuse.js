@@ -27,9 +27,10 @@ jQuery(document).ready(function ($) {
                     console.error('Model viewer loading error:', error);
                 });
 
+           
                 const lookAtMeDiv = document.createElement('div');
                 lookAtMeDiv.textContent = 'Look at me';
-                modelViewer.parentNode.insertBefore(lookAtMeDiv, modelViewer);
+                $('#variant-options-container').append(lookAtMeDiv);
             } else {
                 console.log('Model Viewer element not found.');
             }
