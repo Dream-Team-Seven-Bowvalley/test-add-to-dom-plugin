@@ -22,23 +22,26 @@ jQuery(document).ready(function ($) {
                     // Your code to work with the model goes here
                 });
 
+                // Undefined
                 const model = modelViewer.model;
                 console.log('Model viewer model:', model);
 
+                // Never fires
                 modelViewer.addEventListener('load', () => {
                     console.log('Model viewer loaded (event fired)');
                     // Your code to work with the model goes here
                 });
-
+                // Never fires
                 modelViewer.addEventListener('error', (error) => {
                     console.error('Model viewer loading error:', error);
                 });
-
+                // Never fires
                 if (modelViewer.hasAttribute('src')) {
                     console.log('Model viewer source:', modelViewer.getAttribute('src'));
                 }
 
-                // checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
+                // Goes for ever 
+                checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
 
             } else {
                 console.log('Model Viewer element not found.');
