@@ -46,10 +46,10 @@ jQuery(document).ready(function ($) {
         });
 
     function checkIfModelViewerIsLoaded(modelViewer) {
-        if (modelViewer.load) console.log('Model viewer loaded');
+        if (modelViewer.loaded) console.log('Model viewer loaded');
         else {
             console.log('Model viewer not loaded');
-            setTimeout(checkIfModelViewerIsLoaded, 1000);
+            setTimeout(checkIfModelViewerIsLoaded(modelViewer), 1000);
         }
     }
 });
