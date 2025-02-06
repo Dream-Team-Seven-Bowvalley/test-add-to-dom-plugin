@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
     $(window).resize(adjustModelViewerHeight);
 
 
-    const modelViewer = $('#product-model-viewer-element');
+    const modelViewer = document.querySelector('model-viewer');
 
 
     if (modelViewer) {
@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
 
         $(modelViewer).on('load', () => {
             console.log('Model viewer loaded (event fired)');
-            const model = modelViewer.getModel();
+            const model = modelViewer.model;
             console.log('Model viewer model:', model);
             checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
         });      
