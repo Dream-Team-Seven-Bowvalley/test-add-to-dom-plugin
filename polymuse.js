@@ -7,41 +7,32 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
+    // Dynamic import of the model-viewer library
+    import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js')
+        .then(() => {  // Library loaded successfully
+            console.log('Model Viewer library loaded dynamically!');
+            // Now you can safely use model-viewer
 
-    function checkModelViewerLoaded() {
-        if (window.ModelViewer) {
-            console.log('Model Viewer library loaded!');
-            const modelViewer = $('.polymuse-model-viewer')[0]; // Use jQuery selector
+            const modelViewer = $('.polymuse-model-viewer')[0]; // jQuery selector
+
             if (modelViewer) {
+                console.log('Model viewer found:', modelViewer);
+
                 modelViewer.addEventListener('load', () => {
                     console.log('Model viewer loaded (event fired)');
                     // Your code to work with the model goes here
                 });
+
                 modelViewer.addEventListener('error', (error) => {
                     console.error('Model viewer loading error:', error);
                 });
             } else {
                 console.log('Model Viewer element not found.');
             }
-        } else {
-            console.log('Model Viewer library not yet loaded. Checking again...');
-            setTimeout(checkModelViewerLoaded, 100);
-        }
-    }
 
-    checkModelViewerLoaded();
+        })
+        .catch(error => { // Handle errors if the module fails to load
+            console.error('Error loading Model Viewer library:', error);
+        });
 
-    const modelViewer = $('.polymuse-model-viewer')[0];
-
-    if (modelViewer) {
-        console.log('Model viewer found:', modelViewer);
-    }
-
-    modelViewer.addEventListener('load', () => {
-        console.log('Model viewer loaded (event fired)');
-    });
-
-    modelViewer.addEventListener('error', (error) => {
-        console.error('Model viewer loading error:', error);
-    });
 });
