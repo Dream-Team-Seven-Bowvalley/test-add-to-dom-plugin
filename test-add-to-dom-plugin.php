@@ -85,7 +85,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
 }
 
 // Add variant style buttons container to product page
-function add_buttons()
+function add_buttons_container()
 {
     global $product;
 
@@ -128,7 +128,7 @@ function test_add_to_dom_plugin()
         add_filter('woocommerce_single_product_image_thumbnail_html', 'polymuse_add_model_and_thumbnail_to_gallery', 10, 2);
 
         // Add variant options buttons container to product page
-        add_action('woocommerce_before_add_to_cart_form', 'add_buttons');
+        add_action('woocommerce_before_add_to_cart_form', 'add_buttons_container');
 
         // Enqueue assets
         add_action('wp_head', 'polymuse_add_model_viewer_script');

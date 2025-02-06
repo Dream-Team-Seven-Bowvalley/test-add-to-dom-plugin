@@ -42,7 +42,7 @@ jQuery(document).ready(function ($) {
             if (variantButtonsContainer) {
                 if (variants && variants.length > 0) {
                     variants.forEach(variant => {
-                        const button = document.createElement('button');
+                        const button = $('<button class="alt wp-element-button"></button>')[0];// test jq style of doing this 
                         button.textContent = variant;
                         button.addEventListener('click', () => {
                             modelViewer.variantName = variant;
