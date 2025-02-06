@@ -8,48 +8,50 @@ jQuery(document).ready(function ($) {
     $(window).resize(adjustModelViewerHeight);
 
 
-    // const modelViewer = $('.polymuse-model-viewer')[0];
+    console.log('Model Viewer library loaded dynamically!');
 
-    // if (modelViewer) {
-    //     console.log('Model viewer found:', modelViewer);
+    const modelViewer = $('.polymuse-model-viewer')[0];
 
-    //     $(modelViewer).on('load', () => {
-    //         console.log('Model viewer loaded (event fired)');
-    //         // Your code to work with the model goes here
-    //     });
+    if (modelViewer) {
+        console.log('Model viewer found:', modelViewer);
 
-    //     // Undefined
-    //     const model = modelViewer.model;
-    //     console.log('Model viewer model:', model);
+        $(modelViewer).on('load', () => {
+            console.log('Model viewer loaded (event fired)');
+            // Your code to work with the model goes here
+        });
 
-    //     // Never fires
-    //     modelViewer.addEventListener('load', () => {
-    //         console.log('Model viewer loaded (event fired)');
-    //         // Your code to work with the model goes here
-    //     });
-    //     // Never fires
-    //     modelViewer.addEventListener('error', (error) => {
-    //         console.error('Model viewer loading error:', error);
-    //     });
-    //     // Never fires
-    //     if (modelViewer.hasAttribute('src')) {
-    //         console.log('Model viewer source:', modelViewer.getAttribute('src'));
-    //     }
+        // Undefined
+        const model = modelViewer.model;
+        console.log('Model viewer model:', model);
 
-    //     // Goes for ever 
-    //     checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
+        // Never fires
+        modelViewer.addEventListener('load', () => {
+            console.log('Model viewer loaded (event fired)');
+            // Your code to work with the model goes here
+        });
+        // Never fires
+        modelViewer.addEventListener('error', (error) => {
+            console.error('Model viewer loading error:', error);
+        });
+        // Never fires
+        if (modelViewer.hasAttribute('src')) {
+            console.log('Model viewer source:', modelViewer.getAttribute('src'));
+        }
 
-    // } else {
-    //     console.log('Model Viewer element not found.');
-    // }
+        // Goes for ever 
+        checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
 
-    // function checkIfModelViewerIsLoaded(modelViewer) {
-    //     if (modelViewer && modelViewer.loaded) { // Check if modelViewer exists and is loaded
-    //         console.log('Model viewer loaded');
-    //     } else {
-    //         console.log('Model viewer not loaded');
-    //         setTimeout(() => checkIfModelViewerIsLoaded(modelViewer), 1000); // Correct: Pass function REFERENCE
-    //     }
-    // }
+    } else {
+        console.log('Model Viewer element not found.');
+    }
+
+    function checkIfModelViewerIsLoaded(modelViewer) {
+        if (modelViewer && modelViewer.loaded) { // Check if modelViewer exists and is loaded
+            console.log('Model viewer loaded');
+        } else {
+            console.log('Model viewer not loaded');
+            setTimeout(() => checkIfModelViewerIsLoaded(modelViewer), 1000); // Correct: Pass function REFERENCE
+        }
+    }
 });
 
