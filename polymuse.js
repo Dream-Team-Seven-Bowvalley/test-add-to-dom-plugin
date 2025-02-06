@@ -71,7 +71,7 @@ jQuery(document).ready(function ($) {
 
     // Change variant input to label
     function changeVariantInputToLabel() {
-        const variantInput = $('variant')[0];
+        const variantInput = $('#variant');
         if (variantInput) {
             const variantLabel = $('<label id="variantLabel"> </label>')[0];
             variantLabel.textContent = variantInput.value;
