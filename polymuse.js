@@ -1,16 +1,30 @@
 jQuery(document).ready(function ($) {
-    const modelViewer = $('model-viewer')
-    const variantButtonsContainer = $('#variant-buttons')[0];
+    function adjustModelViewerHeight() {
+        $('.polymuse-model-viewer').height(500);
+    }
 
-    $(modelViewer).on('load', function () {
-        const model = modelViewer.model;
-        console.log(model);
+    adjustModelViewerHeight();
+    $(window).resize(adjustModelViewerHeight);
 
-        const materials = modelViewer.model.materials;
-        console.log(materials);
+    const modelViewer = $('model-viewer')[0];
 
-        // Check for available variants
-        const variants = modelViewer.availableVariants;
-        console.log('Available variants:', variants);
-    });
+    if (modelViewer) {
+        console.log('Model viewer found:', modelViewer);
+
+        $(modelViewer).on('load', () => {
+            console.log('Model viewer loaded (event fired)');
+            const model = modelViewer.model;
+            console.log('Model:', model);
+
+            const materials = modelViewer.model.materials;
+            console.log(materials);
+
+            // Check for available variants
+            const variants = modelViewer.availableVariants;
+            console.log('Available variants:', variants);
+
+        });
+    } else {
+        console.log('Model Viewer element not found.');
+    }
 });
