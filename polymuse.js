@@ -27,10 +27,13 @@ jQuery(document).ready(function ($) {
                     console.error('Model viewer loading error:', error);
                 });
 
-           
-                const lookAtMeDiv = document.createElement('div');
-                lookAtMeDiv.textContent = 'Look at me';
-                $('#variant-options-container').append(lookAtMeDiv);
+                if (modelViewer.hasAttribute('src')) {
+                    console.log('Model viewer source:', modelViewer.getAttribute('src'));
+                }
+                // if(modelViewer.loaded)
+                // const lookAtMeDiv = document.createElement('div');
+                // lookAtMeDiv.textContent = 'Look at me';
+                // $('#variant-options-container').append(lookAtMeDiv);
             } else {
                 console.log('Model Viewer element not found.');
             }
@@ -40,4 +43,11 @@ jQuery(document).ready(function ($) {
             console.error('Error loading Model Viewer library:', error);
         });
 
+    function checkIfModelViewerIsLoaded() {
+        if (modelViewer.loaded) console.log('Model viewer loaded');
+        else {
+            console.log('Model viewer not loaded');
+            setTimeout(checkIfModelViewerIsLoaded, 1000);
+        }
+    }
 });
