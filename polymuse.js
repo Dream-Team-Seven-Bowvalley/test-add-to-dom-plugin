@@ -46,7 +46,7 @@ jQuery(document).ready(function ($) {
         });
 
     function checkIfModelViewerIsLoaded(modelViewer) {
-        if (modelViewer.loaded) console.log('Model viewer loaded');
+        if (modelViewer.load) console.log('Model viewer loaded');
         else {
             console.log('Model viewer not loaded');
             setTimeout(checkIfModelViewerIsLoaded, 1000);
