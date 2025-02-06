@@ -18,14 +18,15 @@ jQuery(document).ready(function ($) {
             if (modelViewer) {
                 console.log('Model viewer found:', modelViewer);
 
-                modelViewer.addEventListener('load', () => {
-                    console.log('Model viewer loaded (event fired)');
-                    // Your code to work with the model goes here
-                });
+                const model = modelViewer.model;
+                console.log(model);
 
-                modelViewer.addEventListener('error', (error) => {
-                    console.error('Model viewer loading error:', error);
-                });
+                const materials = modelViewer.model.materials;
+                console.log(materials);
+
+                // Check for available variants
+                const variants = modelViewer.availableVariants;
+                console.log('Available variants:', variants);
             } else {
                 console.log('Model Viewer element not found.');
             }
