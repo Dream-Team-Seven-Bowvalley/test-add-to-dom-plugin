@@ -38,6 +38,13 @@ jQuery(document).ready(function ($) {
             console.log('Model viewer source:', modelViewer.getAttribute('src'));
         }
 
+        modelViewer.load().then(() => {
+            console.log('Model viewer loaded (promise resolved)');
+            // Your code to work with the model goes here
+        }).catch((error) => {
+
+            console.error('Model viewer loading error:', error);
+        });
         // Goes for ever 
         checkIfModelViewerIsLoaded(modelViewer); // Call the function ONCE
 
