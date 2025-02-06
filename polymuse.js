@@ -6,61 +6,55 @@ jQuery(document).ready(function ($) {
     adjustModelViewerHeight();
     $(window).resize(adjustModelViewerHeight);
 
-    function handleVariantSelection() {
-        // Hide all select elements and insert a label to display selected values
-        $("select").each(function () {
-            const $select = $(this);
-            const attributeName = $select.attr("name"); // Example: "attribute_color"
+    const modelViewer = $('model-viewer')[0];
 
-            // Hide the dropdown
-            $select.hide();
+    if (modelViewer) {
+        console.log('Model viewer found:', modelViewer);
 
-            // Insert a label after the select to display the selected variant
-            $('<label class="selected-variant-label">' +
-                `<span class="selected-variant" data-attribute="${attributeName}">Choose an option</span>` +
-              '</label>').insertAfter($select);
-        });
+        $(modelViewer).on('load', () => {
+            console.log('Model viewer loaded (event fired)');
+            const model = modelViewer.model;
+            console.log('Model:', model);
 
-        // Hide the variations table
-        // $('.variations').hide();
+            const materials = modelViewer.model.materials;
+            console.log(materials);
 
-        // Handle variant button clicks
-        $(".wp-element-button, .circle-button[data-color]").on("click", function () {
-            const $button = $(this);
-            let variantTitle = $button.attr("id").replace("-button", "").trim(); // Extract variant title
-            let variantValue = $button.data("color") || $button.text().trim(); // Use color hex or text
+            // Check for available variants
+            const variants = modelViewer.availableVariants;
+            console.log('Available variants:', variants);
 
-            console.log("🟢 Variant Selected:", variantTitle, variantValue);
-
-            // **Find the correct select field dynamically**
-            let $matchingSelect = $("select").filter(function () {
-                return $(this).find(`option[value="${variantTitle}"]`).length > 0;
-            });
-
-            if ($matchingSelect.length) {
-                console.log(`🔍 Found select field: ${$matchingSelect.attr("name")}`);
-
-                // Find the correct option and select it
-                let $selectedOption = $matchingSelect.find(`option[value="${variantTitle}"]`);
-
-                if ($selectedOption.length) {
-                    console.log(`✅ Selecting variant: ${variantTitle}`);
-                    $matchingSelect.val($selectedOption.val()).trigger("change");
-
-                    // Update label next to the select dropdown
-                    $(`.selected-variant[data-attribute="${$matchingSelect.attr("name")}"]`).text(variantTitle);
-                } else {
-                    console.log(`⚠️ No matching option found for "${variantTitle}"`);
-                }
-            } else {
-                console.log(`❌ No select field found for "${variantTitle}"`);
+            // Get material info for each variant
+            const variantInfo = {};
+            if (variants) {
+                variants.forEach(variant => {
+                    modelViewer.variantName = variant;
+                    const material = modelViewer.model.materials[0]; // Assuming first material
+                    if (material && material.pbrMetallicRoughness && material.pbrMetallicRoughness.baseColorFactor) {
+                        variantInfo[variant] = material.pbrMetallicRoughness.baseColorFactor;
+                    }
+                });
+                // Reset to first variant
+                modelViewer.variantName = variants[0];
             }
 
-            // Highlight the selected button
-            $button.siblings().removeClass("selected");
-            $button.addClass("selected");
+            // Create buttons for each variant
+            const variantButtonsContainer = $('#variant-options-container')[0];
+            if (variantButtonsContainer) {
+                if (variants && variants.length > 0) {
+                    variants.forEach(variant => {
+                        const button = document.createElement('button');
+                        button.textContent = variant;
+                        button.addEventListener('click', () => {
+                            modelViewer.variantName = variant;
+                        });
+                        variantButtonsContainer.appendChild(button);
+                    });
+                } else {
+                    variantButtonsContainer.textContent = 'No variants available';
+                }
+            }
         });
+    } else {
+        console.log('Model Viewer element not found.');
     }
-
-    handleVariantSelection();
 });
