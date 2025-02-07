@@ -100,23 +100,17 @@ jQuery(document).ready(function ($) {
         const variantButtonsContainer = $('#variant-options-container')[0];
         console.log('variantButtonsContainer:', variantButtonsContainer);
         if (variantButtonsContainer) {
-            if (variants && variants.length > 0) {
-                variants.forEach(variant => {
-                    const button = $('<button class="variant-selector-button alt wp-element-button"></button>')[0];
-                    button.textContent = variant;
-                    button.addEventListener('click', () => {
-                        modelViewer.variantName = variant;
-                    });
-                    console.log('Appending button for:', variant);
-                    variantButtonsContainer.appendChild(button);
-                });
-            } else {
-                variantButtonsContainer.textContent = 'No variants available';
+            const buttons = variantButtonsContainer.children;
+            console.log('Variant buttons:', buttons);
+            for (let button of buttons) {
+                console.log('Button:', button);
+                console.log('Button text:', button.textContent);
             }
+        } else {
+            variantButtonsContainer.textContent = 'No variants available';
         }
-
     }
-
-
 });
+
+
 
