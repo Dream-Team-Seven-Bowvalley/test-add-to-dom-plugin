@@ -102,12 +102,6 @@ jQuery(document).ready(function ($) {
                 const variant = $(this).text();
                 console.log('Variant clicked:', variant);
                 updateVariantLabel(variant);
-    
-                // Update the modelViewer element's variantName property
-                const modelViewer = $('model-viewer')[0];
-                if (modelViewer) {
-                    modelViewer.variantName = variant;
-                }
             });
         } else {
             variantButtonsContainer.textContent = 'No variants available';
