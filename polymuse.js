@@ -98,18 +98,14 @@ jQuery(document).ready(function ($) {
         const variantButtonsContainer = $('#variant-options-container')[0];
         console.log('variantButtonsContainer:', variantButtonsContainer);
         if (variantButtonsContainer) {
-            const buttons = variantButtonsContainer.children;
-            console.log('Variant buttons:', buttons);
-            
+            $(variantButtonsContainer).on('click', 'button', function () {
+                const variant = $(this).text();
+                console.log('Variant clicked:', variant);
+                updateVariantLabel(variant);
+            });
         } else {
             variantButtonsContainer.textContent = 'No variants available';
-        }
-
-        // Select all buttons inside #variant-options-container
-        $('#variant-options-container button').each(function () {
-            console.log('Button:', this);
-            // Attach events or manipulate buttons here
-        });
+        }      
     }
 });
 
