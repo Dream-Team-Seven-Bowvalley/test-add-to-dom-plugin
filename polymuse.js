@@ -94,7 +94,7 @@ jQuery(document).ready(function ($) {
     // Add on click event to variant buttons
     function addVariantButtonOnClick() {
         const variantButtons = $('.variant-selector-button');
-
+        console.log("function addVariantButtonOnClick");
         if (variantButtons) {
             variantButtons.forEach(button => {
                 button.addEventListener('click', () => {
