@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
     setupModelViewerVariants();
 
     // For variable product page
-    // changeVariantInputToLabel();
+    changeVariantInputToLabel();
 
     addVariantButtonOnClick();
 
