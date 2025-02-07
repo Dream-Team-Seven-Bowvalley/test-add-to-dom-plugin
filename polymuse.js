@@ -11,7 +11,7 @@ jQuery(document).ready(function ($) {
     // For variable product page
     // changeVariantInputToLabel();
 
-    // addVariantButtonOnClick();
+    addVariantButtonOnClick();
 
 
     // if model viewer is found, create variant buttons
@@ -63,9 +63,7 @@ jQuery(document).ready(function ($) {
                         variantButtonsContainer.textContent = 'No variants available';
                     }
                 }
-            });
-
-            addVariantButtonOnClick();
+            });         
 
         } else {
 
