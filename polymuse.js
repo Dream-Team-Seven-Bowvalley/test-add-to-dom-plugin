@@ -65,8 +65,12 @@ jQuery(document).ready(function ($) {
                 }
             });
 
-            addVariantButtonOnClick();
+            $(document).ready(function ($) {
+                addVariantButtonOnClick();
+            });
+            
         } else {
+
             console.log('Model Viewer element not found.');
         }
     }
