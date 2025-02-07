@@ -11,7 +11,7 @@ jQuery(document).ready(function ($) {
     // For variable product page
     // changeVariantInputToLabel();
 
-    addVariantButtonOnClick();
+    // addVariantButtonOnClick();
 
 
     // if model viewer is found, create variant buttons
@@ -64,6 +64,8 @@ jQuery(document).ready(function ($) {
                     }
                 }
             });
+
+            addVariantButtonOnClick();
         } else {
             console.log('Model Viewer element not found.');
         }
@@ -97,14 +99,15 @@ jQuery(document).ready(function ($) {
         console.log("function addVariantButtonOnClick");
         console.log("variant buttons", variantButtons);
         if (variantButtons) {
-          variantButtons.each(function() {
-            console.log("button listener added", this);
-            $(this).on('click', function() {
-              updateVariantLabel($(this).text());
-              console.log('Button clicked:', $(this).text());
+            variantButtons.each(function () {
+                console.log("button listener added", this);
+                $(this).on('click', function () {
+                    updateVariantLabel($(this).text());
+                    console.log('Button clicked:', $(this).text());
+                });
             });
-          });
         }
-      }
+    }
 
 });
+
