@@ -100,16 +100,18 @@ jQuery(document).ready(function ($) {
         const variantButtons = document.querySelectorAll('.variant-selector-button');
         console.log("function addVariantButtonOnClick");
         console.log("variant buttons", variantButtons);
-        if (variantButtons) {
-            variantButtons.each(function () {
-                console.log("button listener added", this);
-                $(this).on('click', function () {
+
+        if (variantButtons.length > 0) {
+            variantButtons.forEach(function (button) {
+                console.log("button listener added", button);
+                $(button).on('click', function () {
                     updateVariantLabel($(this).text());
                     console.log('Button clicked:', $(this).text());
                 });
             });
         }
     }
+
 
 });
 
