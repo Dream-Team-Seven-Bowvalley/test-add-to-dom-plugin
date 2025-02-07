@@ -68,7 +68,7 @@ jQuery(document).ready(function ($) {
             $(document).ready(function ($) {
                 addVariantButtonOnClick();
             });
-            
+
         } else {
 
             console.log('Model Viewer element not found.');
@@ -99,7 +99,7 @@ jQuery(document).ready(function ($) {
 
     // Add on click event to variant buttons
     function addVariantButtonOnClick() {
-        const variantButtons = $('.variant-selector-button')[0];
+        const variantButtons = document.querySelectorAll('.variant-selector-button');
         console.log("function addVariantButtonOnClick");
         console.log("variant buttons", variantButtons);
         if (variantButtons) {
