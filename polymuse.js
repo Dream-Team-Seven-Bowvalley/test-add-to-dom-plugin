@@ -79,17 +79,22 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    // Add on click event to variant buttons to variantLabel text
-    function addVariantButtonOnClick() {
-        const variantButtons = $('.variant-selector-button');
-        const variantLabel = $('#variantLabel')[0];
-        if (variantButtons && variantLabel) {
-            variantButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    variantLabel.textContent = button.textContent;
-                });
-            });
-        }
+    // ...
+
+// Add on click event to variant buttons to variantLabel text
+function addVariantButtonOnClick() {
+    const variantButtons = $('.variant-selector-button');
+    const variantLabel = $('#variantLabel')[0];
+    if (variantButtons && variantLabel) {
+      variantButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          $(variantLabel).text(button.textContent); // Use jQuery to update the label
+          // variantLabel.textContent = button.textContent;
+          // variantLabel.innerHTML = button.textContent;
+          // $(document).trigger('update'); // Trigger a DOM update
+        });
+      });
     }
+  }
 
 });
