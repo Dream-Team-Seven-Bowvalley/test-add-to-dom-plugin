@@ -71,27 +71,30 @@ jQuery(document).ready(function ($) {
 
     // Change variant input to label
     function changeVariantInputToLabel() {
-        const variantInput = $('#variant');
-        variantInput.hide();
+        const variantSelect = $('#variant');
+        variantSelect.hide();
 
-        const variantLabel = $('<label id="variantLabel"> </label>')[0];
-        variantLabel.textContent = variantInput.val();
-
-        variantInput.after(variantLabel);
+        const variantLabel = $('<label id="variantLabel">Choose an option</label>')[0];
+        variantSelect.after(variantLabel);
     }
 
-    // Add on click event to variant buttons to variantLabel text
+    // Update variant label and hidden select
+    function updateVariantLabel(variant) {
+        const variantLabel = $('#variantLabel')[0];
+        const variantSelect = $('#variant');
+
+        variantLabel.textContent = variant;
+        variantSelect.val(variant).trigger('change');
+    }
+
+    // Add on click event to variant buttons
     function addVariantButtonOnClick() {
         const variantButtons = $('.variant-selector-button');
-        const variantLabel = $('#variantLabel')[0];
-        const $variantSelect = $("select[name='attribute_variant']");
 
-
-        if (variantButtons && variantLabel) {
+        if (variantButtons) {
             variantButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    $(variantLabel).text(button.textContent);
-                    $variantSelect.val(button.textContent).trigger('change');
+                    updateVariantLabel(button.textContent);
                 });
             });
         }
