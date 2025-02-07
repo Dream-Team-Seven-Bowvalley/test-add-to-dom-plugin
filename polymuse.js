@@ -97,6 +97,7 @@ jQuery(document).ready(function ($) {
         console.log("function addVariantButtonOnClick");
         if (variantButtons) {
             variantButtons.forEach(button => {
+                console.log("button listener added", button);
                 button.addEventListener('click', () => {
                     updateVariantLabel(button.textContent);
                     console.log('Button clicked:', button.textContent);
