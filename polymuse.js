@@ -9,9 +9,9 @@ jQuery(document).ready(function ($) {
     setupModelViewerVariants();
 
     // For variable product page
-    changeVariantInputToLabel();
+    // changeVariantInputToLabel();
 
-    addVariantButtonOnClick();
+    // addVariantButtonOnClick();
 
 
     // if model viewer is found, create variant buttons
