@@ -96,24 +96,27 @@ jQuery(document).ready(function ($) {
     }
 
     // Add on click event to variant buttons
-    const variantButtonsContainer = $('#variant-options-container')[0];
-    console.log('variantButtonsContainer:', variantButtonsContainer);
-    if (variantButtonsContainer) {
-        if (variants && variants.length > 0) {
-            variants.forEach(variant => {
-                const button = $('<button class="variant-selector-button alt wp-element-button"></button>')[0];
-                button.textContent = variant;
-                button.addEventListener('click', () => {
-                    modelViewer.variantName = variant;
+    function addVariantButtonOnClick() {
+        const variantButtonsContainer = $('#variant-options-container')[0];
+        console.log('variantButtonsContainer:', variantButtonsContainer);
+        if (variantButtonsContainer) {
+            if (variants && variants.length > 0) {
+                variants.forEach(variant => {
+                    const button = $('<button class="variant-selector-button alt wp-element-button"></button>')[0];
+                    button.textContent = variant;
+                    button.addEventListener('click', () => {
+                        modelViewer.variantName = variant;
+                    });
+                    console.log('Appending button for:', variant);
+                    variantButtonsContainer.appendChild(button);
                 });
-                console.log('Appending button for:', variant);
-                variantButtonsContainer.appendChild(button);
-            });
-        } else {
-            variantButtonsContainer.textContent = 'No variants available';
+            } else {
+                variantButtonsContainer.textContent = 'No variants available';
+            }
         }
+
     }
-    
+
 
 });
 
