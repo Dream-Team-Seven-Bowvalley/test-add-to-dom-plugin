@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
         const variantSelect = $('#variant');
         variantSelect.hide();
 
-        const variantLabel = $('<label id="variantLabel" style="margin-right: 5px;">Choose an option</label>')[0];
+        const variantLabel = $('<label id="variantLabel">Choose an option</label><br/>')[0];
         variantSelect.after(variantLabel);
     }
 
