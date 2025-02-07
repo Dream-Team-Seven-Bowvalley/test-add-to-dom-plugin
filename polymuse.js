@@ -97,14 +97,14 @@ jQuery(document).ready(function ($) {
         console.log("function addVariantButtonOnClick");
         console.log("variant buttons", variantButtons);
         if (variantButtons) {
-            variantButtons.forEach(button => {
-                console.log("button listener added", button);
-                button.addEventListener('click', () => {
-                    updateVariantLabel(button.textContent);
-                    console.log('Button clicked:', button.textContent);
-                });
+          variantButtons.each(function() {
+            console.log("button listener added", this);
+            $(this).on('click', function() {
+              updateVariantLabel($(this).text());
+              console.log('Button clicked:', $(this).text());
             });
+          });
         }
-    }
+      }
 
 });
