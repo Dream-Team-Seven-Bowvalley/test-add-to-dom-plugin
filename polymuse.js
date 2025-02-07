@@ -99,6 +99,7 @@ jQuery(document).ready(function ($) {
             variantButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     updateVariantLabel(button.textContent);
+                    console.log('Button clicked:', button.textContent);
                 });
             });
         }
