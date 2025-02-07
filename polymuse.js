@@ -11,7 +11,7 @@ jQuery(document).ready(function ($) {
     // For variable product page
     // changeVariantInputToLabel();
 
-    // addVariantButtonOnClick();
+    addVariantButtonOnClick();
 
 
     // if model viewer is found, create variant buttons
@@ -82,6 +82,10 @@ jQuery(document).ready(function ($) {
     function updateVariantLabel(variant) {
         const variantLabel = $('#variantLabel')[0];
         const variantSelect = $('#variant');
+        console.log('Update variant:', variant);
+        console.log('Variant label:', variantLabel);
+        console.log('Variant select:', variantSelect);
+        console.log('Variant select value:', variantSelect.val());
 
         variantLabel.textContent = variant;
         variantSelect.val(variant).trigger('change');
