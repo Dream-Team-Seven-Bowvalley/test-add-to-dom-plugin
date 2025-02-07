@@ -63,7 +63,7 @@ jQuery(document).ready(function ($) {
                         variantButtonsContainer.textContent = 'No variants available';
                     }
                 }
-            });         
+            });
 
         } else {
 
@@ -100,13 +100,16 @@ jQuery(document).ready(function ($) {
         if (variantButtonsContainer) {
             const buttons = variantButtonsContainer.children;
             console.log('Variant buttons:', buttons);
-            for (let button of buttons) {
-                console.log('Button:', button);
-                console.log('Button text:', button.textContent);
-            }
+            
         } else {
             variantButtonsContainer.textContent = 'No variants available';
         }
+
+        // Select all buttons inside #variant-options-container
+        $('#variant-options-container button').each(function () {
+            console.log('Button:', this);
+            // Attach events or manipulate buttons here
+        });
     }
 });
 
