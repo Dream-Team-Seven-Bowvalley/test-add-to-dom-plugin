@@ -72,29 +72,29 @@ jQuery(document).ready(function ($) {
     // Change variant input to label
     function changeVariantInputToLabel() {
         const variantInput = $('#variant');
-        if (variantInput) {
-            const variantLabel = $('<label id="variantLabel"> </label>')[0];
-            variantLabel.textContent = variantInput.value;
-            variantInput.replaceWith(variantLabel);
+        variantInput.hide();
+
+        const variantLabel = $('<label id="variantLabel"> </label>')[0];
+        variantLabel.textContent = variantInput.val();
+
+        variantInput.after(variantLabel);
+    }
+
+    // Add on click event to variant buttons to variantLabel text
+    function addVariantButtonOnClick() {
+        const variantButtons = $('.variant-selector-button');
+        const variantLabel = $('#variantLabel')[0];
+        const $variantSelect = $("select[name='attribute_variant']");
+
+
+        if (variantButtons && variantLabel) {
+            variantButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    $(variantLabel).text(button.textContent);
+                    $variantSelect.val(button.textContent).trigger('change');
+                });
+            });
         }
     }
-
-    // ...
-
-// Add on click event to variant buttons to variantLabel text
-function addVariantButtonOnClick() {
-    const variantButtons = $('.variant-selector-button');
-    const variantLabel = $('#variantLabel')[0];
-    if (variantButtons && variantLabel) {
-      variantButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          $(variantLabel).text(button.textContent); // Use jQuery to update the label
-          // variantLabel.textContent = button.textContent;
-          // variantLabel.innerHTML = button.textContent;
-          // $(document).trigger('update'); // Trigger a DOM update
-        });
-      });
-    }
-  }
 
 });
