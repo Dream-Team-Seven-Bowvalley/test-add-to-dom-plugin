@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
     // Change variant input to label
     function changeVariantInputToLabel() {
         const variantSelect = $('#variant');
-        const theme_selectInner = $('.theme-selectInner')[0];
+        const theme_selectInner = $('span.theme-selectInner');
         variantSelect.hide();
         theme_selectInner.hide();
 
