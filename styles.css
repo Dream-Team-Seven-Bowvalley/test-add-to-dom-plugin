@@ -82,9 +82,9 @@ model-viewer {
   background-color: #eee;
   overflow-x: hidden;
 }      
-/* model-viewer>#variant {
+model-viewer>#variant {
   position: absolute; 
-} */
+}
 model-viewer[ar-status="session-started"]>#variant {
   display: block;
 }      
