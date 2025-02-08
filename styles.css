@@ -82,10 +82,3 @@ model-viewer {
   background-color: #eee;
   overflow-x: hidden;
 }      
-model-viewer>#variant-select {
-  position: absolute; 
-  display: hidden;
-}
-model-viewer[ar-status="session-started"]>#variant-select {
-  display: block;
-}      
