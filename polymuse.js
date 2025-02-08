@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
                     modelViewer.variantName = variants[0];
                 }
                 // Create variant selection dropdown
-                const select = document.createElement('select');
+                const select = $('<select id="variant"></select>')[0];
                 select.id = 'variant-select';
                 if (variants && variants.length > 0) {
                     variants.forEach(name => {
