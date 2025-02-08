@@ -73,9 +73,8 @@ jQuery(document).ready(function ($) {
     // Change variant input to label
     function changeVariantInputToLabel() {
         const variantSelect = $('#variant');
-        const theme_selectInner = $('span.theme-selectInner');
         variantSelect.hide();
-        theme_selectInner.hide();
+        
 
         const variantLabel = $('<label id="variantLabel" style="margin-right: 5px;">Choose an option</label>')[0];
         variantSelect.after(variantLabel);
