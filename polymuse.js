@@ -13,7 +13,6 @@ jQuery(document).ready(function ($) {
 
     addVariantButtonOnClick();
 
-
     // if model viewer is found, create variant buttons
     function setupModelViewerVariants() {
         // Get the model viewer element
@@ -46,7 +45,7 @@ jQuery(document).ready(function ($) {
                     // Reset to first variant
                     modelViewer.variantName = variants[0];
                 }
-
+               
                 // Create buttons for each variant
                 const variantButtonsContainer = $('#variant-options-container')[0];
                 if (variantButtonsContainer) {
