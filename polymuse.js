@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
                         }
                     });
                     // Reset to first variant
-                    // modelViewer.variantName = variants[0];
+                    modelViewer.variantName = variants[0];
                 }
                 // Create variant selection dropdown
                 // const select = document.createElement('select');
