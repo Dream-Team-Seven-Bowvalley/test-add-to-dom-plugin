@@ -72,6 +72,7 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
             $model_viewer .= 'data-thumb-sizes="(max-width: 100px) 100vw, 100px" ';
             $model_viewer .= 'class="woocommerce-product-gallery__image polymuse-model-viewer" ">';
             $model_viewer .= '<model-viewer src="' . esc_url($model_url) . '" alt="3D model of ' . esc_attr($product->get_name()) . '" auto-rotate camera-controls ar ar-modes="webxr" style="width: 100%; height: 100%;"></model-viewer>';
+            $model_viewer .= '<div> Look at me im here </div>';
             $model_viewer .= '</div>';
 
             // Hide default this will make selecting variants work properly
