@@ -84,6 +84,7 @@ model-viewer {
 }      
 model-viewer>#variant {
   position: absolute; 
+  display: hidden;
 }
 model-viewer[ar-status="session-started"]>#variant {
   display: block;
