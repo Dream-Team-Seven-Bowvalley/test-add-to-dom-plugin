@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
                     // Reset to first variant
                     modelViewer.variantName = variants[0];
                 }
-               
+
                 // Create buttons for each variant
                 const variantButtonsContainer = $('#variant-options-container')[0];
                 if (variantButtonsContainer) {
@@ -71,12 +71,16 @@ jQuery(document).ready(function ($) {
     }
 
     // Change variant input to label
+    // Change variant input to label
     function changeVariantInputToLabel() {
-        const variantSelect = $('#variant');     
+        const variantSelect = $('#variant');
         variantSelect.hide();
 
         const theme_select = $('#theme_select');
         theme_select.hide();
+
+        // Hide the theme select span
+        $('.theme-select').css('display', 'none');
 
         const variantLabel = $('<label id="variantLabel" style="margin-right: 5px;">Choose an option</label>')[0];
         variantSelect.after(variantLabel);
@@ -107,7 +111,7 @@ jQuery(document).ready(function ($) {
             });
         } else {
             variantButtonsContainer.textContent = 'No variants available';
-        }      
+        }
     }
 });
 
