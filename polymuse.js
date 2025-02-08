@@ -13,7 +13,6 @@ jQuery(document).ready(function ($) {
 
     addVariantButtonOnClick();
 
-
     // if model viewer is found, create variant buttons
     function setupModelViewerVariants() {
         // Get the model viewer element
@@ -46,30 +45,7 @@ jQuery(document).ready(function ($) {
                     // Reset to first variant
                     modelViewer.variantName = variants[0];
                 }
-                // Create variant selection dropdown
-                // const select = document.createElement('select');
-                // select.id = 'variant-select';
-                // if (variants && variants.length > 0) {
-                //     variants.forEach(name => {
-                //         const option = document.createElement('option');
-                //         option.value = name;
-                //         option.textContent = name;
-                //         select.appendChild(option);
-                //     });
-                //     // Add default option
-                //     const defaultOption = document.createElement('option');
-                //     defaultOption.value = 'default';
-                //     defaultOption.textContent = 'Default';
-                //     select.appendChild(defaultOption);
-                    
-                //     // Add change listener
-                //     select.addEventListener('input', (event) => {
-                //         modelViewer.variantName = event.target.value === 'default' ? null : event.target.value;
-                //     });
-                    
-                //     // Add select to document
-                //     modelViewer.parentNode.insertBefore(select, modelViewer);
-                // }
+               
                 // Create buttons for each variant
                 const variantButtonsContainer = $('#variant-options-container')[0];
                 if (variantButtonsContainer) {
