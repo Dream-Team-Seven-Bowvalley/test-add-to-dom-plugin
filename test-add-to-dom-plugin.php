@@ -87,6 +87,13 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     return $html;
 }
 
+//------------ Cor changes -----------------
+function load_custom_variant_styles() {
+    wp_enqueue_style('custom-variant-style', plugin_dir_url(__FILE__) . 'styles.css');
+}
+add_action('wp_enqueue_scripts', 'load_custom_variant_styles');
+//------------ Cor changes -----------------
+
 // Add variant style buttons container to product page
 function add_buttons_container()
 {
