@@ -1,31 +1,5 @@
 <?php
 
-function my_woocommerce_plugin_init() {
-    $current_theme = get_template();
-    $suboptimal_themes = array(
-        'oceanwp',
-    );
-
-    if (in_array($current_theme, $suboptimal_themes)) {
-        add_action('admin_notices', 'my_woocommerce_plugin_styling_warning');
-    }
-}
-
-function my_woocommerce_plugin_styling_warning() {
-    ?>
-    <div class="is-dismissible notice notice-warning">
-        <p>
-            <strong>My Polymuse Plugin:</strong> 
-            While this plugin is functional with the current theme 
-            (<?php echo esc_html(get_template()); ?>), its appearance may not be optimal.
-            Some styling adjustments might be necessary for the best visual experience.
-        </p>
-    </div>
-    <?php
-}
-
-add_action('plugins_loaded', 'my_woocommerce_plugin_init');
-
 /*
  * Plugin Name:       Test Add to Dom Plugin
  * Plugin URI:        https://github.com/DreamTeamSeven/test-add-to-dom-plugin
@@ -41,6 +15,33 @@ add_action('plugins_loaded', 'my_woocommerce_plugin_init');
  * Text Domain:       test-add-to-dom-plugin
  * Requires Plugins:  WooCommerce
  */
+
+ 
+function my_polymuse_theme_warning_plugin_init() {
+    $current_theme = get_template();
+    $suboptimal_themes = array(
+        'oceanwp',
+    );
+
+    if (in_array($current_theme, $suboptimal_themes)) {
+        add_action('admin_notices', 'my_polymuse_plugin_styling_warning');
+    }
+}
+
+function my_polymuse_plugin_styling_warning() {
+    ?>
+    <div class="is-dismissible notice notice-warning">
+        <p>
+            <strong>My Polymuse Plugin:</strong> 
+            While this plugin is functional with the current theme 
+            (<?php echo esc_html(get_template()); ?>), its appearance may not be optimal.
+            Some styling adjustments might be necessary for the best visual experience.
+        </p>
+    </div>
+    <?php
+}
+
+
 
 // Add custom field to product editor
 function polymuse_custom_field_model_url()
@@ -114,12 +115,6 @@ function polymuse_add_model_and_thumbnail_to_gallery($html, $attachment_id)
     return $html;
 }
 
-//------------ Cor changes -----------------
-function load_custom_variant_styles() {
-    wp_enqueue_style('custom-variant-style', plugin_dir_url(__FILE__) . 'styles.css');
-}
-add_action('wp_enqueue_scripts', 'load_custom_variant_styles');
-//------------ Cor changes -----------------
 
 // Add variant style buttons container to product page
 function add_buttons_container()
@@ -155,6 +150,9 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
+        // Add theme warning
+        add_action('plugins_loaded', 'my_polymuse_theme_warning_plugin_init');
+
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
 
