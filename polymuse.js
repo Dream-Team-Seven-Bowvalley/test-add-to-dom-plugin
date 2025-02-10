@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
         theme_select.hide();
 
         // Hide the theme select span
-        $('.theme-select').css('display', 'none');
+        // $('.theme-select').css('display', 'none');
 
         const variantLabel = $('<label id="variantLabel" >Choose an option</label>')[0];
         variantSelect.after(variantLabel);
