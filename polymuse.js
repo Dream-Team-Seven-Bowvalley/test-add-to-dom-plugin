@@ -69,20 +69,30 @@ jQuery(document).ready(function ($) {
             console.log('Model Viewer element not found.');
         }
     }
-
-    // Change variant input to label
+    
     // Change variant input to label
     function changeVariantInputToLabel() {
         const variantSelect = $('#variant');
         variantSelect.hide();
 
-        const theme_select = $('#theme_select');
-        theme_select.hide();
-
         // Hide the theme select span
         $('.theme-select').css('display', 'none');
 
-        const variantLabel = $('<label id="variantLabel" style="margin-right: 5px;">Choose an option</label>')[0];
+        // Hide initially
+        $('.reset_variations').css('display', 'none');
+
+        // Create observer to hide it whenever it appears
+        const observer = new MutationObserver(function (mutations) {
+            $('.reset_variations').css('display', 'none');
+        });
+
+        // Start observing the document for changes
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        const variantLabel = $('<label id="variantLabel">Choose an option</label>')[0];
         variantSelect.after(variantLabel);
     }
 
