@@ -3,8 +3,8 @@
 function my_woocommerce_plugin_init() {
     $current_theme = get_template();
     $suboptimal_themes = array(
-        'problematic-theme-1',
-        'another-theme-with-styling-issues'
+        'oceanwp',
+        'twentytwentythree'
     );
 
     if (in_array($current_theme, $suboptimal_themes)) {
