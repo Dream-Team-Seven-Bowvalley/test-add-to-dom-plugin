@@ -102,3 +102,7 @@ td.value {
   color: red;
 }
 /* Cor changes */
+
+body {
+  background-color: yellow !important;
+}
