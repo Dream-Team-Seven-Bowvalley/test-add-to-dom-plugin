@@ -103,14 +103,9 @@ td.value {
 }
 /* Cor changes */
 
-body:before {
-  content: "TEST CSS LOADED!";
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  background: red;
-  color: white;
-  padding: 5px;
-  z-index: 99999;
+
+.variations_form {
+  background-color: red !important;
+  border: 3px solid blue !important;
 }
 
