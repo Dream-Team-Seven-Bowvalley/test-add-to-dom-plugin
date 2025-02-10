@@ -29,7 +29,7 @@ function theme_checker_admin_notice()
         // Display a message to the admin
         ?>
         <div class="is-dismissible notice notice-info">
-            <p><?php _e('The theme you are using is not recommended for use with WooCommerce.', 'theme-checker'); ?></p>
+            <p><?php _e('The theme you are using may looks suboptimal with this plugin.', 'theme-checker'); ?></p>
         </div>
         <?php
     }
