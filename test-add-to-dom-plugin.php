@@ -15,6 +15,27 @@
  * Requires Plugins:  WooCommerce
  */
 
+// Notice for suboptimal theme
+function theme_checker_admin_notice()
+{
+    // Define the themes to check for
+    $themes_to_check = array('OceanWP', 'theme2', 'theme3');
+
+    // Get the current theme
+    $current_theme = wp_get_theme();
+
+    // Check if the current theme is in the list of themes to check
+    if (in_array($current_theme->get('Name'), $themes_to_check)) {
+        // Display a message to the admin
+        ?>
+        <div class="is-dismissible notice notice-info">
+            <p><?php _e('The theme you are using is not recommended for use with WooCommerce.', 'theme-checker'); ?></p>
+        </div>
+        <?php
+    }
+}
+
+
 // Add custom field to product editor
 function polymuse_custom_field_model_url()
 {
@@ -121,6 +142,9 @@ function test_add_to_dom_plugin()
         in_array($plugin_path, wp_get_active_and_valid_plugins())
         || in_array($plugin_path, wp_get_active_network_plugins())
     ) {
+
+        // Notice for suboptimal themes
+        add_action('admin_notices', 'theme_checker_admin_notice');
         // Add 3D model URL and Json data field to product editor
         add_action('woocommerce_product_options_general_product_data', 'polymuse_custom_field_model_url');
 
