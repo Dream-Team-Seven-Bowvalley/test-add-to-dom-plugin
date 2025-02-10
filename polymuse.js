@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
         const variantSelect = $('#variant');
         variantSelect.hide();
 
-        const theme_select = $('#theme_select');
+        const theme_select = $('.theme_select');
         theme_select.hide();
 
         // Hide the theme select span
