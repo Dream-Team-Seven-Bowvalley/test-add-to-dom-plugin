@@ -1,6 +1,6 @@
 <?php
 
-function my_woocommerce_plugin_init() {
+function my_polymuse_plugin_init() {
     $current_theme = get_template();
     $suboptimal_themes = array(
         'oceanwp',
@@ -8,15 +8,15 @@ function my_woocommerce_plugin_init() {
     );
 
     if (in_array($current_theme, $suboptimal_themes)) {
-        add_action('admin_notices', 'my_woocommerce_plugin_styling_warning');
+        add_action('admin_notices', 'my_polymuse_plugin_styling_warning');
     }
 }
 
-function my_woocommerce_plugin_styling_warning() {
+function my_polymuse_plugin_styling_warning() {
     ?>
     <div class="notice notice-warning is-dismissible">
         <p>
-            <strong>My WooCommerce Plugin:</strong> 
+            <strong>My Polymuse Plugin:</strong> 
             While this plugin is functional with the current theme 
             (<?php echo esc_html(get_template()); ?>), its appearance may not be optimal.
             Some styling adjustments might be necessary for the best visual experience.
@@ -25,7 +25,7 @@ function my_woocommerce_plugin_styling_warning() {
     <?php
 }
 
-add_action('plugins_loaded', 'my_woocommerce_plugin_init');
+add_action('plugins_loaded', 'my_polymuse_plugin_init');
 
 /*
  * Plugin Name:       Test Add to Dom Plugin
