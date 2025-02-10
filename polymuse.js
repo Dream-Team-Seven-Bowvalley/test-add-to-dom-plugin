@@ -81,7 +81,10 @@ jQuery(document).ready(function ($) {
 
         // Hide reset button
         $('.reset_variations').hide();
-
+        $(document).on('load', '.reset_variations', function() {
+            $('.reset_variations').hide();
+        });
+        
         const variantLabel = $('<label id="variantLabel" >Choose an option</label>')[0];
         variantSelect.after(variantLabel);
     }
