@@ -69,8 +69,7 @@ jQuery(document).ready(function ($) {
             console.log('Model Viewer element not found.');
         }
     }
-
-    // Change variant input to label
+    
     // Change variant input to label
     function changeVariantInputToLabel() {
         const variantSelect = $('#variant');
@@ -78,11 +77,10 @@ jQuery(document).ready(function ($) {
 
         // Hide the theme select span
         $('.theme-select').css('display', 'none');
-        // Hide initially
-        $('.reset_variations').css('display', 'none');
-        
+
         // Create observer to hide it whenever it appears
-        const observer = new MutationObserver(function(mutations) {
+        const observer = new MutationObserver(function (mutations) {
+
             $('.reset_variations').css('display', 'none');
         });
 
@@ -91,8 +89,9 @@ jQuery(document).ready(function ($) {
             childList: true,
             subtree: true
         });
-    
-        const variantLabel = $('<label id="variantLabel" >Choose an option</label>')[0];
+
+        const variantLabel = $('<label id="variantLabel">Choose an option</label>')[0];
+
         variantSelect.after(variantLabel);
     }
 
