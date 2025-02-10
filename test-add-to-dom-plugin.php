@@ -4,7 +4,6 @@ function my_woocommerce_plugin_init() {
     $current_theme = get_template();
     $suboptimal_themes = array(
         'oceanwp',
-        'twentytwentythree'
     );
 
     if (in_array($current_theme, $suboptimal_themes)) {
